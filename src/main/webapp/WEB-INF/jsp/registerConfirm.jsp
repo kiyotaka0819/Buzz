@@ -14,7 +14,7 @@
 	<p>ユーザー名:{ユーザー名}</p>
 	<p>プロフィール：{みなとです。ラーメンが大好きです。好きなラーメン屋は海鳴です。}</p>
 	<input type="submit" value="登録">
-	<a href="TopServlet">戻る</a>
+<p><a href="TopServlet">戻る</a></p>
 </form>
 </body>
 </html>

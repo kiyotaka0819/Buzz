@@ -7,9 +7,12 @@
 <title>ログイン -バズミシュラン</title>
 </head>
 <body>
-ユーザーID:<input type="text" name="userId"><br>
-パスワード:<input type="password" name="pass"><br>
-<input type="button" value="ログイン" onClick="MainMenuServlet">
+<form action="MainMenuServlet">
+	ユーザーID<br>
+	<input type="text" name="userId"><br>
+	パスワード<br>
+	<input type="password" name="pass"><br>
+	<input type="submit" value="ログイン">
 </form>
 </body>
 <p><a href="TopServlet">トップページ</a></p>

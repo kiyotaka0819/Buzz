@@ -9,6 +9,6 @@
 <body>
 	
 ユーザーID：{ユーザーID名}を登録しました<br>
-<a href="MainManuServlet">メインメニューへ</a>
+<a href="MainMenuServlet">メインメニューへ</a>
 </body>
 </html>
