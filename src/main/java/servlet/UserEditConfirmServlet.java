@@ -9,25 +9,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PostServlet
- */
-@WebServlet("/PostServlet")
-public class PostServlet extends HttpServlet {
+@WebServlet("/UserEditConfirmServlet")
+public class UserEditConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher =  
-				request.getRequestDispatcher("WEB-INF/jsp/post.jsp");
-			dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEditConfirm.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher =  
-				request.getRequestDispatcher("WEB-INF/jsp/post.jsp");
-			dispatcher.forward(request, response);
+		doGet(request, response);
 	}
-
 }

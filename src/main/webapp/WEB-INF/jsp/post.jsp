@@ -9,7 +9,7 @@
 <body>
 
 ｛ユーザー名｝<br>
-<form action="ShopSearchResultServlet" method="post">
+<form action="ShopSelectServlet" method="get">
 店名<br>
 <input type="text" name="shop">
  <button type="submit">検索</button>
