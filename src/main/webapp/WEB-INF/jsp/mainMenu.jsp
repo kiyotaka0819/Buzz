@@ -10,7 +10,7 @@
 <ul>
 <form action="SearchResultServlet" method="get">
 	<label for="query">検索キーワードを入力:</label>
-	<input type="text" id="query" name="q" placeholder="気になる料理名などを入力">
+	<input type="text" id="query" name="searchWord" placeholder="気になる料理名などを入力">
 	<button type="submit">検索</button>
 </form>
 <li><a href="PostServlet">つぶやく</a></li>

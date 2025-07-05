@@ -18,4 +18,17 @@ public class ShopInfoPageServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopInfoPage.jsp");
 		dispatcher.forward(request, response);
 	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
+	}
+	
+	// リクエストパラメータの取得
+	/* 
+	String shopName = request.getParameter("shopName");
+	String addressPref = request,getParameter("addressPref");
+	String addressDetail = request,getParameter("addressDetail");
+	String url = request,getParameter("url");
+	String tel = request,getParameter("tel");
+	*/
 }
