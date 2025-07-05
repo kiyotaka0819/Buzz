@@ -22,7 +22,7 @@
 
 <p>美味しかった。カレーを選んだが、次は牛丼にしようと思う。</p><!--つぶやき内容に遷移-->
 <a href="UserPageServlet">
-  <img src="CurryRice.jpg" width="320" height="240"alt="カレーライス">
+  <img src="image/CurryRice.jpg" width="320" height="240"alt="カレーライス">
 </a>
 <form action="MainMenuServlet" method="get"><!--1回押すごとにインクリメント-->
 	<button type="submit">バズ</button>
