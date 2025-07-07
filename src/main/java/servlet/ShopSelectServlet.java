@@ -16,4 +16,7 @@ public class ShopSelectServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopSelect.jsp");
 		dispatcher.forward(request, response);
 	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }

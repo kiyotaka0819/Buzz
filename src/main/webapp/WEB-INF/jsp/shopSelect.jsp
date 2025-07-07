@@ -18,7 +18,7 @@
 <!--DBに存在したら表示される-->
 
 <ul>
-	<form action="/shopSelectServlet" method="get">
+	<form action="/shopSelectServlet" method="post">
 		<input type="text" id="query" name="q" placeholder="新規店舗名入力"><br><!--検索キーワードの入力を保持する-->
 	<form action="/search" method="get">
 			<input type="text" id="query" name="q" placeholder="店舗の住所を入力"><br>

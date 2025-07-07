@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>プロフィール編集</h1>
-<form action="UserEditConfirmServlet">
+<form action="UserEditConfirmServlet"method="post">
 	ユーザーID<br>
 	<input type="text" name="userId"><br>
 	パスワード<br>

@@ -21,8 +21,7 @@ public class SearchResultServlet extends HttpServlet {
 		// 検索ワードをJSPに渡すためにリクエストスコープに設定
 		request.setAttribute("searchWord", SearchWord);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/mainMenu.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/searchResult.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }
