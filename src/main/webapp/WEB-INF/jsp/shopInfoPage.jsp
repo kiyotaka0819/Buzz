@@ -20,7 +20,7 @@
 			<button type="submit">編集</button>
 	</form>
 	</ul>
-<li><a href="MainManuServlet">メインメニューに戻る</a></li>
+<li><a href="MainMenuServlet">メインメニューに戻る</a></li>
 
 </body>
 </html>

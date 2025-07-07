@@ -33,7 +33,6 @@
 		<input type="hidden" name="hidMode" value="1">
 		<button type="submit">選択</button>
 	</form>
-<li><a href="MainManuServlet">メインメニューに戻る</a></li>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>
