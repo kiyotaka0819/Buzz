@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>ユーザー登録</h1>
-<form action="RegisterOKServlet" >
+<form action="RegisterOKServlet" method="post">
 	<p>ユーザーID:{ユーザーID}</p>
 	<p>パスワード：{********}</p>
 	<p>ユーザー名:{ユーザー名}</p>
