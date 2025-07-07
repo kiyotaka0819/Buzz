@@ -7,7 +7,7 @@
 <title>ログイン -バズミシュラン</title>
 </head>
 <body>
-<form action="MainMenuServlet">
+<form action="MainMenuServlet" method="post">
 	ユーザーID<br>
 	<input type="text" name="userId"><br>
 	パスワード<br>
