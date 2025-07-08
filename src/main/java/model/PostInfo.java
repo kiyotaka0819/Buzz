@@ -1,5 +1,7 @@
 package model;
 
-public class PostInfo {
+import java.sql.Timestamp;
+
+public record PostInfo(int postId,String userId,String comment,byte[] pic, String shopName, Timestamp postTime) {
 	
 }
