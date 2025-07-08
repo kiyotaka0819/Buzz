@@ -1,5 +1,7 @@
 package model;
 
-public record RankingInfo(String shopName ,String comment,int postId) {
+import java.io.Serializable;
+
+public record RankingInfo(String shopName ,String comment,int postId)implements Serializable {
 
 }
