@@ -3,16 +3,14 @@ package model;
 public class Account{
 	private String userId;
 	private String pass;
-	private String mail;
 	private String name;
-	private int age;
+	private String profile;
 	
-	public Account(String userId, String pass, String mail, String name, int age) {
+	public Account(String userId, String pass, String name, String profile) {
 		this.userId = userId;
 		this.pass = pass;
-		this.mail = mail;
 		this.name = name;
-		this.age = age;
+		this.profile = profile;
 	}
 	public String getUserId() {
 		return userId;
@@ -20,13 +18,10 @@ public class Account{
 	public String getPass() {
 		return pass;
 	}
-	public String getMail() {
-		return mail;
-	}
 	public String getName() {
 		return name;
 	}
-	public int getAge() {
-		return age;
+	public String getProfile() {
+		return profile;
 	}
 }
