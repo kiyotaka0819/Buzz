@@ -9,6 +9,8 @@ public class ShopInfo implements Serializable {
 	private String shopAddress;
 	private String shopTEL;
 	
+	public ShopInfo() {
+	}
 	
 	public ShopInfo(String shopName,String shopURL, String shopAddress, String shopTEL) {
 		this.shopName = shopName;
@@ -37,8 +39,8 @@ public class ShopInfo implements Serializable {
 	public String getShopTEL() {
 		return shopTEL;
 	}
-	public void setshopTEL(String shopTEL) {
-		this.shopURL = shopTEL;
+	public void setShopTEL(String shopTEL) {
+		this.shopTEL = shopTEL;
 	}
 }
 
