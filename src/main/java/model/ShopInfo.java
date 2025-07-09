@@ -27,5 +27,6 @@ public class ShopInfo implements Serializable {
 	public String getShopTEL() {
 		return shopTEL;
 	}
+	/*プッシュテスト*/
 }
 

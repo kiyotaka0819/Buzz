@@ -9,8 +9,8 @@
 <body>
 	<h1>店舗情報編集</h1>
 	<form action="ShopInfoPageServlet" method="post">
-		<div class="form-group">
-			<label for="shopName">店舗名</label> <input type="text" id="shopName"
+		<div class="form-group">]
+		<label for="shopName">店舗名</label> <input type="text" id="shopName"
 				name="shopName" placeholder="店舗名入力">
 		</div>
 
