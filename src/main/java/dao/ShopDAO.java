@@ -34,6 +34,32 @@ public class ShopDAO {
 		return list;
 	}
 
+	// 店舗名から店舗情報を出すメソッド
+	public ShopInfo findByShopName(String name) throws Exception {
+		ShopInfo shop = null;
+		String sql = "SELECT name, URL, address, TEL FROM SHOP WHERE name = ?";
+
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, name); // 1件のみ店舗名をセット
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					shop = new ShopInfo(
+							rs.getString("name"),
+							rs.getString("URL"),
+							rs.getString("address"),
+							rs.getString("TEL")
+							);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return shop;
+	}
+
 	// 店舗情報検索用メソッド
 	
 	/* 使い方

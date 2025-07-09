@@ -30,7 +30,7 @@ public class PostDAO {
 	}
 	
 	//つぶやきを投稿
-	public void postInsert(PostInfo postInfo) {
+	public boolean postInsert(PostInfo postInfo) {
 		//sql文の準備
 		String sql = 
 				"INSERT INTO posts (user_id,comment, picture, shop, postTime) " +
@@ -44,15 +44,16 @@ public class PostDAO {
 		    stmt.setBytes(3, postInfo.pic());
 		    stmt.setString(4, postInfo.shopName());
 		    
-		    //sql文の実行
-		    stmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		    int result = stmt.executeUpdate();
+	        return result == 1;  // 成功したら true を返す
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false; // 失敗したら false を返す
+	    }
 	}
 	
 	//つぶやきを編集
-	public void postEdit(PostInfo postInfo,int postId) {
+	public boolean postEdit(PostInfo postInfo,int postId) {
 		String sql;
 		boolean updatePicture = postInfo.pic() != null;
 		
@@ -79,26 +80,26 @@ public class PostDAO {
 				stmt.setString(2, postInfo.shopName());
 				stmt.setInt(3, postId);  // 編集対象のpost_idを指定
 			}
-			 stmt.setString(1, postInfo.comment());
-		        stmt.setBytes(2, postInfo.pic());       // 画像（byte[]）
-		        stmt.setString(3, postInfo.shopName());
-		       
-		        stmt.setInt(5, postId);  // 編集対象のpost_idを指定
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+			int result = stmt.executeUpdate();
+	        return result == 1;  // 成功したら true を返す
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false; // 失敗したら false を返す
+	    }
 		
 	}
 	
 	// つぶやきを削除
-	public void postDelete(int postId)  {
+	public boolean postDelete(int postId)  {
 		String sql = "DELETE FROM posts WHERE post_id = ?";
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, postId);
-			//削除を実行
-			stmt.executeUpdate();
-		}catch (SQLException e) {
+			
+			int result = stmt.executeUpdate();
+	        return result ==1;  // 成功したら true を返す
+	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        return false; // 失敗したら false を返す
 	    }
 	}
 	
