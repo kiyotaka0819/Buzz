@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.ShopInfo" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,20 +12,29 @@
 	<ul>
 	<form action="/shopSelectServlet" method="get">
 		<label for="query">店舗名：</label>
-		<input type="text" id="query" name="q" placeholder="検索キーワードが表示"><!--検索キーワードの入力を保持する-->
+		<input type="text" id="query" name="searchName" placeholder="検索キーワードを入力" value="<%= request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : "" %>">
 		<button type="submit">検索</button>
 	</form>
 	</ul>
-<h2>「検索キーワード」の検索結果</h2> <!--ユーザーが検索したキーワードでDB検索-->
-<!--DBに存在したら表示される-->
+	<h2>
+		<%
+		// searchKeyword があれば表示、なければ「全店舗」と表示
+		String displayKeyword = (String) request.getAttribute("searchKeyword");
+		if (displayKeyword != null && !displayKeyword.isEmpty()) {
+			out.print("「" + displayKeyword + "」の検索結果");
+		} else {
+			out.print("全店舗一覧");
+		}
+		%>
+	</h2>
 
-<ul>
+	<ul>
 	<form action="/shopSelectServlet" method="post">
-		<input type="text" id="query" name="q" placeholder="新規店舗名入力"><br><!--検索キーワードの入力を保持する-->
+		<input type="text" id="query" name="newShopName" placeholder="新規店舗名入力"><br><!--検索キーワードの入力を保持する-->
 	<form action="/search" method="get">
-			<input type="text" id="query" name="q" placeholder="店舗の住所を入力"><br>
-			<input type="text" id="query" name="q" placeholder="店舗のURLを入力"><br>
-			<input type="text" id="query" name="q" placeholder="店舗の電話番号を入力"><br>
+			<input type="text" id="query" name="newShopAddress" placeholder="店舗の住所を入力"><br>
+			<input type="text" id="query" name="newShopURL" placeholder="店舗のURLを入力"><br>
+			<input type="text" id="query" name="newShopTEL" placeholder="店舗の電話番号を入力"><br>
 			<form>
 			<button type="submit">登録</button>
 	</form>
