@@ -9,13 +9,79 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import dao.ShopDAO;
+import model.ShopInfo;
+
 @WebServlet("/ShopEditServlet")
 public class ShopEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopEdit.jsp");
-	dispatcher.forward(request, response);
-	
+		request.setCharacterEncoding("UTF-8");
+		String shopName = request.getParameter("shopNameForEdit");
+		
+		ShopInfo shopInfo = null;
+		if (shopName != null && !shopName.isEmpty()) {
+			ShopDAO shopDAO = new ShopDAO();
+			try {
+				shopInfo = shopDAO.findByShopName(shopName);
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("errorMessage", "編集対象の店舗情報の取得中にエラーが発生しました。");
+			}
+		} else {
+			request.setAttribute("errorMessage", "編集する店舗名が指定されていません。");
+		}
+		if (shopInfo != null) {
+			// 店舗情報をセットする
+			request.setAttribute("shopDetail", shopInfo);
+		} else {
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopEdit.jsp"); // 編集画面のJSPにフォワード
+		dispatcher.forward(request, response);
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
+		// フォームから送信された値を取得
+		String originalShopName = request.getParameter("originalShopName"); // 元の店舗名（hiddenで受け取る）
+		String newShopName = request.getParameter("shopName"); // 編集された店舗名
+		String newShopAddress = request.getParameter("shopAddress"); // 編集された住所
+		String newShopURL = request.getParameter("url"); // 編集されたURL
+		String newShopTEL = request.getParameter("tel"); // 編集された電話番号
+
+		// 取得した値をセット
+		ShopInfo shopInfo = new ShopInfo();
+		shopInfo.setShopName(newShopName);
+		shopInfo.setShopAddress(newShopAddress);
+		shopInfo.setShopURL(newShopURL);
+		shopInfo.setShopTEL(newShopTEL);
+
+		ShopDAO shopDAO = new ShopDAO();
+		boolean isSuccess = false;
+		String forwardPath = null;
+
+		try { //変更前店舗名(プライマリーキー)が後ろ
+			isSuccess = shopDAO.shopEdit(shopInfo, originalShopName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "店舗情報の更新中にエラーが発生しました。");
+		}
+
+		if (isSuccess) {
+			request.setAttribute("message", "店舗情報が正常に更新されました。");
+			response.sendRedirect(request.getContextPath() + "/ShopInfoPageServlet?shopName=" + newShopName);
+			return;
+		} else {
+			request.setAttribute("errorMessage", "店舗情報の更新に失敗しました。");
+			request.setAttribute("shopDetail", shopInfo);
+			forwardPath = "WEB-INF/jsp/shopEdit.jsp";
+		}
+
+		// リダイレクトしない場合はforward
+		if(forwardPath != null && !response.isCommitted()){
+			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
+			dispatcher.forward(request, response);
+		}
 	}
 }

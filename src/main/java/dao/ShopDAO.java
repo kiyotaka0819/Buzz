@@ -128,16 +128,26 @@ public class ShopDAO {
 	}
 
 	// 店舗更新用メソッド
-	public void shopEdit(ShopInfo shopInfo) throws Exception {
-		String sql = "UPDATE shop SET name = ?, url = ?, address = ? WHERE NAME = ?";
+	public boolean shopEdit(ShopInfo shopInfo, String originalShopName) throws Exception {
+		String sql = "UPDATE shop SET name = ?, url = ?, address = ?, tel = ? WHERE name = ?";
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setString(1, shopInfo.getShopName());
-			ps.setString(2, shopInfo.getShopAddress());
-			ps.setString(3, shopInfo.getShopURL());
+			ps.setString(2, shopInfo.getShopURL());
+			ps.setString(3, shopInfo.getShopAddress());
 			ps.setString(4, shopInfo.getShopTEL());
+			ps.setString(5, originalShopName);
 			ps.executeUpdate();
+
+			int result = ps.executeUpdate(); // 更新された行数を取得
+			return result == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // DBエラーの場合は失敗
+		} catch (Exception e) { // DBUtil.getConnection()がExceptionをスローする可能性を考慮
+			e.printStackTrace();
+			return false;
 		}
 	}
 

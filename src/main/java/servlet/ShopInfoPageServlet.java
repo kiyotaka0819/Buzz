@@ -22,20 +22,26 @@ public class ShopInfoPageServlet extends HttpServlet {
 		String shopName = request.getParameter("shopName");
 		// 取得した店舗名を保管しておく変数
 		ShopInfo shopInfo = null;
+		ShopDAO shopDAO = new ShopDAO();
+		
 		// 取得した店舗名から情報をDAOより取得する
 		try {
-			if (shopName != null && !shopName.isEmpty()) {
-		}
-			ShopDAO shopDAO = new ShopDAO();
-			shopInfo = shopDAO.findByShopName(shopName);
+			if (shopName != null && !shopName.isEmpty()) { // shopNameが空でなければDB検索
+				shopInfo = shopDAO.findByShopName(shopName); // shopNameを元に情報をDAOより取得する
+			} else {
+				// shopNameがnullまたは空の場合の処理（エラーメッセージなど）
+				request.setAttribute("errorMessage", "店舗名が指定されていません。");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "店舗情報の取得中にエラーが発生しました。");
 		}
+
 		if (shopInfo != null) {
 			// 取得した店舗情報をJSPに渡す
-			request.setAttribute("shopDetail", shopInfo);
+			request.setAttribute("shopDetail", shopInfo); // ここでshopDetailという名前でShopInfoオブジェクトを渡してる！
 		} else {
+			// shopInfoがnullの場合（DBで見つからなかった場合など）
 			request.setAttribute("errorMessage", "指定された店舗は見つかりませんでした。");
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopInfoPage.jsp");
