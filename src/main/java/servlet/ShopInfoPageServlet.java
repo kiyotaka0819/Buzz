@@ -9,16 +9,38 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import dao.ShopDAO;
+import model.ShopInfo;
 
 @WebServlet("/ShopInfoPageServlet")
 public class ShopInfoPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		// リクエストパラメータでリンク元の店舗名を取得する。
+		String shopName = request.getParameter("shopName");
+		// 取得した店舗名を保管しておく変数
+		ShopInfo shopInfo = null;
+		// 取得した店舗名から情報をDAOより取得する
+		try {
+			if (shopName != null && !shopName.isEmpty()) {
+		}
+			ShopDAO shopDAO = new ShopDAO();
+			shopInfo = shopDAO.findByShopName(shopName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "店舗情報の取得中にエラーが発生しました。");
+		}
+		if (shopInfo != null) {
+			// 取得した店舗情報をJSPに渡す
+			request.setAttribute("shopDetail", shopInfo);
+		} else {
+			request.setAttribute("errorMessage", "指定された店舗は見つかりませんでした。");
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopInfoPage.jsp");
 		dispatcher.forward(request, response);
-	}
-	
+	}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
 	}

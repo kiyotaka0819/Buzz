@@ -43,7 +43,9 @@
 			for (ShopInfo shop : shopList) {
 		%>
 		<tr>
-			<td><%=shop.getShopName()%></td>
+			<td><a href="/Buzz/ShopInfoPageServlet?shopName=<%=shop.getShopName()%>">
+					<%=shop.getShopName()%>
+			</a></td>
 			<td><a href="<%=shop.getShopURL()%>" target="_blank"><%=shop.getShopURL()%></a></td>
 			<td><%=shop.getShopAddress()%></td>
 			<td><%=shop.getShopTEL()%></td>
