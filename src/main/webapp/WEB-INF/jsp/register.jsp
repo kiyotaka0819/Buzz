@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +9,24 @@
 </head>
 <body>
 <h1>ユーザー登録</h1>
-<form action="RegisterConfirmServlet" method="post">
+<c:if test="${not empty requestScope.errorMsgs}">
+    <div style="color: red;">
+        <ul>
+            <c:forEach var="errorMsg" items="${requestScope.errorMsgs}">
+                <li><c:out value="${errorMsg}"/></li>
+            </c:forEach>
+        </ul>
+    </div>
+</c:if>
+<form action="RegisterServlet" method="post">
 	ユーザーID<br>
-	<input type="text" name="userId"><br>
+	<input type="text" name="userId" value="${requestScope.userId}"><br>
 	パスワード<br>
 	<input type="password" name="pass"><br>
 	ユーザー名<br>
-	<input type="text" name="name"><br>
+	<input type="text" name="name" value="${requestScope.name}"><br>
 	プロフィール<br>
-	<textarea name="memo" rows="4" cols="40">みなとです。ラーメンが大好きです。好きなラーメン屋は海鳴です。</textarea><br>
+	<textarea name="profile" rows="4" cols="40">${requestScope.profile}</textarea><br>
 	<input type="submit" value="確認">
 </form>
 <p><a href="TopServlet">戻る</a></p>

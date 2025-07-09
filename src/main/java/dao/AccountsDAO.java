@@ -10,7 +10,7 @@ import model.Account;
 import model.Login;
 
 public class AccountsDAO {
-    private final String JDBC_URL = "jdbc:postgresql://localhost:5432/buzz";
+	private final String JDBC_URL = "jdbc:postgresql://172.31.98.112:5432/buzz";
     private final String DB_USER = "postgres";
     private final String DB_PASS = "root";
 
@@ -22,7 +22,7 @@ public class AccountsDAO {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
         try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-            String sql = "select user_id, pass, mail, name, age from user where user_id = ? and pass = ?";
+            String sql = "select user_id, pass, username, profile from users where user_id = ? and pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
             pStmt.setString(2, login.getPass());
@@ -32,7 +32,7 @@ public class AccountsDAO {
             if (rs.next()) {
                 String userId = rs.getString("user_id");
                 String pass = rs.getString("pass");
-                String name = rs.getString("name");
+                String name = rs.getString("username");
                 String profile = rs.getString("profile");
                 account = new Account(userId, pass, name, profile);
             }
@@ -52,7 +52,7 @@ public class AccountsDAO {
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
             // INSERT文を準備
-            String sql = "INSERT INTO accounts (user_id, pass, username, profile) values (?, ?, ?, ?)";
+            String sql = "insert into users (user_id, pass, username, profile) values (?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, account.getUserId());
             pStmt.setString(2, account.getPass());
@@ -79,7 +79,7 @@ public class AccountsDAO {
         }
 
         try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-            String sql = "select count(*) from user where user_id = ?";
+            String sql = "select count(*) from users where user_id = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, userId);
 

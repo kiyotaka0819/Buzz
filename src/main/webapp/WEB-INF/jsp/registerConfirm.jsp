@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <table>
     <tr>
         <th>ユーザーID:</th>
-        <td><c:out value="${user.userId}" /></td>
+        <td><c:out value="${sessionScope.account.userId}" /></td>
     </tr>
     <tr>
         <th>パスワード:</th>
@@ -19,22 +20,22 @@
     </tr>
     <tr>
         <th>名前:</th>
-        <td><c:out value="${user.name}" /></td>
+        <td><c:out value="${sessionScope.account.name}" /></td>
     </tr>
     <tr>
         <th>プロフィール:</th>
-        <td><c:out value="${user.profile}" /></td>
+        <td><c:out value="${sessionScope.account.profile}" /></td>
     </tr>
 </table>
 
-	<form action="RegisterOKServlet" method="post">
+<form action="RegisterConfirmServlet" method="post"> <%-- RegisterOKServlet ではなく RegisterConfirmServlet に変更 --%>
     <input type="hidden" name="action" value="confirm">
     <input type="submit" value="登録">
 </form>
 <form action="RegisterServlet" method="post">
     <input type="hidden" name="action" value="edit">
     <input type="submit" value="修正">
-<p><a href="TopServlet">戻る</a></p>
 </form>
+<p><a href="TopServlet">戻る</a></p>
 </body>
 </html>

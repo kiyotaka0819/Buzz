@@ -50,7 +50,7 @@ public class RegisterConfirmServlet extends HttpServlet {
             if (result) {
                 session.setAttribute("userId", account.getUserId());
                 session.removeAttribute("account"); // 登録成功後にセッションからAccount情報を削除
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerComplete.jsp"); // 登録完了画面へフォワード
+                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerOK.jsp"); // 登録完了画面へフォワード
                 dispatcher.forward(request, response);
             } else {
                 List<String> errorMsgs = new ArrayList<>();

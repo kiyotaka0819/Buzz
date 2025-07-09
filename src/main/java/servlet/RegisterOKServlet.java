@@ -20,7 +20,7 @@ public class RegisterOKServlet extends HttpServlet {
 
         if (userId == null) {
             // userIdがセッションにない場合は、不正なアクセスまたはセッション切れとしてログイン画面などにリダイレクト
-            response.sendRedirect("LoginServlet"); // 例: ログインサーブレットへ
+            response.sendRedirect("TopServlet"); // 例: ログインサーブレットへ
             return;
         }
 

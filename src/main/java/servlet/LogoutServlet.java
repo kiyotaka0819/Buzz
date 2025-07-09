@@ -2,23 +2,28 @@ package servlet;
 
 import java.io.IOException;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/logout.jsp");
-		dispatcher.forward(request, response);
-		}
+		// セッションスコープを破棄
+		HttpSession session = request.getSession();
+		session.invalidate();
+
+		// ログアウト完了画面にフォワード
+		request.getRequestDispatcher("WEB-INF/jsp/logout.jsp").forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// POSTリクエストが来た場合もGETと同じ処理を行う
 		doGet(request, response);
 	}
 }

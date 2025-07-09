@@ -8,6 +8,9 @@
 </head>
 <body>
 <form action="LoginServlet" method="post">
+	<% if(request.getAttribute("errorMsg") != null) { %>
+		<p style="color: red;"><%= request.getAttribute("errorMsg") %></p>
+	<% } %>
 	ユーザーID<br>
 	<input type="text" name="userId"><br>
 	パスワード<br>

@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -70,17 +71,45 @@ public class RegisterServlet extends HttpServlet {
 
             List<String> errorMsgs = new ArrayList<>();
             AccountsDAO dao = new AccountsDAO();
+            String userIdPattern = "^[A-Za-z0-9!-/:-@\\[-`{-~]+$";
+            String passPattern = "^[A-Za-z0-9!-/:-@\\[-`{-~]+$";
+            String regex = "^(?=.*[A-Za-z])(?=.*\\d).*$";
 
             if (userId == null || userId.isEmpty()) {
                 errorMsgs.add("ユーザーIDが入力されていません。");
-            } else if (dao.userIdSearch(userId)) {
+            } else {
+                if (userId.length() > 40) {
+                    errorMsgs.add("ユーザーIDは40文字以内で入力してください。");
+                }
+                if (!Pattern.matches(userIdPattern, userId)) {
+                	errorMsgs.add("ユーザーIDには半角英数字と一部の記号（!-/:-@[-`{-~など）のみ使用できます。");
+                	}
+                }
+            if (dao.userIdSearch(userId)) {
                 errorMsgs.add("そのユーザーIDは既に使用されています。");
             }
             if (pass == null || pass.isEmpty()) {
                 errorMsgs.add("パスワードが入力されていません。");
+            } else {
+            	if (pass.length() < 8) {
+            		errorMsgs.add("パスワードは8文字以上で入力してください。");
+            	}
+            	if (pass.length() > 40) {
+            		errorMsgs.add("パスワードは40文字以下で入力してください。");
+            	}
+                if (!Pattern.matches(passPattern, pass)) {
+                	errorMsgs.add("パスワードには半角英数字と一部の記号（!-/:-@[-`{-~など）のみ使用できます。");
+                }
+                if (!Pattern.matches(regex, pass)) {
+                    errorMsgs.add("パスワードには半角英字および半角数字を最低一つ入力してください");
+                }
             }
             if (name == null || name.isEmpty()) {
-                errorMsgs.add("名前が入力されていません。");
+                errorMsgs.add("ユーザー名が入力されていません。");
+            } else {
+                if (name.length() > 40) {
+                    errorMsgs.add("ユーザー名は40文字以内で入力してください。");
+                }
             }
             if (!errorMsgs.isEmpty()) {
                 request.setAttribute("errorMsgs", errorMsgs);
@@ -88,7 +117,6 @@ public class RegisterServlet extends HttpServlet {
                 dispatcher.forward(request, response);
                 return;
             }
-
             Account account = new Account(userId, pass, name, profile);
             HttpSession session = request.getSession();
             session.setAttribute("account", account); // 確認画面へ渡すためのセッション保存
