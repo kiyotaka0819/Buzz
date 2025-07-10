@@ -21,8 +21,7 @@ if (selectedShopFromSession != null) {
 	if (shopNameValue != null && !shopNameValue.isEmpty()) {
 	%>
 	<p>
-		選択店舗: **<%=shopNameValue%>** <input type="hidden"
-			name="selectedShopForPost" value="<%=shopNameValue%>"> <a
+		選択店舗: **<%=shopNameValue%>**  <a
 			href="<%=request.getContextPath()%>/PostServlet?clearShop=true">店舗名を変更する</a>
 	</p>
 	<p></p>
@@ -37,15 +36,21 @@ if (selectedShopFromSession != null) {
 	<%
 	}
 	%>
+	<%-- 
 	<p><select name="category">
 	<option value="ramen">ラーメン</option>
 	<option value="italy">イタリアン</option>
 	<option value="yakiniku">焼肉</option>
 </select></p>
+--%>
+<form action="PostServlet" method="post" enctype="multipart/form-data">
+<input type="hidden"
+			name="selectedShopForPost" value="<%=shopNameValue%>">
 コメント<br>
-<textarea name="memo" rows="4" cols="40">投稿内容</textarea><br>
-<label for="attachment">添付ファイル</label>
-<input id="attachment" type="file" name="attachment"><br>
-<a href="MainMenuServlet">つぶやく</a>
+<textarea name="comment" rows="4" cols="40"></textarea><br>
+<label for="picture">画像を添付する</label>
+<input id="picture" type="file" name="picture"><br>
+<button type="submit">つぶやく</button>
+</form>
 </body>
 </html>
