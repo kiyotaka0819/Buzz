@@ -66,7 +66,7 @@ public class UserEditConfirmServlet extends HttpServlet {
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("errorMsgs", errorMsgs);
             req.setAttribute("userId", userId);
-            req.setAttribute("pass", errorMsgs)
+            req.setAttribute("pass", errorMsgs);
             req.setAttribute("name", name);
             req.setAttribute("profile", profile);
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
@@ -77,6 +77,9 @@ public class UserEditConfirmServlet extends HttpServlet {
         // Accountオブジェクトにまとめてセッションへ保存（確認・登録用）
         Account account = new Account(userId, pass, name, profile);
         session.setAttribute("editAccount", account);
+        session.setAttribute("editName", name);
+        session.setAttribute("editProfile", profile);
+        session.setAttribute("editPass", pass);
 
         // 確認画面にフォワード
         RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditConfirm.jsp");

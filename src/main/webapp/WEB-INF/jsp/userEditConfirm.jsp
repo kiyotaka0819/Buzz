@@ -29,6 +29,7 @@ pageEncoding="UTF-8"%>
 </table>
 
 <form action="UserEditOKServlet" method="post">
+    <input type="hidden" name="action" value="confirm">
     <input type="submit" value="変更">
 </form>
 

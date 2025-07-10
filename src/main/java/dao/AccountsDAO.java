@@ -34,7 +34,7 @@ public class AccountsDAO {
         }
         return account;
     }
-   　
+   
     //現在のユーザーIDの確認
     public Account findByUserId(String userId) throws Exception {
         Account account = null;

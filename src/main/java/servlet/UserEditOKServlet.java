@@ -27,25 +27,30 @@ public class UserEditOKServlet extends HttpServlet {
         String userId = (session != null) ? (String) session.getAttribute("userId") : null;
         String action = req.getParameter("action");
 
-        if (userId == null || !"confirm".equals(action)) {
+        // 無効なアクセスなら編集画面にリダイレクト
+        if (session == null || userId == null || !"confirm".equals(action)) {
             res.sendRedirect("UserEditServlet");
             return;
         }
 
-        String name = (String) session.getAttribute("editName");
-        String profile = (String) session.getAttribute("editProfile");
-        String pass = (String) session.getAttribute("editPass");
+        // セッションから Account オブジェクトを取得
+        Account editAccount = (Account) session.getAttribute("editAccount");
 
-        if (name == null) {
+        if (editAccount == null) {
             res.sendRedirect("UserEditServlet");
             return;
         }
+
+        String name = editAccount.getName();
+        String profile = editAccount.getProfile();
+        String pass = editAccount.getPass();
 
         // パスワードが空欄なら変更なし → null を渡す
         if (pass == null || pass.isEmpty()) {
             pass = null;
         }
 
+        // 更新用Accountオブジェクト作成
         Account account = new Account(userId, pass, name, profile);
 
         boolean updated = false;
@@ -57,20 +62,21 @@ public class UserEditOKServlet extends HttpServlet {
         }
 
         if (updated) {
-            // 更新成功後、編集セッション情報を削除
-            session.removeAttribute("editName");
-            session.removeAttribute("editProfile");
-            session.removeAttribute("editPass");
-            session.setAttribute("profile", profile); // 最新プロフィールをセッションにも反映
+            // 更新成功後、セッションの一時データを削除
+            session.removeAttribute("editAccount");
+            session.setAttribute("profile", profile); // 最新プロフィールをセッションに保存
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditOK.jsp");
             dispatcher.forward(req, res);
         } else {
+            // 更新失敗
             List<String> errorMsgs = new ArrayList<>();
             errorMsgs.add("プロフィールの更新中にエラーが発生しました。");
+
             req.setAttribute("errorMsgs", errorMsgs);
             req.setAttribute("name", name);
             req.setAttribute("profile", profile);
+
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
             dispatcher.forward(req, res);
         }
