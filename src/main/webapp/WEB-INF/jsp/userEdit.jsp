@@ -6,7 +6,9 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <title>プロフィール編集 - バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
+<jsp:include page="header.jsp" />
 <body>
 <h1>プロフィール編集</h1>
 <c:if test="${not empty errorMsgs}">
@@ -31,4 +33,5 @@ pageEncoding="UTF-8"%>
 </form>
 <p><a href="MypageServlet">戻る</a></p>
 </body>
+<jsp:include page="footer.jsp" />
 </html>
