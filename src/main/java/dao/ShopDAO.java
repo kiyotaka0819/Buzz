@@ -114,16 +114,25 @@ public class ShopDAO {
 	}
 
 	// 店舗登録用メソッド
-	public void shopRegister(ShopInfo shop) throws Exception {
-		String sql = "INSERT INTO shop (name,url, address, tel) VALUES (?, ?, ?,?)";
+	public boolean shopRegister(ShopInfo shop) throws Exception {
+		String sql = "INSERT INTO shop (name, url, address, tel) VALUES (?, ?, ?, ?)";
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
-
+			
 			ps.setString(1, shop.getShopName());
 			ps.setString(2, shop.getShopURL());
 			ps.setString(3, shop.getShopAddress());
 			ps.setString(4, shop.getShopTEL());
-			ps.executeUpdate();
+
+			int result = ps.executeUpdate();
+			return result == 1;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -132,20 +141,18 @@ public class ShopDAO {
 		String sql = "UPDATE shop SET name = ?, url = ?, address = ?, tel = ? WHERE name = ?";
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
-
 			ps.setString(1, shopInfo.getShopName());
 			ps.setString(2, shopInfo.getShopURL());
 			ps.setString(3, shopInfo.getShopAddress());
 			ps.setString(4, shopInfo.getShopTEL());
 			ps.setString(5, originalShopName);
-			ps.executeUpdate();
 
-			int result = ps.executeUpdate(); // 更新された行数を取得
+			int result = ps.executeUpdate();
 			return result == 1;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false; // DBエラーの場合は失敗
-		} catch (Exception e) { // DBUtil.getConnection()がExceptionをスローする可能性を考慮
+			return false;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}

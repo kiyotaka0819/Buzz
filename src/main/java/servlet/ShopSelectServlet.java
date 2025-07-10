@@ -51,6 +51,7 @@ public class ShopSelectServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopSelect.jsp");
 		dispatcher.forward(request, response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
@@ -58,26 +59,45 @@ public class ShopSelectServlet extends HttpServlet {
 		String newShopAddress = request.getParameter("newShopAddress");	
 		String newShopURL = request.getParameter("newShopURL");
 		String newShopTEL = request.getParameter("newShopTEL");
-
+		boolean hasError = false;
+		String messageToDisplay = "";
+		
 		// 各種入力値のバリデーション (空文字チェック、隙間埋め)
-		if (newShopName != null && !newShopName.trim().isEmpty() &&
-				newShopAddress != null && !newShopAddress.trim().isEmpty() &&
-				newShopURL != null && !newShopURL.trim().isEmpty() &&
-				newShopTEL != null && !newShopTEL.trim().isEmpty()) {
+		if (newShopName == null || newShopName.trim().isEmpty() ||
+				newShopAddress == null || newShopAddress.trim().isEmpty() ||
+				newShopURL == null || newShopURL.trim().isEmpty() ||
+				newShopTEL == null || newShopTEL.trim().isEmpty()) {
 
+			messageToDisplay = "全ての店舗情報を入力してください。";
+			hasError = true;
+		} 
+
+		if (!hasError) { // エラーがない場合のみ登録処理を実行
 			ShopInfo newShop = new ShopInfo(newShopName, newShopURL, newShopAddress, newShopTEL);
 			ShopDAO shopDAO = new ShopDAO();
 
 			try {
-				shopDAO.shopRegister(newShop); // 店舗登録メソッド
-				request.setAttribute("message", "店舗「" + newShopName + "」が登録されました！");
+				boolean isRegistered = shopDAO.shopRegister(newShop);
+				if (isRegistered) {
+					messageToDisplay = "店舗「" + newShopName + "」が登録されました！";
+				} else {
+					messageToDisplay = "店舗の登録に失敗しました。データベースエラーの可能性があります。";
+					hasError = true;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				request.setAttribute("errorMessage", "店舗の登録中にエラーが発生しました。");
+				messageToDisplay = "店舗の登録中に予期せぬエラーが発生しました。";
+				hasError = true;
 			}
-		} else {
-			request.setAttribute("errorMessage", "全ての店舗情報を入力してください。");
 		}
-		doGet(request, response); // 登録後に再度検索、表示を実行
+
+		if (hasError) {
+			// エラーメッセージはセッションスコープに保存
+			request.getSession().setAttribute("errorMessage", messageToDisplay);
+		} else {
+			// 成功メッセージをセッションスコープに保存
+			request.getSession().setAttribute("message", messageToDisplay);
+		}
+		response.sendRedirect(request.getContextPath() + "/ShopSelectServlet");
 	}
 }

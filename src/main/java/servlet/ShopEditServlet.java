@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -47,8 +49,8 @@ public class ShopEditServlet extends HttpServlet {
 		String originalShopName = request.getParameter("originalShopName"); // 元の店舗名（hiddenで受け取る）
 		String newShopName = request.getParameter("shopName"); // 編集された店舗名
 		String newShopAddress = request.getParameter("shopAddress"); // 編集された住所
-		String newShopURL = request.getParameter("url"); // 編集されたURL
-		String newShopTEL = request.getParameter("tel"); // 編集された電話番号
+		String newShopURL = request.getParameter("shopURL"); // 編集されたURL
+		String newShopTEL = request.getParameter("shopTEL"); // 編集された電話番号
 
 		// 取得した値をセット
 		ShopInfo shopInfo = new ShopInfo();
@@ -63,6 +65,11 @@ public class ShopEditServlet extends HttpServlet {
 
 		try { //変更前店舗名(プライマリーキー)が後ろ
 			isSuccess = shopDAO.shopEdit(shopInfo, originalShopName);
+			
+			//編集テスト用
+			System.out.println("ShopEditServlet: 編集結果 isSuccess = " + isSuccess);
+            System.out.println("ShopEditServlet: originalShopName = " + originalShopName);
+            System.out.println("ShopEditServlet: newShopName = " + newShopName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "店舗情報の更新中にエラーが発生しました。");
@@ -70,7 +77,8 @@ public class ShopEditServlet extends HttpServlet {
 
 		if (isSuccess) {
 			request.setAttribute("message", "店舗情報が正常に更新されました。");
-			response.sendRedirect(request.getContextPath() + "/ShopInfoPageServlet?shopName=" + newShopName);
+			String encodedShopName = URLEncoder.encode(newShopName, StandardCharsets.UTF_8.toString());
+			response.sendRedirect(request.getContextPath() + "/ShopInfoPageServlet?shopName=" + encodedShopName);
 			return;
 		} else {
 			request.setAttribute("errorMessage", "店舗情報の更新に失敗しました。");
