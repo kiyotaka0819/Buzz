@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,18 +10,18 @@ import model.Login;
 import util.DBUtil;
 
 public class AccountsDAO {
-	private final String JDBC_URL = "jdbc:postgresql://172.31.98.112:5432/buzz";
-    private final String DB_USER = "postgres";
-    private final String DB_PASS = "root";
+	//private final String JDBC_URL = "jdbc:postgresql://172.31.98.112:5432/buzz";
+    //private final String DB_USER = "postgres";
+    //private final String DB_PASS = "root";
 
-    public Account findByLogin(Login login) {
+    public Account findByLogin(Login login) throws Exception {
         Account account = null;
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
-        try (Connection conn = DBUtil.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+        try (Connection conn = DBUtil.getConnection() ){
             String sql = "select user_id, pass, username, profile from users where user_id = ? and pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
@@ -44,14 +43,14 @@ public class AccountsDAO {
         return account;
     }
     
-    public boolean createAccount(Account account) {
+    public boolean createAccount(Account account) throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+        try (Connection conn = DBUtil.getConnection()) {
             // INSERT文を準備
             String sql = "insert into users (user_id, pass, username, profile) values (?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -72,14 +71,14 @@ public class AccountsDAO {
         }
     }
     
-    public boolean userIdSearch(String userId) {
+    public boolean userIdSearch(String userId) throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
 
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+        try (Connection conn = DBUtil.getConnection()) {
             String sql = "select count(*) from users where user_id = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, userId);
