@@ -21,11 +21,11 @@
 	<h2>
 		<%
 		String displayKeyword = (String) request.getAttribute("searchKeyword");
-		if (displayKeyword != null && !displayKeyword.isEmpty()) {
+				if (displayKeyword != null && !displayKeyword.isEmpty()) {
 			out.print("「" + displayKeyword + "」の検索結果");
-		} else {
+				} else {
 			out.print("全店舗一覧");
-		}
+				}
 		%>
 	</h2>
 
@@ -39,27 +39,27 @@
 		</tr>
 		<%
 		List<ShopInfo> shopList = (List<ShopInfo>) request.getAttribute("shopList");
-		if (shopList != null && !shopList.isEmpty()) {
+				if (shopList != null && !shopList.isEmpty()) {
 			for (ShopInfo shop : shopList) {
 		%>
 		<tr>
-			<td><a href="/Buzz/ShopInfoPageServlet?shopName=<%=shop.getShopName()%>">
-					<%=shop.getShopName()%>
+			<td><a href="/Buzz/ShopInfoPageServlet?shopName=<%=shop.shopName()%>">
+					<%=shop.shopName()%>
 			</a></td>
-			<td><a href="<%=shop.getShopURL()%>" target="_blank"><%=shop.getShopURL()%></a></td>
-			<td><%=shop.getShopAddress()%></td>
-			<td><%=shop.getShopTEL()%></td>
+			<td><a href="<%=shop.shopURL()%>" target="_blank"><%=shop.shopURL()%></a></td>
+			<td><%=shop.shopAddress()%></td>
+			<td><%=shop.shopTEL()%></td>
 			<td>
 				<form action="<%=request.getContextPath()%>/PostServlet"
 					method="post">
 					<input type="hidden" name="shopName"
-						value="<%= shop.getShopName() %>">
+						value="<%= shop.shopName() %>">
 					<button type="submit">選択</button>
 					</form>
 				<form action= "<%=request.getContextPath() %>/ShopEditServlet"
-					meshod="get">
+					method="get">
 					<input type="hidden" name="shopNameForEdit"
-						value="<%= shop.getShopName() %>">
+						value="<%= shop.shopName() %>">
 					<button type="submit">編集</button>
 				</form>
 			</td>

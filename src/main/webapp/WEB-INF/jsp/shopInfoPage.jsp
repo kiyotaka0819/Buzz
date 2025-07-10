@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="model.ShopInfo"%>
+<%@ page import="model.model.ShopInfo3"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,9 @@
 <title>店舗情報 -バズミシュラン</title>
 </head>
 <body>
-	<% ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail"); %>
+	<%
+	ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
+	%>
 	<ul>
 		<form action="ShopEditServlet" method="get">
 			<h1>店舗情報</h1>

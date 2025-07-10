@@ -9,7 +9,9 @@
 <title>店舗情報編集 -バズミシュラン</title>
 </head>
 <body>
-<% ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail"); %>
+<%
+ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
+%>
 	<h1>店舗情報編集</h1>
 	<form action="ShopEditServlet" method="post">
 		<div class="form-group">
@@ -17,7 +19,7 @@
 				name="shopName" placeholder="店舗名入力"
 				value="<% 
 				if(shopDetail != null) {
-					out.print(shopDetail.getShopName()); 
+					out.print(shopDetail.shopName()); 
 				} %>">
 		</div>
 
@@ -26,7 +28,7 @@
 			<input type="text" name="shopAddress" placeholder="店舗の住所を入力"
 				value="<% 
 				if(shopDetail != null) {
-					out.print(shopDetail.getShopAddress()); 
+					out.print(shopDetail.shopAddress()); 
 				} %>">
 		</div>
 		
@@ -35,7 +37,7 @@
 			placeholder="店舗のURLを入力"
 			value="<% 
 				if(shopDetail != null) {
-					out.print(shopDetail.getShopURL()); 
+					out.print(shopDetail.shopURL()); 
 				} %>">
 		</div>
 		<div class="form-group">
@@ -43,13 +45,13 @@
 				placeholder="店舗の電話番号を入力"
 				value="<% 
 				if(shopDetail != null) {
-					out.print(shopDetail.getShopTEL()); 
+					out.print(shopDetail.shopTEL()); 
 				} %>">
 		</div>
 
 		<% if (shopDetail != null) { %>
 		<input type="hidden" name="originalShopName"
-			value="<%=shopDetail.getShopName()%>">
+			value="<%=shopDetail.shopName()%>">
 		<% } %>
 
 		<button type="submit">登録</button>

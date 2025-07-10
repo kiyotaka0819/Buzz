@@ -119,10 +119,10 @@ public class ShopDAO {
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 			
-			ps.setString(1, shop.getShopName());
-			ps.setString(2, shop.getShopURL());
-			ps.setString(3, shop.getShopAddress());
-			ps.setString(4, shop.getShopTEL());
+			ps.setString(1, shop.shopName());
+			ps.setString(2, shop.shopURL());
+			ps.setString(3, shop.shopAddress());
+			ps.setString(4, shop.shopTEL());
 
 			int result = ps.executeUpdate();
 			return result == 1;
@@ -141,10 +141,10 @@ public class ShopDAO {
 		String sql = "UPDATE shop SET name = ?, url = ?, address = ?, tel = ? WHERE name = ?";
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setString(1, shopInfo.getShopName());
-			ps.setString(2, shopInfo.getShopURL());
-			ps.setString(3, shopInfo.getShopAddress());
-			ps.setString(4, shopInfo.getShopTEL());
+			ps.setString(1, shopInfo.shopName());
+			ps.setString(2, shopInfo.shopURL());
+			ps.setString(3, shopInfo.shopAddress());
+			ps.setString(4, shopInfo.shopTEL());
 			ps.setString(5, originalShopName);
 
 			int result = ps.executeUpdate();
@@ -164,7 +164,7 @@ public class ShopDAO {
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			ps.setString(1, shopInfo.getShopName());
+			ps.setString(1, shopInfo.shopName());
 			ps.executeUpdate();
 		}
 	}
