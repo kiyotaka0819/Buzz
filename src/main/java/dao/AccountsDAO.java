@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import model.Account;
 import model.Login;
+import util.DBUtil;
 
 public class AccountsDAO {
 	private final String JDBC_URL = "jdbc:postgresql://172.31.98.112:5432/buzz";
@@ -21,7 +22,7 @@ public class AccountsDAO {
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
-        try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+        try (Connection conn = DBUtil.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
             String sql = "select user_id, pass, username, profile from users where user_id = ? and pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
