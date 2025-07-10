@@ -71,12 +71,12 @@ public class PostDAO {
 				stmt.setString(1, postInfo.comment());
 			    stmt.setBytes(2, postInfo.pic());       // 画像（byte[]）
 			    stmt.setString(3, postInfo.shopName());
-			    stmt.setInt(4, postId);  // 編集対象のpost_idを指定
+			    stmt.setInt(4, postId);  // 編集対象のposts_idを指定
 				 
 			}else {
 				stmt.setString(1, postInfo.comment());
 				stmt.setString(2, postInfo.shopName());
-				stmt.setInt(3, postId);  // 編集対象のpost_idを指定
+				stmt.setInt(3, postId);  // 編集対象のposts_idを指定
 			}
 			int result = stmt.executeUpdate();
 	        return result == 1;  // 成功したら true を返す
@@ -89,7 +89,7 @@ public class PostDAO {
 	
 	// つぶやきを削除
 	public boolean postDelete(int postId)  {
-		String sql = "DELETE FROM posts WHERE post_id = ?";
+		String sql = "DELETE FROM posts WHERE posts_id = ?";
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, postId);
 			
@@ -104,7 +104,7 @@ public class PostDAO {
 	//指定されたIDのつぶやきを1件だけ取得する
 	public PostInfo findById(int postId) {
 	    PostInfo postInfo = null;
-	    String sql = "SELECT post_id, user_id, comment, pictures, shop, postTime FROM posts WHERE post_id = ?";
+	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE post_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -112,7 +112,7 @@ public class PostDAO {
 
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            if (rs.next()) {
-	                int id = rs.getInt("post_id");
+	                int id = rs.getInt("posts_id");
 	                String userId = rs.getString("user_id");
 	                String comment = rs.getString("comment");
 	                byte[] pic = rs.getBytes("pictures");
@@ -129,6 +129,7 @@ public class PostDAO {
 	    return postInfo;
 	}
 	
+	//つぶやきを全件表示
 	public List<PostInfo> postFindAll(){
 		List<PostInfo> postList = new ArrayList<>();
 		
@@ -142,7 +143,7 @@ public class PostDAO {
 			
 			//select文の結果をArrayListに格納
 			while(rs.next()) {
-				int postId = rs.getInt("post_id");
+				int postId = rs.getInt("posts_id");
 				String userId = rs.getString("user_id");
 				String comment = rs.getString("comment");
 				byte[] pic = rs.getBytes("pictures");
@@ -158,6 +159,48 @@ public class PostDAO {
 		}
 		return postList;
 	}
+	//ログインユーザーのつぶやきを全件表示
+	public List<PostInfo> findPostsByUserId(String userId) {
+	    List<PostInfo> postList = new ArrayList<>();
+	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE user_id = ? ORDER BY postTime DESC";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, userId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                PostInfo post = new PostInfo(
+	                    rs.getInt("posts_id"),
+	                    rs.getString("user_id"),
+	                    rs.getString("comment"),
+	                    rs.getBytes("pictures"),
+	                    rs.getString("shop"),
+	                    rs.getTimestamp("postTime")
+	                );
+	                postList.add(post);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return postList;
+	}
+	
+	public byte[] getPictureByPostId(int postId) {
+	    String sql = "SELECT pictures FROM posts WHERE posts_id = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setInt(1, postId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getBytes("pictures");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	
+	
 	
 	
 }

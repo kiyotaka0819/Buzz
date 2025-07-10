@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.PostInfo" %>
+<%@ page import="model.Account" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +11,46 @@
 </head>
 <body>
 <ul>
-<h2>ユーザー情報を表示します</h2>
-<p>ユーザーID：minato001</p>
+<h2>ユーザー情報</h2>
+<p>ユーザーID：${user.userId}</p>
 <p>パスワード：*****</p>
-<p>ユーザー名:minato</p>
-<p>プロフィール：みなとです。ラーメンが大好きです。</p>
-<p>        好きなラーメン屋は海鳴です。</p>
-<% if (session.getAttribute("userId").equals(post.getUserId())) { %>
-		  <a href="postEdit.jsp?posts_id=<%= post.getPostsId() %>">編集</a>
-		<% } %>
-<li><a href="PostEditServlet">つぶやきを編集</a></li>
-<li><a href="PostDeleteServlet">つぶやきを削除</a></li>
+<p>ユーザー名：${user.name}</p>
+<p>プロフィール：${user.profile}</p>
+
+<hr>
+
+<h2>投稿一覧</h2>
+
+<%
+  List<PostInfo> postList = (List<PostInfo>) request.getAttribute("postList");
+  String sessionUserId = (String) session.getAttribute("userId");
+  if (postList != null && !postList.isEmpty()) {
+    for (PostInfo post : postList) {
+%>
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+      <p><strong>店舗：</strong><%= post.shopName() %></p>
+      <p><strong>コメント：</strong><%= post.comment() %></p>
+      <% if (post.pic() != null) { %>
+        <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
+      <% } %>
+
+      <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能 --%>
+      <% if (sessionUserId != null && sessionUserId.equals(post.userId())) { %>
+        <a href="postEdit.jsp?post_id=<%= post.postId() %>">編集</a>
+        <a href="PostDeleteServlet?postId=<%= post.postId() %>" onclick="return confirm('本当に削除しますか？')">削除</a>
+      <% } %>
+    </div>
+<%
+    }
+  } else {
+%>
+    <p>まだ投稿がありません。</p>
+<%
+  }
+%>
+
+<hr>
+
 <li><a href="UserEditServlet">プロフィールを編集</a></li>
 <li><a href="MainMenuServlet">メインメニュー</a></li>
 <li><a href="TopServlet">ログアウト</a></li>
