@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="header.jsp" />
 <meta charset="UTF-8">
 <title>バズ飯ランキング -バズミシュラン</title>
 </head>
@@ -44,6 +45,6 @@
 <p><a href="MainMenuServlet">メインメニュー</a></p>
 <p><a href="MypageServlet">マイページ</a></p>
 <p><a href="LoginServlet">ログアウト</a></p>
-
+<jsp:include page="footer.jsp" />
 </body>
 </html>

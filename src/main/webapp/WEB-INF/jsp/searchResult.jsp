@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>検索結果 -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
