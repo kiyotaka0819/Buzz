@@ -18,7 +18,7 @@ public class AccountsDAO {
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
             pStmt.setString(2, login.getPass());
-
+            
             ResultSet rs = pStmt.executeQuery();
 
             if (rs.next()) {
