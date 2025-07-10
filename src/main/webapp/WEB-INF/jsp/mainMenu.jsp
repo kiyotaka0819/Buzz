@@ -5,14 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>メインメニュー -バズミシュラン</title>
+<%-- CSS読み込み用 --%>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
-<ul>
-<form action="SearchResultServlet" method="get">
-	<label for="query">検索キーワードを入力:</label>
-	<input type="text" id="query" name="searchWord" placeholder="気になる料理名などを入力">
-	<button type="submit">検索</button>
-</form>
+<jsp:include page="header.jsp" />
 <li><a href="PostServlet">つぶやく</a></li>
 <li><a href="MypageServlet">マイページ</a></li>
 <li><a href="RankingServlet">ランキング</a></li>
@@ -32,5 +29,6 @@
 </form>
 <li><a href="LogoutServlet">ログアウト</a></li>
 </ul>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

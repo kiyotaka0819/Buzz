@@ -1,0 +1,78 @@
+ /* ヘッダーの一番上のリボン */
+.top-ribbon {
+    background-color: #ff9900; 
+    color: white; 
+    text-align: center;
+    padding: 5px 0; /* 余白 */
+    font-size: 14px; /* 文字サイズ */
+    line-height: 1.5; /* 行の高さ */
+    font-family: "メイリオ", Meiryo, sans-serif; /* フォント指定 */
+}
+
+/*  ヘッダー全体のFlexbox調整と要素間のスペース調整  */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 中央揃え */
+    padding: 5px 20px; /* 余白 */
+    border-bottom: 2px solid #ccc;
+    flex-wrap: wrap; /* 画面幅が狭くなった時に要素が折り返すようにする */
+}
+
+/*  ロゴの調整  */
+.logo {
+    flex-shrink: 0; /* 縮まないようにする */
+    margin-right: 20px; /* 他の要素との間隔 */
+}
+.logo img {
+    height: 80px; /* ロゴの高さ */
+    width: auto; /* 幅は自動調整 */
+}
+
+/*  検索バーの調整 */
+.search-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 検索バーが広がるように */
+    max-width: 600px; /* 検索バーの最大幅を設定 */
+    margin: 10px 0; /* 上下余白 */
+}
+
+.search-bar label {
+    margin-right: 10px; /* 入力欄の間のスペース */
+    white-space: nowrap; /* ラベルのテキストが折り返さないように */
+    font-size: 14px;
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1; /* 入力欄が利用可能なスペースを埋めるように広がる */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+	margin-right: 5px;
+    /*max-width: 300px; /* 入力欄の最大幅 */
+    /*margin-right: 10px; /* 入力欄とボタンの間隔 */
+	
+}
+
+/*  検索ボタンの調整  */
+.search-bar button[type="submit"] {
+    background-color: rgb(241, 241, 241); /* ボタンの背景色 */
+    border: 2px solid rgb(192, 192, 192); /* ボタンと同じ色の枠線 */
+	padding: 5px 10px; /* ボタン全体の余白 */
+	cursor: pointer; /* マウスカーソルをポインターに */
+	border-radius: 4px; /* ボタンの角削る */
+	font-size: 14px;
+	white-space: nowrap; /* ボタンの文字が折り返さない */
+	margin-left: -5px; /* 左スペース */
+	text-align: center;
+}
+
+.search-bar button img {
+	display: inline-block;
+    height: 25px; /* 検索ボタン画像の高さを調整 */
+    width: auto; /* 幅はアスペクト比を維持 */
+	vertical-align: middle; /* 画像とテキストの垂直方向のずれを修正 */
+	margin-left: -10px /* 横の隙間を削る */
+}
