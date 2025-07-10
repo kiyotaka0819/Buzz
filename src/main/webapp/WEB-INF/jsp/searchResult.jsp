@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<h2>
-		『<%=request.getAttribute("searchWord")%>』の検索結果
+	  『<%=request.getAttribute("searchWord")%>』の検索結果
 	</h2>
 	<!--searchWordでDB検索-->
 	<p>

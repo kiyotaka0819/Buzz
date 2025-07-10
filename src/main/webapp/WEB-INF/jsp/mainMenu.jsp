@@ -27,7 +27,6 @@
 <form action="MainMenuServlet" method="get">
 	<button type="submit">削除</button>
 </form>
-<li><a href="LogoutServlet">ログアウト</a></li>
 </ul>
 <jsp:include page="footer.jsp" />
 </body>

@@ -24,4 +24,3 @@
 		<nav></nav>
 	</div>
 </header>
-<hr>

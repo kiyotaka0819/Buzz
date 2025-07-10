@@ -1,78 +1,141 @@
- /* ヘッダーの一番上のリボン */
+/* ***************************ヘッダー**************************** */
+
+/* ヘッダーの一番上のリボン */
 .top-ribbon {
-    background-color: #ff9900; 
-    color: white; 
-    text-align: center;
-    padding: 5px 0; /* 余白 */
-    font-size: 14px; /* 文字サイズ */
-    line-height: 1.5; /* 行の高さ */
-    font-family: "メイリオ", Meiryo, sans-serif; /* フォント指定 */
+	background-color: #ff9900; /* 背景色：オレンジ系に設定 */
+	color: white; /* 文字色：白に設定 */
+	text-align: center; /* テキストの配置：中央に設定 */
+	padding: 5px 0; /* 上下の余白を設定 */
+	font-size: 14px; /* フォントサイズを設定 */
+	line-height: 1.5; /* 行の高さを設定 */
+	font-family: "メイリオ", Meiryo, sans-serif; /* フォントを指定 */
 }
 
-/*  ヘッダー全体のFlexbox調整と要素間のスペース調整  */
+/* ヘッダー全体のFlexbox調整と要素間のスペース調整 */
 .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* 中央揃え */
-    padding: 5px 20px; /* 余白 */
-    border-bottom: 2px solid #ccc;
-    flex-wrap: wrap; /* 画面幅が狭くなった時に要素が折り返すようにする */
+	display: flex; /* Flexboxコンテナに設定 */
+	justify-content: space-between; /* 子要素を両端に揃えて配置 */
+	align-items: center; /* 子要素を垂直方向の中央に揃える */
+	padding: 5px 20px; /* 上下左右の余白を設定 */
+	flex-wrap: wrap; /* 画面幅が狭くなった時に子要素が折り返すように設定 */
 }
 
-/*  ロゴの調整  */
+/* ロゴの調整  */
 .logo {
-    flex-shrink: 0; /* 縮まないようにする */
-    margin-right: 20px; /* 他の要素との間隔 */
+	flex-shrink: 0; /* 画面幅が狭くなっても要素が縮まないように設定 */
+	margin-right: 20px; /* 右側の余白を設定 */
 }
+
+/* ロゴ画像の調整 */
 .logo img {
-    height: 80px; /* ロゴの高さ */
-    width: auto; /* 幅は自動調整 */
+	height: 80px; /* 画像の高さを設定 */
+	width: auto; /* 幅をアスペクト比に合わせて自動調整 */
 }
 
-/*  検索バーの調整 */
+/* 検索バー全体の調整 */
 .search-bar {
-    display: flex;
-    align-items: center;
-    flex-grow: 1; /* 検索バーが広がるように */
-    max-width: 600px; /* 検索バーの最大幅を設定 */
-    margin: 10px 0; /* 上下余白 */
+	display: flex; /* Flexboxコンテナに設定 */
+	align-items: center; /* 垂直方向の中央に揃える */
+	flex-grow: 1; /* 親要素の残りのスペースを埋めるように広がる */
+	max-width: 600px; /* 検索バーの最大幅を設定 */
+	margin: 10px 0; /* 上下の余白を設定 */
 }
 
+/* 検索バーの「検索キーワード:」のラベル部分 */
 .search-bar label {
-    margin-right: 10px; /* 入力欄の間のスペース */
-    white-space: nowrap; /* ラベルのテキストが折り返さないように */
-    font-size: 14px;
+	margin-right: 10px; /* 右側の余白を設定 */
+	white-space: nowrap; /* テキストが折り返さないように設定 */
+	font-size: 14px; /* フォントサイズを設定 */
 }
 
+/* 検索バーのテキスト入力欄 */
 .search-bar input[type="text"] {
-    flex-grow: 1; /* 入力欄が利用可能なスペースを埋めるように広がる */
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-	margin-right: 5px;
-    /*max-width: 300px; /* 入力欄の最大幅 */
-    /*margin-right: 10px; /* 入力欄とボタンの間隔 */
-	
+	flex-grow: 1; /* 親要素の残りのスペースを埋めるように広がる */
+	padding: 8px; /* 内側の余白を設定 */
+	border: 1px solid #ddd; /* ボーダーを設定 */
+	border-radius: 4px; /* 角を丸くする */
+	font-size: 14px; /* フォントサイズを設定 */
+	margin-right: 5px; /* 右側の余白を設定 */
 }
 
-/*  検索ボタンの調整  */
+/* 検索ボタン全体 */
 .search-bar button[type="submit"] {
-    background-color: rgb(241, 241, 241); /* ボタンの背景色 */
-    border: 2px solid rgb(192, 192, 192); /* ボタンと同じ色の枠線 */
-	padding: 5px 10px; /* ボタン全体の余白 */
-	cursor: pointer; /* マウスカーソルをポインターに */
-	border-radius: 4px; /* ボタンの角削る */
-	font-size: 14px;
-	white-space: nowrap; /* ボタンの文字が折り返さない */
-	margin-left: -5px; /* 左スペース */
-	text-align: center;
+	background-color: rgb(241, 241, 241); /* ボタンの背景色を設定 */
+	border: 2px solid rgb(192, 192, 192); /* ボタンのボーダーを設定 */
+	padding: 5px 10px; /* 内側の余白を設定 */
+	cursor: pointer; /* マウスカーソルをポインターに変更 */
+	border-radius: 4px; /* 角を丸くする */
+	font-size: 14px; /* フォントサイズを設定 */
+	white-space: nowrap; /* テキストが折り返さないように設定 */
+	margin-left: -5px; /* 左側の余白をマイナスにして、隣の要素に近づける */
+	text-align: center; /* テキストを中央に配置 */
 }
 
+/* 検索ボタンの中にある画像 */
 .search-bar button img {
-	display: inline-block;
-    height: 25px; /* 検索ボタン画像の高さを調整 */
-    width: auto; /* 幅はアスペクト比を維持 */
-	vertical-align: middle; /* 画像とテキストの垂直方向のずれを修正 */
-	margin-left: -10px /* 横の隙間を削る */
+	display: inline-block; /* 画像をインラインブロック要素に設定 */
+	height: 25px; /* 画像の高さを設定 */
+	width: auto; /* 幅をアスペクト比に合わせて自動調整 */
+	vertical-align: middle; /* 画像とテキストを垂直方向の中央に揃える */
+	margin-left: -10px; /* 左側の余白をマイナスにして、テキストに近づける */
+}
+
+/* ***************************フッター**************************** */
+
+/* フッター全体 */
+footer { 
+	background-color: rgb(238, 238, 238); /* 背景色：白に設定 */
+	color: rgb(0, 0, 0); /* 文字色：黒に設定 */
+	padding: 30px 50px; /* 上下左右に余白を設定 */
+	text-align: center; /* テキストを中央に配置 */
+	font-size: 0.9em; /* フォントサイズを相対的に小さく設定 */
+	border-top: 2px solid rgb(128, 128, 128); /* 上側のボーダーラインを設定 */
+	margin-top: 50px; /* 上側の余白を設定 */
+}
+
+/* フッター内のリンクグループ（サイトマップやメニューの親要素） */
+.footer-links {
+	margin-bottom: 20px; /* 下側の余白を設定 */
+}
+
+/* フッターのリンクグループの見出し */
+.footer-links h4 {
+	color: rgb(28, 28, 28); /* 文字色：黒に設定 */
+	margin-top: 20px; /* 上側の余白を設定 */
+	margin-bottom: 40px; /* 下側の余白を設定 */
+	font-size: 1.1em; /* フォントサイズを設定 */
+}
+
+/* フッターのリンクグループのリスト全体 */
+.footer-links ul {
+	list-style: none; /* リストのマーカー（・）を非表示に設定 */
+	padding: 0; /* 内側の余白をゼロに設定 */
+	margin: 0; /* 外側の余白をゼロに設定 */
+	display: flex; /* Flexboxコンテナに設定 */
+	justify-content: center; /* 子要素を水平方向の中央に配置 */
+	flex-wrap: wrap; /* 画面幅が狭くなった時に子要素が折り返すように設定 */
+}
+
+/* フッターのリストの各項目（個々のリンク） */
+.footer-links li {
+	margin: 0 15px 10px; /* 左右と下部に余白を設定 */
+}
+
+/* フッターのリストの中にあるリンクのテキスト */
+.footer-links a {
+	color: rgb(64, 128, 128); /* リンクの文字色：通常時の色を設定 */
+	text-decoration: underline; /* リンクに下線を常に表示 */
+	transition: color 0.3s ease; 
+}
+
+/* フッターのリストの中にあるリンクにマウスカーソルを合わせた時 */
+.footer-links a:hover {
+	color: rgb(0, 0, 255); /* マウス当てた時の文字色：青に設定 */
+	text-decoration: underline; /* 下線は変わらず表示 */
+}
+
+/* フッターのクレジット表示 */
+.footer-info p {
+	margin: 0; /* 外側の余白をゼロに設定 */
+	color: rgb(128, 128, 128); /* 文字色 */
 }

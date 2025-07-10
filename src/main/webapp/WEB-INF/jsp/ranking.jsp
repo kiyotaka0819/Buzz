@@ -6,10 +6,11 @@
 <jsp:include page="header.jsp" />
 <meta charset="UTF-8">
 <title>バズ飯ランキング -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 <ul>
-<h2>バズミシュランのバズ飯ランキング</h2>
+<h2>👑バズミシュランのバズ飯ランキング👑</h2>
 <table border="1" style="width:600px"><tr bgcolor="gold">
 
 <th>第1位：一双</th><!--店名の部分をDBからソートして出力-->
@@ -41,10 +42,6 @@
 	</td>
 </tr>
 </table>
-
-<p><a href="MainMenuServlet">メインメニュー</a></p>
-<p><a href="MypageServlet">マイページ</a></p>
-<p><a href="LoginServlet">ログアウト</a></p>
 <jsp:include page="footer.jsp" />
 </body>
 </html>
