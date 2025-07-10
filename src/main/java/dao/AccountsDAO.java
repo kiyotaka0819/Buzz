@@ -10,19 +10,11 @@ import model.Login;
 import util.DBUtil;
 
 public class AccountsDAO {
-	//private final String JDBC_URL = "jdbc:postgresql://172.31.98.112:5432/buzz";
-    //private final String DB_USER = "postgres";
-    //private final String DB_PASS = "root";
-
+	//ログイン状態の確認
     public Account findByLogin(Login login) throws Exception {
         Account account = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-        }
-        try (Connection conn = DBUtil.getConnection() ){
-            String sql = "select user_id, pass, username, profile from users where user_id = ? and pass = ?";
+        try (Connection conn = DBUtil.getConnection()) {
+            String sql = "SELECT user_id, pass, username, profile FROM users WHERE user_id = ? AND pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
             pStmt.setString(2, login.getPass());
@@ -43,43 +35,51 @@ public class AccountsDAO {
         return account;
     }
     
-    public boolean createAccount(Account account) throws Exception {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-        }
-
+    //現在のユーザーIDの確認
+    public Account findByUserId(String userId) throws Exception {
+        Account account = null;
         try (Connection conn = DBUtil.getConnection()) {
-            // INSERT文を準備
-            String sql = "insert into users (user_id, pass, username, profile) values (?, ?, ?, ?)";
+            String sql = "SELECT user_id, pass, username, profile FROM users WHERE user_id = ?";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, userId);
+
+            ResultSet rs = pStmt.executeQuery();
+
+            if (rs.next()) {
+                String pass = rs.getString("pass");
+                String name = rs.getString("username");
+                String profile = rs.getString("profile");
+                account = new Account(userId, pass, name, profile);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return account;
+    }
+    
+    //ユーザー登録
+    public boolean createAccount(Account account) throws Exception {
+        try (Connection conn = DBUtil.getConnection()) {
+            String sql = "INSERT INTO users (user_id, pass, username, profile) VALUES (?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, account.getUserId());
             pStmt.setString(2, account.getPass());
             pStmt.setString(3, account.getName());
             pStmt.setString(4, account.getProfile());
 
-            // INSERT文を実行
             int result = pStmt.executeUpdate();
-
-            // 1行以上挿入されたら成功
             return result == 1;
-
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
     
+    //ユーザーIDの重複確認
     public boolean userIdSearch(String userId) throws Exception {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("JDBCドライバを読み込めませんでした");
-        }
-
         try (Connection conn = DBUtil.getConnection()) {
-            String sql = "select count(*) from users where user_id = ?";
+            String sql = "SELECT COUNT(*) FROM users WHERE user_id = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, userId);
 
@@ -91,5 +91,33 @@ public class AccountsDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    //ユーザー情報編集
+    public boolean editProfile(Account account) throws Exception {
+        try (Connection conn = DBUtil.getConnection()) {
+            String sql;
+            PreparedStatement p;
+
+            if (account.getPass() == null || account.getPass().isEmpty()) {
+                sql = "UPDATE users SET username = ?, profile = ? WHERE user_id = ?";
+                p = conn.prepareStatement(sql);
+                p.setString(1, account.getName());
+                p.setString(2, account.getProfile());
+                p.setString(3, account.getUserId());
+            } else {
+                sql = "UPDATE users SET pass = ?, username = ?, profile = ? WHERE user_id = ?";
+                p = conn.prepareStatement(sql);
+                p.setString(1, account.getPass());
+                p.setString(2, account.getName());
+                p.setString(3, account.getProfile());
+                p.setString(4, account.getUserId());
+            }
+
+            return p.executeUpdate() == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

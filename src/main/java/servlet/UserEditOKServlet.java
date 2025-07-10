@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,17 +10,69 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import dao.AccountsDAO;
+import model.Account;
 
 @WebServlet("/UserEditOKServlet")
 public class UserEditOKServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEditOK.jsp");
-		dispatcher.forward(request, response);
-	}
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+        HttpSession session = req.getSession(false);
+        String userId = (session != null) ? (String) session.getAttribute("userId") : null;
+        String action = req.getParameter("action");
+
+        if (userId == null || !"confirm".equals(action)) {
+            res.sendRedirect("UserEditServlet");
+            return;
+        }
+
+        String name = (String) session.getAttribute("editName");
+        String profile = (String) session.getAttribute("editProfile");
+        String pass = (String) session.getAttribute("editPass");
+
+        if (name == null) {
+            res.sendRedirect("UserEditServlet");
+            return;
+        }
+
+        // パスワードが空欄なら変更なし → null を渡す
+        if (pass == null || pass.isEmpty()) {
+            pass = null;
+        }
+
+        Account account = new Account(userId, pass, name, profile);
+
+        boolean updated = false;
+        try {
+            AccountsDAO dao = new AccountsDAO();
+            updated = dao.editProfile(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (updated) {
+            // 更新成功後、編集セッション情報を削除
+            session.removeAttribute("editName");
+            session.removeAttribute("editProfile");
+            session.removeAttribute("editPass");
+            session.setAttribute("profile", profile); // 最新プロフィールをセッションにも反映
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditOK.jsp");
+            dispatcher.forward(req, res);
+        } else {
+            List<String> errorMsgs = new ArrayList<>();
+            errorMsgs.add("プロフィールの更新中にエラーが発生しました。");
+            req.setAttribute("errorMsgs", errorMsgs);
+            req.setAttribute("name", name);
+            req.setAttribute("profile", profile);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
+            dispatcher.forward(req, res);
+        }
+    }
 }

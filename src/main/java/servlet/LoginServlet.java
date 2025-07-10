@@ -30,7 +30,13 @@ public class LoginServlet extends HttpServlet {
 		//ログイン処理の実行
 		Login login = new Login(userId, pass);
 		LoginLogic bo = new LoginLogic();
-		boolean result = bo.execute(login);
+		boolean result = false;
+		try {
+			result = bo.execute(login);
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		
 		//ログイン処理の成否によって処理を分岐
 		if(result) { //ログイン成功時

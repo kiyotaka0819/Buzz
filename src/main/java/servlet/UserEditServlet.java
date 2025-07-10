@@ -12,44 +12,41 @@ import jakarta.servlet.http.HttpSession;
 
 import dao.AccountsDAO;
 import model.Account;
-import model.Login;
 
 @WebServlet("/UserEditServlet")
 public class UserEditServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Login login = (Login) session.getAttribute("loginUser");
+    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        String userId = (session != null) ? (String) session.getAttribute("userId") : null;
 
-		String userId = "";
-		String pass = ""; // 通常、パスワードは表示しないか、別途処理します
-		String userName = "";
-		String profile = "";
+        if (userId == null) {
+            res.sendRedirect("LoginServlet");
+            return;
+        }
 
-		if (login != null) {
-			AccountsDAO accountsDAO = new AccountsDAO();
-			Account userAccount = accountsDAO.findByLogin(login);
+        try {
+            AccountsDAO dao = new AccountsDAO();
+            Account account = dao.findByUserId(userId);
 
-			if (userAccount != null) {
-				userId = userAccount.getUserId();
-				pass = userAccount.getPass(); // パスワードを表示する場合はここに設定
-				userName = userAccount.getName();
-				profile = userAccount.getProfile();
-			}
-		}
+            if (account == null) {
+                res.sendRedirect("LoginServlet");
+                return;
+            }
 
-		// JSPに渡すデータをリクエストスコープに個別に設定
-		request.setAttribute("userId", userId);
-		request.setAttribute("pass", pass);
-		request.setAttribute("userName", userName);
-		request.setAttribute("profile", profile);
+            req.setAttribute("userId", account.getUserId());
+            req.setAttribute("pass",)
+            req.setAttribute("name", account.getName());
+            req.setAttribute("profile", account.getProfile());
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
-		dispatcher.forward(request, response);
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("errorMsgs", java.util.List.of("プロフィールの取得中にエラーが発生しました。"));
+        }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
+        dispatcher.forward(req, res);
+    }
 }
