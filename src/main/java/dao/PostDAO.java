@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,21 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.PostInfo;
+import util.DBUtil;
 
 public class PostDAO {
 	//データベース接続に使用する情報
-		private final String JDBC_URL = "jdbc:postgresql://localhost:5432/buzz";
-		private final String DB_USER = "postgres";
-		private final String DB_PASS = "root";
+		
 		private  Connection conn = null;
 	
-	public PostDAO() {
+	public PostDAO()  {
 		//JDBCドライバーを読み込む
 		try {
 			Class.forName("org.postgresql.Driver");
 			//データベース接続
-			 conn = DriverManager.getConnection(JDBC_URL,DB_USER,DB_PASS);
-		}catch(ClassNotFoundException  | SQLException e) {
+			 conn = DBUtil.getConnection();
+		}catch(Exception  e) {
 			throw new IllegalStateException("JDBCドライバーを読み込めませんでした");
 		}
 	}
@@ -33,7 +31,7 @@ public class PostDAO {
 	public boolean postInsert(PostInfo postInfo) {
 		//sql文の準備
 		String sql = 
-				"INSERT INTO posts (user_id,comment, picture, shop, postTime) " +
+				"INSERT INTO posts (user_id,comment, pictures, shop, postTime) " +
 		                 "VALUES (?, ?, ?, ?,NOW())";
 		
 		try (PreparedStatement stmt = conn.prepareStatement(sql);){
@@ -59,7 +57,7 @@ public class PostDAO {
 		
 		if(updatePicture) {
 			//画像の変更がある場合
-			sql = "UPDATE posts SET  comment = ?, picture = ?,shop = ?, postTime =NOW() WHERE post_id = ?";
+			sql = "UPDATE posts SET  comment = ?, pictures = ?,shop = ?, postTime =NOW() WHERE post_id = ?";
 		}else {
 			//画像が貼り付けられてないとき
 			sql = "UPDATE posts SET  comment = ?, shop = ?, postTime =NOW() WHERE post_id = ?";
@@ -106,7 +104,7 @@ public class PostDAO {
 	//指定されたIDのつぶやきを1件だけ取得する
 	public PostInfo findById(int postId) {
 	    PostInfo postInfo = null;
-	    String sql = "SELECT post_id, user_id, comment, picture, shop, postTime FROM posts WHERE post_id = ?";
+	    String sql = "SELECT post_id, user_id, comment, pictures, shop, postTime FROM posts WHERE post_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -117,7 +115,7 @@ public class PostDAO {
 	                int id = rs.getInt("post_id");
 	                String userId = rs.getString("user_id");
 	                String comment = rs.getString("comment");
-	                byte[] pic = rs.getBytes("picture");
+	                byte[] pic = rs.getBytes("pictures");
 	                String shop = rs.getString("shop");
 	                Timestamp postTime = rs.getTimestamp("postTime");
 
@@ -136,7 +134,7 @@ public class PostDAO {
 		
 		
 			//select文の準備
-			String sql = "select post_id, user_id,comment,picture,shop,postTime from posts order by postTime desc";
+			String sql = "select post_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行
@@ -147,7 +145,7 @@ public class PostDAO {
 				int postId = rs.getInt("post_id");
 				String userId = rs.getString("user_id");
 				String comment = rs.getString("comment");
-				byte[] pic = rs.getBytes("picture");
+				byte[] pic = rs.getBytes("pictures");
 				String shop = rs.getString("shop");
 				Timestamp postTime = rs.getTimestamp("postTime");
 				

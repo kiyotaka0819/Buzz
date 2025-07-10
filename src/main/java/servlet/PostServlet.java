@@ -52,12 +52,13 @@ public class PostServlet extends HttpServlet {
 	    // 投稿処理（フォームからの入力を処理）
 	    HttpSession session = request.getSession();
 	    String shopName = (String) session.getAttribute("selectedShopForPost");
-	    String userId = "takahashi"; // 本来はセッションから取得
+	    String userId = "1234"; // 本来はセッションから取得
+	    //(String) session.getAttribute("userId"); 
 
 	    String comment = request.getParameter("comment");
 	    byte[] pictureBytes = null;
 
-	    var part = request.getPart("picture");
+	    var part = request.getPart("pictures");
 	    if (part != null && part.getSize() > 0) {
 	        pictureBytes = part.getInputStream().readAllBytes();
 	    }
@@ -67,12 +68,13 @@ public class PostServlet extends HttpServlet {
 	    boolean result = dao.postInsert(post);
 
 	    if (result) {
-	        response.sendRedirect("MainServlet");
+	        response.sendRedirect("MainMenuServlet");
 	    } else {
 	        request.setAttribute("error", "投稿に失敗しました。");
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/post.jsp");
 	        dispatcher.forward(request, response);
 	    }
+	    session.removeAttribute("selectedShopForPost");
 	
 
 		 

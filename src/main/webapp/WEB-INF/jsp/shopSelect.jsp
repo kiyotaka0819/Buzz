@@ -55,6 +55,12 @@
 					<input type="hidden" name="shopName"
 						value="<%= shop.getShopName() %>">
 					<button type="submit">選択</button>
+					</form>
+				<form action= "<%=request.getContextPath() %>/ShopEditServlet"
+					meshod="get">
+					<input type="hidden" name="shopNameForEdit"
+						value="<%= shop.getShopName() %>">
+					<button type="submit">編集</button>
 				</form>
 			</td>
 		</tr>
@@ -76,12 +82,14 @@
 		method="post">
 		<label for="newShopNameInput">新規店舗名:</label> <input type="text"
 			id="newShopNameInput" name="newShopName" placeholder="新規店舗名入力"
-			required><br> <label for="newShopAddressInput">店舗の住所:</label>
+			required><br>
+			<label for="newShopAddressInput">店舗の住所:</label>
 		<input type="text" id="newShopAddressInput" name="newShopAddress"
-			placeholder="店舗の住所を入力" required><br> <label
-			for="newShopURLInput">店舗のURL:</label> <input type="text"
-			id="newShopURLInput" name="newShopURL" placeholder="店舗のURLを入力"
-			required><br> <label for="newShopTelInput">店舗の電話番号:</label>
+			placeholder="店舗の住所を入力" required><br>
+			<label for="newShopURLInput">店舗のURL:</label>
+			<input type="text" id="newShopURLInput" 
+			name="newShopURL" placeholder="店舗のURLを入力"required><br> 
+			<label for="newShopTelInput">店舗の電話番号:</label>
 		<input type="text" id="newShopTelInput" name="newShopTEL"
 			placeholder="店舗の電話番号を入力" required><br>
 

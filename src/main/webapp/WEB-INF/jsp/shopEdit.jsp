@@ -31,7 +31,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="shopURL">URL</label> <input type="text" id="url" name="url"
+			<label for="shopURL">URL</label> <input type="text" id="url" name="shopURL"
 			placeholder="店舗のURLを入力"
 			value="<% 
 				if(shopDetail != null) {
@@ -39,13 +39,18 @@
 				} %>">
 		</div>
 		<div class="form-group">
-			<label for="shopTEL">電話番号</label> <input type="text" id="tel" name="tel"
+			<label for="shopTEL">電話番号</label> <input type="text" id="tel" name="shopTEL"
 				placeholder="店舗の電話番号を入力"
 				value="<% 
 				if(shopDetail != null) {
 					out.print(shopDetail.getShopTEL()); 
 				} %>">
 		</div>
+
+		<% if (shopDetail != null) { %>
+		<input type="hidden" name="originalShopName"
+			value="<%=shopDetail.getShopName()%>">
+		<% } %>
 
 		<button type="submit">登録</button>
 	</form>
