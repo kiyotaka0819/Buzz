@@ -15,14 +15,14 @@ public class AccountsDAO {
     private final String DB_USER = "postgres";
     private final String DB_PASS = "root";
 
-    public Account findByLogin(Login login) {
+    public Account findByLogin(Login login) throws Exception {
         Account account = null;
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCドライバを読み込めませんでした");
         }
-        try (Connection conn = DBUtil.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+        try (Connection conn = DBUtil.getConnection() ){
             String sql = "select user_id, pass, username, profile from users where user_id = ? and pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, login.getUserId());
