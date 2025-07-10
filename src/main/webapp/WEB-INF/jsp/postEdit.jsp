@@ -17,6 +17,7 @@ if (selectedShopFromSession != null) {
 <title>つぶやき編集 -バズミシュラン</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <h2>つぶやき編集</h2>
 
 <form action="${pageContext.request.contextPath}/PostEditServlet" method="post" enctype="multipart/form-data">
@@ -58,5 +59,6 @@ if (selectedShopFromSession != null) {
     <button type="submit">更新</button>
   </form>
 <a href="MypageServlet">キャンセル</a>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

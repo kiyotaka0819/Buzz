@@ -10,6 +10,7 @@
 <title>マイページ -バズミシュラン</title>
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <ul>
 <h2>ユーザー情報</h2>
 <p>ユーザーID：${user.userId}</p>
@@ -55,5 +56,6 @@
 <li><a href="MainMenuServlet">メインメニュー</a></li>
 <li><a href="TopServlet">ログアウト</a></li>
 </ul>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

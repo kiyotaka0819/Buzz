@@ -18,7 +18,7 @@ if (selectedShopFromSession != null) {
 <title>投稿ページ -バズミシュラン</title>
 </head>
 <body>
-
+<jsp:include page="header.jsp" />
 <!-- ユーザーID -->
   ${user_id}<br>
 	<%
@@ -56,5 +56,6 @@ if (selectedShopFromSession != null) {
 <input id="pictures" type="file" name="pictures"><br>
 <button type="submit">つぶやく</button>
 </form>
+<jsp:include page="footer.jsp" />
 </body>
 </html>
