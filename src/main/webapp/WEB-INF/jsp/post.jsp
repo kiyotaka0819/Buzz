@@ -4,9 +4,12 @@
 String selectedShopFromSession = (String) session.getAttribute("selectedShopForPost");
 String shopNameValue = (selectedShopFromSession != null && !selectedShopFromSession.isEmpty()) ? selectedShopFromSession
 		: "";
+
+/*
 if (selectedShopFromSession != null) {
 	session.removeAttribute("selectedShopForPost");
 }
+*/
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +19,8 @@ if (selectedShopFromSession != null) {
 </head>
 <body>
 
-｛ユーザー名｝<br>
+<!-- ユーザーID -->
+  ${user_id}<br>
 	<%
 	if (shopNameValue != null && !shopNameValue.isEmpty()) {
 	%>
@@ -43,13 +47,13 @@ if (selectedShopFromSession != null) {
 	<option value="yakiniku">焼肉</option>
 </select></p>
 --%>
-<form action="PostServlet" method="post" enctype="multipart/form-data">
+<form action="<%=request.getContextPath()%>/PostServlet" method="post" enctype="multipart/form-data">
 <input type="hidden"
 			name="selectedShopForPost" value="<%=shopNameValue%>">
 コメント<br>
 <textarea name="comment" rows="4" cols="40"></textarea><br>
-<label for="picture">画像を添付する</label>
-<input id="picture" type="file" name="picture"><br>
+<label for="pictures">画像を添付する</label>
+<input id="pictures" type="file" name="pictures"><br>
 <button type="submit">つぶやく</button>
 </form>
 </body>
