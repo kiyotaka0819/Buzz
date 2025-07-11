@@ -1,0 +1,78 @@
+/* トップページ共通スタイル */
+body {
+    font-family: "メイリオ", Meiryo, sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* ヘッダーの一番上のリボン */
+.top-ribbon {
+	background-color: #ff9900;
+	color: white;
+	text-align: center;
+	padding: 5px 0;
+	font-size: 14px;
+	line-height: 1.5;
+	font-family: "メイリオ", Meiryo, sans-serif;
+}
+
+/* ヘッダー全体のFlexbox調整と要素間のスペース調整 */
+.header-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 20px;
+	flex-wrap: wrap;
+}
+
+/* ロゴ部分 */
+.logo {
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.logo img {
+    height: 80px;
+    width: auto;
+}
+
+/* 中央コンテンツ */
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #ff9900;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.button-link {
+    display: inline-block;
+    background-color: #ff9900;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #e68a00;
+}
