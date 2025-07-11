@@ -33,20 +33,16 @@ public class UserEditConfirmServlet extends HttpServlet {
         String pass = req.getParameter("pass");
         String name = req.getParameter("name");
         String profile = req.getParameter("profile");
+        String passPattern = "^[A-Za-z0-9!-/:-@\\[-`{-~]+$";
+        String regex = "^(?=.*[A-Za-z])(?=.*\\d).*$";
 
         List<String> errorMsgs = new ArrayList<>();
 
         // パスワードのチェック（空欄は「変更なし」として許容）
         if (pass != null && !pass.isEmpty()) {
-            if (pass.length() < 8) {
-                errorMsgs.add("パスワードは8文字以上で入力してください。");
+        	if (pass.length() < 8 || pass.length() > 40) {
+                errorMsgs.add("パスワードは8文字以上40文字以下で入力してください。");
             }
-            if (pass.length() > 40) {
-                errorMsgs.add("パスワードは40文字以下で入力してください。");
-            }
-            String passPattern = "^[A-Za-z0-9!-/:-@\\[-`{-~]+$";
-            String regex = "^(?=.*[A-Za-z])(?=.*\\d).*$";
-
             if (!Pattern.matches(passPattern, pass)) {
                 errorMsgs.add("パスワードには半角英数字と一部の記号（!-/:-@[-`{-~など）のみ使用できます。");
             }
@@ -66,7 +62,7 @@ public class UserEditConfirmServlet extends HttpServlet {
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("errorMsgs", errorMsgs);
             req.setAttribute("userId", userId);
-            req.setAttribute("pass", errorMsgs);
+            req.setAttribute("pass", pass);
             req.setAttribute("name", name);
             req.setAttribute("profile", profile);
             RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
@@ -77,9 +73,9 @@ public class UserEditConfirmServlet extends HttpServlet {
         // Accountオブジェクトにまとめてセッションへ保存（確認・登録用）
         Account account = new Account(userId, pass, name, profile);
         session.setAttribute("editAccount", account);
-        session.setAttribute("editName", name);
-        session.setAttribute("editProfile", profile);
-        session.setAttribute("editPass", pass);
+        req.setAttribute("userId", account.userId());
+        req.setAttribute("name", account.name());
+        req.setAttribute("profile", account.profile());
 
         // 確認画面にフォワード
         RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditConfirm.jsp");

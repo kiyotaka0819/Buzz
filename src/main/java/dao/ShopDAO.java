@@ -168,4 +168,31 @@ public class ShopDAO {
 			ps.executeUpdate();
 		}
 	}
+	
+	// 検索から店舗検索用メソッド
+	
+	public List<ShopInfo> findByKeyword(String keyword)throws Exception {
+		List<ShopInfo> shopList = new ArrayList<>();
+		// LIKE句で部分検索
+		String sql = "SELECT shopName, shopURL, shopAddress, shopTEL FROM shops WHERE shopName LIKE ? ORDER BY shopName";
+
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, "%" + keyword + "%");
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					String shopName = rs.getString("shopName");
+					String shopURL = rs.getString("shopURL");
+					String shopAddress = rs.getString("shopAddress");
+					String shopTEL = rs.getString("shopTEL");
+					// recordのコンストラクタでインスタンスを生成
+					ShopInfo shopInfo = new ShopInfo(shopName, shopURL, shopAddress, shopTEL);
+					shopList.add(shopInfo);
+				}
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return shopList;
+	}
 }

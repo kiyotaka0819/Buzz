@@ -16,8 +16,8 @@ public class AccountsDAO {
         try (Connection conn = DBUtil.getConnection()) {
             String sql = "SELECT user_id, pass, username, profile FROM users WHERE user_id = ? AND pass = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, login.getUserId());
-            pStmt.setString(2, login.getPass());
+            pStmt.setString(1, login.userId());
+            pStmt.setString(2, login.pass());
             
             ResultSet rs = pStmt.executeQuery();
 
@@ -63,10 +63,10 @@ public class AccountsDAO {
         try (Connection conn = DBUtil.getConnection()) {
             String sql = "INSERT INTO users (user_id, pass, username, profile) VALUES (?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, account.getUserId());
-            pStmt.setString(2, account.getPass());
-            pStmt.setString(3, account.getName());
-            pStmt.setString(4, account.getProfile());
+            pStmt.setString(1, account.userId());
+            pStmt.setString(2, account.pass());
+            pStmt.setString(3, account.name());
+            pStmt.setString(4, account.profile());
 
             int result = pStmt.executeUpdate();
             return result == 1;
@@ -99,19 +99,19 @@ public class AccountsDAO {
             String sql;
             PreparedStatement p;
 
-            if (account.getPass() == null || account.getPass().isEmpty()) {
+            if (account.pass() == null || account.pass().isEmpty()) {
                 sql = "UPDATE users SET username = ?, profile = ? WHERE user_id = ?";
                 p = conn.prepareStatement(sql);
-                p.setString(1, account.getName());
-                p.setString(2, account.getProfile());
-                p.setString(3, account.getUserId());
+                p.setString(1, account.name());
+                p.setString(2, account.profile());
+                p.setString(3, account.userId());
             } else {
                 sql = "UPDATE users SET pass = ?, username = ?, profile = ? WHERE user_id = ?";
                 p = conn.prepareStatement(sql);
-                p.setString(1, account.getPass());
-                p.setString(2, account.getName());
-                p.setString(3, account.getProfile());
-                p.setString(4, account.getUserId());
+                p.setString(1, account.pass());
+                p.setString(2, account.name());
+                p.setString(3, account.profile());
+                p.setString(4, account.userId());
             }
 
             return p.executeUpdate() == 1;

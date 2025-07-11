@@ -33,10 +33,10 @@ public class UserEditServlet extends HttpServlet {
 
             if (editAccount != null) {
                 // セッションから編集情報を取り出して画面にセット
-                req.setAttribute("userId", editAccount.getUserId());
-                req.setAttribute("name", editAccount.getName());
-                req.setAttribute("profile", editAccount.getProfile());
-                req.setAttribute("pass", editAccount.getPass()); // パスワードは空かもしれません
+                req.setAttribute("userId", editAccount.userId());
+                req.setAttribute("name", editAccount.name());
+                req.setAttribute("profile", editAccount.profile());
+                req.setAttribute("pass", editAccount.pass()); // パスワードは空かもしれません
 
                 // セッションから編集情報は削除（戻る時のみ使いたいので）
                 session.removeAttribute("editAccount");
@@ -50,10 +50,10 @@ public class UserEditServlet extends HttpServlet {
                     return;
                 }
 
-            req.setAttribute("userId", account.getUserId());
+            req.setAttribute("userId", account.userId());
             req.setAttribute("pass","");
-            req.setAttribute("name", account.getName());
-            req.setAttribute("profile", account.getProfile());
+            req.setAttribute("name", account.name());
+            req.setAttribute("profile", account.profile());
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
 <table>
     <tr>
         <th>ユーザーID:</th>
-        <td><c:out value="${sessionScope.editAccount.userId}" /></td>
+        <td><c:out value="${userId}" /></td>
     </tr>
     <tr>
         <th>パスワード:</th>
@@ -22,11 +22,11 @@ pageEncoding="UTF-8"%>
     </tr>
     <tr>
         <th>ユーザー名:</th>
-        <td><c:out value="${sessionScope.editAccount.name}" /></td>
+        <td><c:out value="${name}" /></td>
     </tr>
     <tr>
         <th>プロフィール:</th>
-        <td><c:out value="${sessionScope.editAccount.profile}" /></td>
+        <td><c:out value="${profile}" /></td>
     </tr>
 </table>
 
