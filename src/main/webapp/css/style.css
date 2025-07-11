@@ -86,7 +86,7 @@
 footer { 
 	background-color: rgb(238, 238, 238); /* 背景色：白に設定 */
 	color: rgb(0, 0, 0); /* 文字色：黒に設定 */
-	padding: 30px 50px; /* 上下左右に余白を設定 */
+	padding: 10px 50px; /* 上下左右に余白を設定 */
 	text-align: center; /* テキストを中央に配置 */
 	font-size: 0.9em; /* フォントサイズを相対的に小さく設定 */
 	border-top: 2px solid rgb(128, 128, 128); /* 上側のボーダーラインを設定 */
