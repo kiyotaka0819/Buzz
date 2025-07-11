@@ -21,10 +21,10 @@
 
 <h2>ユーザー情報</h2>
 
-<p>ユーザーID：<%= user.getUserId() %></p>
+<p>ユーザーID：<%= user.userId %></p>
 <p>パスワード：*****</p>
-<p>ユーザー名：<%= user.getName()%></p>
-<p>プロフィール：<%= user.getProfile()%></p>
+<p>ユーザー名：<%= user.name%></p>
+<p>プロフィール：<%= user.profile%></p>
 <a href="UserEditServlet">プロフィールを編集</a>
 <hr>
 
