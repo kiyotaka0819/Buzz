@@ -53,11 +53,7 @@ public class ShopEditServlet extends HttpServlet {
 		String newShopTEL = request.getParameter("shopTEL"); // 編集された電話番号
 
 		// 取得した値をセット
-		ShopInfo shopInfo = new ShopInfo();
-		shopInfo.setShopName(newShopName);
-		shopInfo.setShopAddress(newShopAddress);
-		shopInfo.setShopURL(newShopURL);
-		shopInfo.setShopTEL(newShopTEL);
+		ShopInfo shopInfo = new ShopInfo(newShopName, newShopURL, newShopAddress, newShopTEL);
 
 		ShopDAO shopDAO = new ShopDAO();
 		boolean isSuccess = false;

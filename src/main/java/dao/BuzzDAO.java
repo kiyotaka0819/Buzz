@@ -16,10 +16,8 @@ public class BuzzDAO {
 			private  Connection conn = null;
 		
 	public BuzzDAO() throws Exception {
-		//JDBCドライバーを読み込む
-		try {
-			Class.forName("org.postgresql.Driver");
-			//データベース接続
+		
+		try {//データベース接続
 			 conn = DBUtil.getConnection();
 		}catch(ClassNotFoundException  | SQLException e) {
 			throw new IllegalStateException("JDBCドライバーを読み込めませんでした");

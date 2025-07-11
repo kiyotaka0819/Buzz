@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import dao.ShopDAO;
-import model.ShopInfo3;
+import model.ShopInfo;
 
 @WebServlet("/ShopInfoPageServlet")
 public class ShopInfoPageServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class ShopInfoPageServlet extends HttpServlet {
 		// リクエストパラメータでリンク元の店舗名を取得する。
 		String shopName = request.getParameter("shopName");
 		// 取得した店舗名を保管しておく変数
-		ShopInfo3 shopInfo = null;
+		ShopInfo shopInfo = null;
 		ShopDAO shopDAO = new ShopDAO();
 		
 		// 取得した店舗名から情報をDAOより取得する
@@ -39,7 +39,7 @@ public class ShopInfoPageServlet extends HttpServlet {
 
 		if (shopInfo != null) {
 			// 取得した店舗情報をJSPに渡す
-			request.setAttribute("shopDetail", shopInfo); // ここでshopDetailという名前でShopInfoオブジェクトを渡してる！
+			request.setAttribute("shopDetail", shopInfo);
 		} else {
 			// shopInfoがnullの場合（DBで見つからなかった場合など）
 			request.setAttribute("errorMessage", "指定された店舗は見つかりませんでした。");

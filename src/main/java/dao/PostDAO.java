@@ -19,7 +19,6 @@ public class PostDAO {
 	public PostDAO()  {
 		//JDBCドライバーを読み込む
 		try {
-			Class.forName("org.postgresql.Driver");
 			//データベース接続
 			 conn = DBUtil.getConnection();
 		}catch(Exception  e) {
@@ -199,7 +198,35 @@ public class PostDAO {
 	    return null;
 	}
 	
-	
+	// 検索からポストを引用するメソッド
+	public List<PostInfo> findByKeyword(String keyword) {
+		List<PostInfo> postList = new ArrayList<>();
+		// SQLはコメントと店舗名の両方を部分一致検索する
+		// ORでどちらかの条件に合致すれば検索一致扱い
+		String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE comment LIKE ? OR shop LIKE ? ORDER BY postTime DESC";
+
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			// 部分一致検索にする
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
+
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					int postId = rs.getInt("posts_id");
+					String userId = rs.getString("user_id");
+					String comment = rs.getString("comment");
+					byte[] pic = rs.getBytes("pictures");
+					String shop = rs.getString("shop");
+					Timestamp postTime = rs.getTimestamp("postTime");
+					PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime);
+					postList.add(post);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return postList;
+	}
 	
 	
 	
