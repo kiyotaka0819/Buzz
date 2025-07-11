@@ -16,6 +16,7 @@ if (selectedShopFromSession != null) {
 <head>
 <meta charset="UTF-8">
 <title>投稿ページ -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />

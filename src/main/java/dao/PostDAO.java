@@ -19,7 +19,6 @@ public class PostDAO {
 	public PostDAO()  {
 		//JDBCドライバーを読み込む
 		try {
-			Class.forName("org.postgresql.Driver");
 			//データベース接続
 			 conn = DBUtil.getConnection();
 		}catch(Exception  e) {
