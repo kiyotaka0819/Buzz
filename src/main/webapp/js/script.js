@@ -1,6 +1,9 @@
+//*************ハンバーガーメニュー********************/
+
 // ハンバーガーアイコンとメニュー本体の要素を取得
 const hamburgerIcon = document.querySelector('.hamburger-icon');
 const navLinks = document.querySelector('.nav-links');
+const closeIcon = document.querySelector('.close-icon');
 
 // アイコンをクリックしたときの処理を設定
 hamburgerIcon.addEventListener('click', () => {
@@ -10,57 +13,11 @@ hamburgerIcon.addEventListener('click', () => {
     navLinks.classList.toggle('active');
 });
 
-/*
-const loadingAreaGrey = document.querySelector('#loading');
-const loadingAreaGreen = document.querySelector('#loading-screen');
-const loadingAreaText = document.querySelector('#loading p');
-window.addEventListener('load',() => {
-	// ローディング中グレースクリーン
-	loadingAreaGrey.animate(
-		{
-		opacity: [1,0],
-		visibility:'hidden',
-		},
-	{
-		duration: 2000,
-		delay: 1200,
-		easing:'ease',
-		fill: 'forwards',
-			}		
-	);
-
-// ローディング中(薄緑スクリーン）
-	
-	loadingAreaGreen.animate(
-		{
-			translae: ['0 100vh','0 0', '0 -100vh']
-		},
-		{duration: 2000,
-		delay: 1200,
-		easing:'ease',
-		fill: 'forwards',
-		}
-	);
-	
-	// ローディング中テキスト
-	loadingAreaText.animate(
-		[
-			{
-				opacity: 1,
-				offset: .8 //80%
-				},
-				{
-					opacity:0,
-					offset: 1 //100%
-				},
-			],
-		{
-			duration: 2000,
-			delay: 1200,
-			easing:'ease',
-			fill: 'forwards',
-			}
-		);
-	});
-	
-	*/
+// 閉じるアイコンをクリックしたときの処理を設定
+closeIcon.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    // ハンバーガーアイコンの"active"クラスを外す
+    hamburgerIcon.classList.remove('active');
+    // メニュー本体の"active"クラスを外す
+    navLinks.classList.remove('active');
+});

@@ -63,16 +63,16 @@ public class ShopSelectServlet extends HttpServlet {
 		String messageToDisplay = "";
 		
 		// 各種入力値のバリデーション (空文字チェック、隙間埋め)
-		if (newShopName == null || newShopName.trim().isEmpty() ||
-				newShopAddress == null || newShopAddress.trim().isEmpty() ||
-				newShopURL == null || newShopURL.trim().isEmpty() ||
-				newShopTEL == null || newShopTEL.trim().isEmpty()) {
-
-			messageToDisplay = "全ての店舗情報を入力してください。";
+		if (newShopName == null || newShopName.trim().isEmpty()) {
+			messageToDisplay = "店舗名を入力してください。";
 			hasError = true;
 		} 
 
 		if (!hasError) { // エラーがない場合のみ登録処理を実行
+			// もしも店舗名以外が空白の場合はnullを入れる
+			newShopAddress = (newShopAddress != null && newShopAddress.trim().isEmpty()) ? null : newShopAddress;
+			newShopURL = (newShopURL != null && newShopURL.trim().isEmpty()) ? null : newShopURL;
+			newShopTEL = (newShopTEL != null && newShopTEL.trim().isEmpty()) ? null : newShopTEL;
 			ShopInfo newShop = new ShopInfo(newShopName, newShopURL, newShopAddress, newShopTEL);
 			ShopDAO shopDAO = new ShopDAO();
 

@@ -52,8 +52,7 @@ public class PostServlet extends HttpServlet {
 	    // 投稿処理（フォームからの入力を処理）
 	    HttpSession session = request.getSession();
 	    String shopName = (String) session.getAttribute("selectedShopForPost");
-	    String userId = "1234"; // 本来はセッションから取得
-	    //(String) session.getAttribute("userId"); 
+	    String userId = (String) session.getAttribute("userId"); 
 
 	    String comment = request.getParameter("comment");
 	    byte[] pictureBytes = null;

@@ -196,6 +196,7 @@ footer {
     right: 0;                  /* 画面の一番右 */
     width: 250px;              /* メニューの幅 */
     height: 100vh;             /* メニューの高さ */
+	border-radius: 10px; /* 角を丸くする */
     background-color: white;   /* 背景色 */
     box-shadow: -2px 0 5px rgba(0,0,0,0.5); /* 左側に影 */
     padding: 60px 20px;        /* 内側の余白 */
@@ -232,27 +233,3 @@ footer {
 .nav-links a:hover {
     color: #ff9900;          /* マウスを乗せたときの文字色 */
 }
-
-
-/* ***************************メインページ**************************** */
-/*
-#loading{
-	background-color:var(--light-grey);
-	position: fixed;
-	inset: 0;
-	z-index: 9999;
-	display: grid;
-	place-items: center;
-}
-#loading-screen{
-	background-color: var(--light-green);
-	position: fixed;
-	inset: 0;
-	z-index: 9998;
-	translate: 0 100vh;
-}
-#loading p{
-	font-size: 2rem;
-	font-family: var(--oswald-font);
-}
-_*/

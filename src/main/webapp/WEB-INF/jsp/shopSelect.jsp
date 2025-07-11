@@ -7,8 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>店舗検索結果 -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 	<ul>
 		<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 			method="get">
@@ -46,10 +48,17 @@
 			<td><a href="/Buzz/ShopInfoPageServlet?shopName=<%=shop.shopName()%>">
 					<%=shop.shopName()%>
 			</a></td>
-			<td><a href="<%=shop.shopURL()%>" target="_blank"><%=shop.shopURL()%></a></td>
-			<td><%=shop.shopAddress()%></td>
-			<td><%=shop.shopTEL()%></td>
-			<td>
+			<td><% if (shop.shopURL() != null) { %>
+				<a href="<%=shop.shopURL()%>" target="_blank">
+				<%=shop.shopURL()%>
+				</a>
+				<% } else { %>
+					登録なし
+				<% } %>
+			</td>
+			<td><%= shop.shopAddress() != null ? shop.shopAddress() : "登録なし" %></td>
+			<td><%= shop.shopTEL() != null ? shop.shopTEL() : "登録なし" %></td>
+				<td>
 				<form action="<%=request.getContextPath()%>/PostServlet"
 					method="post">
 					<input type="hidden" name="shopName"
@@ -85,18 +94,17 @@
 			required><br>
 			<label for="newShopAddressInput">店舗の住所:</label>
 		<input type="text" id="newShopAddressInput" name="newShopAddress"
-			placeholder="店舗の住所を入力" required><br>
+			placeholder="店舗の住所を入力"><br>
 			<label for="newShopURLInput">店舗のURL:</label>
 			<input type="text" id="newShopURLInput" 
-			name="newShopURL" placeholder="店舗のURLを入力"required><br> 
+			name="newShopURL" placeholder="店舗のURLを入力"><br> 
 			<label for="newShopTelInput">店舗の電話番号:</label>
 		<input type="text" id="newShopTelInput" name="newShopTEL"
-			placeholder="店舗の電話番号を入力" required><br>
+			placeholder="店舗の電話番号を入力"><br>
 
 		<button type="submit">登録</button>
 	</form>
 	<br>
-
 	<% String errorMessage = (String) request.getAttribute("errorMessage"); %>
 	<% if (errorMessage != null && !errorMessage.isEmpty()) { %>
 	<p style="color: red;"><%=errorMessage%></p>
@@ -107,5 +115,6 @@
 	<% } %>
 
 	<jsp:include page="footer.jsp" />
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

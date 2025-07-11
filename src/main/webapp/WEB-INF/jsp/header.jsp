@@ -27,6 +27,7 @@
 					class="bar"></span>
 			</div>
 			<ul class="nav-links">
+				<li><a href="#" class="close-icon">×</a></li>
 				<li><a href="PostServlet">つぶやく</a></li>
 				<li><a href="MypageServlet">マイページ</a></li>
 				<li><a href="RankingServlet">ランキング</a></li>
