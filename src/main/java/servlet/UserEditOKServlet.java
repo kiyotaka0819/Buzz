@@ -41,9 +41,9 @@ public class UserEditOKServlet extends HttpServlet {
             return;
         }
 
-        String name = editAccount.getName();
-        String profile = editAccount.getProfile();
-        String pass = editAccount.getPass();
+        String name = editAccount.name();
+        String profile = editAccount.profile();
+        String pass = editAccount.pass();
 
         // パスワードが空欄なら変更なし → null を渡す
         if (pass == null || pass.isEmpty()) {

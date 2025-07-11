@@ -40,9 +40,9 @@ public class RegisterServlet extends HttpServlet {
             Account account = (Account) session.getAttribute("account");
 
             if (account != null) {
-                request.setAttribute("userId", account.getUserId());
-                request.setAttribute("name", account.getName());
-                request.setAttribute("profile", account.getProfile());
+                request.setAttribute("userId", account.userId());
+                request.setAttribute("name", account.name());
+                request.setAttribute("profile", account.profile());
             } else {
                 List<String> errorMsgs = new ArrayList<>();
                 errorMsgs.add("セッション情報が無効です。再度入力してください。");

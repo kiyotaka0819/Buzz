@@ -18,7 +18,7 @@
         </ul>
     </div>
 </c:if>
-<form action="RegisterServlet" method="post">
+<form action="RegisterConfirmServlet" method="post">
 	ユーザーID<br>
 	<input type="text" name="userId" value="${requestScope.userId}"><br>
 	パスワード<br>

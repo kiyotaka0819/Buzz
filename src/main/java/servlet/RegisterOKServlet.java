@@ -54,9 +54,9 @@ public class RegisterOKServlet extends HttpServlet {
                 errorMsgs.add("システムエラーが発生しました（アカウント作成）");
 
                 request.setAttribute("errorMsgs", errorMsgs);
-                request.setAttribute("userId", account.getUserId());
-                request.setAttribute("name", account.getName());
-                request.setAttribute("profile", account.getProfile());
+                request.setAttribute("userId", account.userId());
+                request.setAttribute("name", account.name());
+                request.setAttribute("profile", account.profile());
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
                 dispatcher.forward(request, response);
@@ -64,7 +64,7 @@ public class RegisterOKServlet extends HttpServlet {
             }
 
             if (result) {
-                session.setAttribute("userId", account.getUserId());
+                session.setAttribute("userId", account.userId());
                 session.removeAttribute("account");
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerOK.jsp");
@@ -74,9 +74,9 @@ public class RegisterOKServlet extends HttpServlet {
                 errorMsgs.add("登録処理中に予期せぬエラーが発生しました。");
 
                 request.setAttribute("errorMsgs", errorMsgs);
-                request.setAttribute("userId", account.getUserId());
-                request.setAttribute("name", account.getName());
-                request.setAttribute("profile", account.getProfile());
+                request.setAttribute("userId", account.userId());
+                request.setAttribute("name", account.name());
+                request.setAttribute("profile", account.profile());
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");
                 dispatcher.forward(request, response);

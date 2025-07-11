@@ -23,7 +23,6 @@ public class LogoutServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// POSTリクエストが来た場合もGETと同じ処理を行う
 		doGet(request, response);
 	}
 }
