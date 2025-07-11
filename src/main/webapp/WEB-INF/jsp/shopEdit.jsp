@@ -7,8 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>店舗情報編集 -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
+<jsp:include page="header.jsp" />
 <%
 ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 %>
@@ -24,14 +26,15 @@ ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 		</div>
 
 		<div class="form-group">
-			<label for="shopAddress">住所</label> 
-			<input type="text" name="shopAddress" placeholder="店舗の住所を入力"
-				value="<% 
-				if(shopDetail != null) {
-					out.print(shopDetail.shopAddress()); 
-				} %>">
+			<label for="shopAddress">住所</label> <input type="text"
+				name="shopAddress" placeholder="店舗の住所を入力"
+				value="<%if (shopDetail != null) {
+					out.print(shopDetail.shopAddress());
+				} else {
+					out.print(" ");
+				}%>">
 		</div>
-		
+
 		<div class="form-group">
 			<label for="shopURL">URL</label> <input type="text" id="url" name="shopURL"
 			placeholder="店舗のURLを入力"
@@ -57,6 +60,7 @@ ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 		<button type="submit">登録</button>
 	</form>
 	<li><a href="MainMenuServlet">メインメニューに戻る</a></li>
-	<%--CSSでform-groupをまとめて整えるように処理する予定 --%>
+<jsp:include page="footer.jsp" />
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>
