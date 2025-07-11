@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.PostInfo" %>
  <%
-
+String errorMessage = (String) request.getAttribute("errorMessage");
+PostInfo post = (PostInfo) request.getAttribute("post");
+Boolean hasPicture = (Boolean) request.getAttribute("hasPicture");
 String selectedShopFromSession = (String) session.getAttribute("selectedShopForPost");
 String shopNameValue = (selectedShopFromSession != null && !selectedShopFromSession.isEmpty()) ? selectedShopFromSession
 		: "";
@@ -21,23 +24,28 @@ if (selectedShopFromSession != null) {
 <jsp:include page="header.jsp" />
 <h2>つぶやき編集</h2>
 
-<form action="${pageContext.request.contextPath}/PostEditServlet" method="post" enctype="multipart/form-data">
+<%--投稿編集が失敗した場合のエラーメッセージ --%>
+<% if (errorMessage != null) { %>
+  <p style="color:red;"><%= errorMessage %></p>
+<% } %>
+
+<form action="<%= request.getContextPath() %>/PostEditServlet" method="post" enctype="multipart/form-data">
 
 <!-- つぶやきID -->
-  <input type="hidden" name="post_id" value="${post_id}"><br>
+  <input type="hidden" name="postId" value="<%= post.postId() %>"><br>
 
 <!-- 店舗名 -->
 <% if (post.shopName() != null && !post.shopName().isEmpty()) { %>
       <p>
-        選択店舗: <strong>${post.shopName}</strong>
-        <a href="${pageContext.request.contextPath}/PostServlet?clearShop=true">店舗名を変更する</a>
+        選択店舗: <strong><%= post.shopName() %></strong>
+        <a href="<%= request.getContextPath() %>/PostServlet?clearShop=true">店舗名を変更する</a>
       </p>
-      <input type="hidden" name="shop" value="${post.shopName}">
+      <input type="hidden" name="shop" value="<%= post.shopName() %>">
     <% } else { %>
       <p>
         店名<br>
         <input type="text" name="shop" value="">
-        <button type="submit" formaction="${pageContext.request.contextPath}/ShopSelectServlet">検索</button>
+        <button type="submit" formaction="<%= request.getContextPath() %>/ShopSelectServlet">検索</button>
       </p>
     <% } %>
 <%-- 
@@ -48,7 +56,7 @@ if (selectedShopFromSession != null) {
 </select></p>
 --%>
 コメント<br>
-    <textarea name="comment" rows="4" cols="40">${post.comment}</textarea><br>
+    <textarea name="comment" rows="4" cols="40"><%= post.comment() %></textarea><br>
 
     <label for="pictures">画像を添付する</label>
     <input id="pictures" type="file" name="pictures"><br>

@@ -56,10 +56,10 @@ public class PostDAO {
 		
 		if(updatePicture) {
 			//画像の変更がある場合
-			sql = "UPDATE posts SET  comment = ?, pictures = ?,shop = ?, postTime =NOW() WHERE post_id = ?";
+			sql = "UPDATE posts SET  comment = ?, pictures = ?,shop = ?, postTime =NOW() WHERE posts_id = ?";
 		}else {
 			//画像が貼り付けられてないとき
-			sql = "UPDATE posts SET  comment = ?, shop = ?, postTime =NOW() WHERE post_id = ?";
+			sql = "UPDATE posts SET  comment = ?, shop = ?, postTime =NOW() WHERE posts_id = ?";
 		}
 		
 		
@@ -103,7 +103,7 @@ public class PostDAO {
 	//指定されたIDのつぶやきを1件だけ取得する
 	public PostInfo findById(int postId) {
 	    PostInfo postInfo = null;
-	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE post_id = ?";
+	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE posts_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -134,7 +134,7 @@ public class PostDAO {
 		
 		
 			//select文の準備
-			String sql = "select post_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc";
+			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行

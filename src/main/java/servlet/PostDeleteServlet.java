@@ -48,7 +48,7 @@ public class PostDeleteServlet extends HttpServlet {
 			response.sendRedirect(redirect); // 削除出来たらマイページにもどる。
 		}else {
 			request.setAttribute("errorMessage", "削除に失敗しました。もう一度お試しください。");
-		    request.getRequestDispatcher("mypage.jsp").forward(request, response);
+		    request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp").forward(request, response);
 		}
 	}
 

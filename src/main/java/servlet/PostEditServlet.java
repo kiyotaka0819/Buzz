@@ -25,10 +25,12 @@ public class PostEditServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String loginUserId = (String) session.getAttribute("user_id");
+		String loginUserId = (String) session.getAttribute("userId");
 
 		// 投稿IDを受け取る
-		String postIdStr = "5";//request.getParameter("post_id");
+		String postIdStr = request.getParameter("postId");
+		//check
+		System.out.println("postsId = " + postIdStr);
 		if (postIdStr == null || postIdStr.isEmpty()) {
 			response.sendRedirect("MypageServlet"); // 不正アクセス防止
 			return;
@@ -40,12 +42,14 @@ public class PostEditServlet extends HttpServlet {
 		PostDAO dao = new PostDAO();
 		PostInfo post = dao.findById(postId);
 
-		// 投稿が存在しない、または自分の投稿でない場合はリダイレクト
-		if (post == null || !loginUserId.equals(post.userId())) {
+		//check
+				System.out.println("postsId = " + postIdStr);
+		// 自分の投稿でない場合はリダイレクト
+		if (!loginUserId.equals(post.userId()) &&loginUserId != null ) {
 			response.sendRedirect("MypageServlet");
 			return;
 		}
-
+		System.out.println("post内容 " + post);
 		// 投稿情報をリクエストスコープに保存
 		request.setAttribute("post", post);
 		request.setAttribute("hasPicture", post.pic() != null);
@@ -59,9 +63,19 @@ public class PostEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 	    HttpSession session = request.getSession();
+	   
 
 	    // 投稿ID（hiddenから送られてくる）
-	    int postId = Integer.parseInt(request.getParameter("posts_id"));
+	    String postIdStr = request.getParameter("postId");
+	    if (postIdStr == null || postIdStr.isEmpty()) {
+	        // 適切なエラーハンドリング（リダイレクトやエラーメッセージ表示など）
+	    	request.setAttribute("errorMessage", "つぶやきIDが指定されていません");
+		    request.getRequestDispatcher("/WEB-INF/jsp/postEdit.jsp").forward(request, response);
+		    return;
+	    }
+	    int postId = Integer.parseInt(postIdStr);
+	    //check
+	    System.out.println("doPostのpostId: " + postId);
 
 	    // コメントと店舗名
 	    String comment = request.getParameter("comment");
@@ -88,7 +102,7 @@ public class PostEditServlet extends HttpServlet {
 	    }
 
 	    // セッションから user_id を取得（ログイン済み前提）
-	    String userId = (String) session.getAttribute("user_id");
+	    String userId = (String) session.getAttribute("userId");
 
 	    // PostInfo オブジェクトに詰める
 	    PostInfo postInfo = new PostInfo(postId, userId, comment, pictureData, shopName, null); // postTime は不要
@@ -96,14 +110,20 @@ public class PostEditServlet extends HttpServlet {
 	    // DAOで更新
 	    PostDAO dao = new PostDAO();
 	    boolean result = dao.postEdit(postInfo, postId);
-
+	    //check
+	    System.out.println("postInfo:" + postInfo );
 	    if (result) {
 	        // 成功 → マイページにリダイレクト
 	        response.sendRedirect("MypageServlet");
 	    } else {
+	    	//check
+	    	System.out.println("更新失敗: postId = " + postId + ", userId = " + userId);
+	    	// 再度DBから投稿情報を取得（失敗しても少なくともnullでなくなる）
+	        PostInfo originalPost = dao.findById(postId);
 	        // 失敗 → エラーメッセージをセットして再表示
+	    	request.setAttribute("post", originalPost);
 	        request.setAttribute("errorMessage", "投稿の更新に失敗しました");
-	        request.getRequestDispatcher("/postEdit.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/jsp/postEdit.jsp").forward(request, response);
 	    }
 	}
 }
