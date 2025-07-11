@@ -15,6 +15,7 @@ if (selectedShopFromSession != null) {
 <head>
 <meta charset="UTF-8">
 <title>つぶやき編集 -バズミシュラン</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />

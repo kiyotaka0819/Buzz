@@ -25,7 +25,7 @@ public class PostEditServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String loginUserId = "1234";//(String) session.getAttribute("user_id");
+		String loginUserId = (String) session.getAttribute("user_id");
 
 		// 投稿IDを受け取る
 		String postIdStr = "5";//request.getParameter("post_id");

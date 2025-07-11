@@ -25,7 +25,7 @@ public class MypageServlet extends HttpServlet {
 		
 		// セッションからログイン中のユーザーIDを取得
         HttpSession session = request.getSession();
-        String userId = "1234";//(String) session.getAttribute("userId");
+        String userId = (String) session.getAttribute("userId");
 
         if (userId == null || userId.isEmpty()) {
             response.sendRedirect("login.jsp"); // 未ログインならログインページへ
