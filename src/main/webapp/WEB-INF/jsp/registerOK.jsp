@@ -8,6 +8,8 @@
 <title>ユーザー登録完了 -バズミシュラン</title>
 </head>
 <body>
+    <%-- ログイン前ヘッダー読み込み用 --%>
+    <jsp:include page="headerTop.jsp" />
     <p>ユーザーID：<c:out value="${sessionScope.userId}" />を登録しました</p>
 <a href="MainMenuServlet">メインメニューへ</a>
 </body>

@@ -7,6 +7,8 @@
 <title>ログイン -バズミシュラン</title>
 </head>
 <body>
+    <%-- ログイン前ヘッダー読み込み用 --%>
+    <jsp:include page="headerTop.jsp" />
 <form action="LoginServlet" method="post">
 	<% if(request.getAttribute("errorMsg") != null) { %>
 		<p style="color: red;"><%= request.getAttribute("errorMsg") %></p>

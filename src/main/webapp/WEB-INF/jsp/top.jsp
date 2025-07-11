@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 </head>
 <body>
+    <%-- ログイン前ヘッダー読み込み用 --%>
     <jsp:include page="headerTop.jsp" />
     <!-- メインコンテンツ -->
     <div class="container">

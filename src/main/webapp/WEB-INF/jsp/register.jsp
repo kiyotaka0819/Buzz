@@ -8,6 +8,8 @@
 <title>ユーザー登録 -バズミシュラン</title>
 </head>
 <body>
+    <%-- ログイン前ヘッダー読み込み用 --%>
+    <jsp:include page="headerTop.jsp" />
 <h1>ユーザー登録</h1>
 <c:if test="${not empty requestScope.errorMsgs}">
     <div style="color: red;">
