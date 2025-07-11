@@ -29,5 +29,6 @@
 </form>
 </ul>
 <jsp:include page="footer.jsp" />
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

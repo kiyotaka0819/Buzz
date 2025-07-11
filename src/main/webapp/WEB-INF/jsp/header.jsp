@@ -21,6 +21,16 @@
 				</button>
 			</form>
 		</div>
-		<nav></nav>
+		<nav class="hamburger-menu-container">
+			<div class="hamburger-icon">
+				<span class="bar"></span> <span class="bar"></span> <span
+					class="bar"></span>
+			</div>
+			<ul class="nav-links">
+				<li><a href="PostServlet">つぶやく</a></li>
+				<li><a href="MypageServlet">マイページ</a></li>
+				<li><a href="RankingServlet">ランキング</a></li>
+			</ul>
+		</nav>
 	</div>
 </header>

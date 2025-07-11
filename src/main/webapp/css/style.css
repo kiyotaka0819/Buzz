@@ -139,3 +139,120 @@ footer {
 	margin: 0; /* 外側の余白をゼロに設定 */
 	color: rgb(128, 128, 128); /* 文字色 */
 }
+
+/* ***************************ハンバーガーメニュー**************************** */
+/* メニュー全体の箱 */
+.hamburger-menu-container {
+    position: relative;        /* 子要素（.nav-links）を絶対位置で配置する基準にする */
+    display: flex;             /* 中のメニューを横並びにする */
+    justify-content: flex-end; /* 中のメニューを右端に寄せる */
+    align-items: center;       /* 中のメニューを垂直方向の真ん中に揃える */
+    cursor: pointer;           /* マウスのカーソルを指マーク */
+    z-index: 1000;             /* 他の要素より一番手前に表示させる */
+}
+
+/* ハンバーガーアイコンの箱 */
+.hamburger-icon {
+    display: block;            /* ブロック要素にする */
+    width: 30px;               /* 幅 */
+    height: 25px;              /* 高さ */
+    position: relative;        /* 中のバー（.bar）を絶対位置で配置 */
+    transition: transform 0.3s ease-in-out; /* 動きを滑らかにする */
+}
+
+/* ハンバーガーアイコンの線 */
+.bar {
+    display: block;            /* ブロック要素にする */
+    width: 100%;               /* 親要素（.hamburger-icon）と同じ幅にする */
+    height: 3px;               /* 高さ */
+    background-color: #333;    /* 色 */
+    position: absolute;        /* 親要素（.hamburger-icon）を基準に位置を決める */
+    left: 0;                   /* 左端 */
+    transition: all 0.3s ease-in-out; /* 動きを滑らかにする */
+}
+
+/* 1本目の線（一番上） */
+.bar:nth-child(1) {
+    top: 0; /* 親要素の箱の一番上にくっつける */
+}
+
+/* 2本目の線（真ん中） */
+.bar:nth-child(2) {
+    top: 50%;                 /* 親要素の箱の真ん中に持っていく */
+    transform: translateY(-50%); /* 上に半分ずらす */
+}
+
+/* 3本目の線（一番下） */
+.bar:nth-child(3) {
+    bottom: 0; /* 親要素の箱の一番下にくっつける */
+}
+
+/* メニューの項目を囲むリスト（ul） */
+.nav-links {
+    display: flex;             /* 中の要素を縦並び */
+    flex-direction: column;    /* 縦に並べる */
+    position: fixed;           /* 画面の決まった位置に固定 スクロールしても位置を保持 */
+    top: 0;                    /* 画面の一番上 */
+    right: 0;                  /* 画面の一番右 */
+    width: 250px;              /* メニューの幅 */
+    height: 100vh;             /* メニューの高さ */
+    background-color: white;   /* 背景色 */
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5); /* 左側に影 */
+    padding: 60px 20px;        /* 内側の余白 */
+    list-style: none;          /* リストの黒い点無し */
+    transform: translateX(100%); /* メニューを右側に自分の幅分ずらして、画面の外に隠す */
+    transition: transform 0.3s ease-in-out; /* 動きを滑らかにする */
+}
+
+/* JavaScriptでこのクラスを付けたり外したりする */
+.nav-links.active {
+    transform: translateX(0); /* 隠してたメニューを元の位置に戻す */
+}
+
+/* アクティブになった時のハンバーガーアイコンの変化 */
+.hamburger-icon.active .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg); /* 一番上の線を真ん中、45度回転させて斜めにする */
+}
+.hamburger-icon.active .bar:nth-child(2) {
+    opacity: 0; /* 真ん中の線を透明にして消す */
+}
+.hamburger-icon.active .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg); /* 一番下の線を真ん中、-45度回転させて斜めにする */
+}
+
+/* メニューの中にあるリンク */
+.nav-links a {
+    color: #333;             /* 文字色 */
+    text-decoration: none;   /* 下線を消す */
+    padding: 15px 0;         /* 上下余白 */
+    border-bottom: 1px solid #ddd; /* 下に薄い線を引く */
+    display: block;          /* リンク全体がクリックできるようにブロック要素にする */
+}
+
+.nav-links a:hover {
+    color: #ff9900;          /* マウスを乗せたときの文字色 */
+}
+
+
+/* ***************************メインページ**************************** */
+/*
+#loading{
+	background-color:var(--light-grey);
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: grid;
+	place-items: center;
+}
+#loading-screen{
+	background-color: var(--light-green);
+	position: fixed;
+	inset: 0;
+	z-index: 9998;
+	translate: 0 100vh;
+}
+#loading p{
+	font-size: 2rem;
+	font-family: var(--oswald-font);
+}
+_*/
