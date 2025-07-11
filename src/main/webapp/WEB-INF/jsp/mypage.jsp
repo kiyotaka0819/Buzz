@@ -21,10 +21,10 @@
 
 <h2>ユーザー情報</h2>
 
-<p>ユーザーID：<%= user.userId %></p>
+<p>ユーザーID：<%= user.userId() %></p>
 <p>パスワード：*****</p>
-<p>ユーザー名：<%= user.name%></p>
-<p>プロフィール：<%= user.profile%></p>
+<p>ユーザー名：<%= user.name()%></p>
+<p>プロフィール：<%= user.profile()%></p>
 <a href="UserEditServlet">プロフィールを編集</a>
 <hr>
 
@@ -45,8 +45,8 @@
       <% } %>
 
       <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
-      <%--if (sessionUserId != null && sessionUserId.equals(post.userId())) { --%>
-      <%if (user != null&& user.getUserId().equals("1234")) { %>
+     <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
+      
         <a href="PostEditServlet?post_id=<%= post.postId() %>">編集</a>
         <a href="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet"
          	onclick="return confirm('本当に削除しますか？')">削除</a>
