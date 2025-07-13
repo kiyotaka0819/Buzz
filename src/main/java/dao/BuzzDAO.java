@@ -15,11 +15,11 @@ public class BuzzDAO {
 			
 			private  Connection conn = null;
 		
-	public BuzzDAO() throws Exception {
+	public BuzzDAO() {
 		
 		try {//データベース接続
 			 conn = DBUtil.getConnection();
-		}catch(ClassNotFoundException  | SQLException e) {
+		}catch( Exception e) {
 			throw new IllegalStateException("JDBCドライバーを読み込めませんでした");
 		}
 	}
@@ -28,8 +28,8 @@ public class BuzzDAO {
 	public boolean insert(BuzzInfo buzz) {
 		//sql文の準備
 		String sql = 
-			"INSERT INTO posts (post_id,user_id) " +
-		        "VALUES (?, ?,)";
+			"INSERT INTO buzzbutton (post_id,user_id) " +
+		        "VALUES (?, ?)";
 				
 		try (PreparedStatement stmt = conn.prepareStatement(sql);){
 		    stmt.setInt(1, buzz.postId());
@@ -46,10 +46,11 @@ public class BuzzDAO {
 		
 	}
 	// バズを削除
-	public boolean delete(int buzzId)  {
-		String sql = "DELETE FROM posts WHERE post_id = ?";
+	public boolean delete(int postId , String userId)  {
+		String sql = "DELETE FROM buzzbutton WHERE post_id = ? AND user_id = ?";
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
-			stmt.setInt(1, buzzId);
+			stmt.setInt(1, postId);
+			stmt.setString(2, userId);
 		
 			int result = stmt.executeUpdate();
 	        return result ==1;  // 成功したら true を返す
@@ -117,19 +118,6 @@ public class BuzzDAO {
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 }
