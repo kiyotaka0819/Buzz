@@ -42,6 +42,8 @@ public class LoginServlet extends HttpServlet {
 		if(result) { //ログイン成功時
 			//セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
+			session.invalidate();  // 古いセッションを破棄
+	        session = request.getSession();  // 新しいセッションを生成
 			session.setAttribute("userId", userId);
 			//リダイレクト
 			response.sendRedirect("MainMenuServlet");
