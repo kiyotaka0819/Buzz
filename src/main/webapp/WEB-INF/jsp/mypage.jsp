@@ -14,7 +14,9 @@
 <head>
 <meta charset="UTF-8">
 <title>マイページ -バズミシュラン</title>
+<!-- CSSの読み込み -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -51,6 +53,23 @@
         <a href="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet"
          	onclick="return confirm('本当に削除しますか？')">削除</a>
       <% } %>
+      <% 
+  		boolean hasBuzzed = false;
+  		try {
+    		hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
+  			} catch (Exception e) {
+    			e.printStackTrace(); // 必要ならログ
+  			}
+  		int buzzCount = new dao.BuzzDAO().countBuzz(post.postId());
+  		%>
+
+<form class="buzz-form" method="post" action="BuzzServlet">
+  <input type="hidden" name="postId" value="<%= post.postId() %>">
+  <button type="submit" class="buzz-button <%= hasBuzzed ? "buzzed" : "" %>">
+    <%= hasBuzzed ? "バズ済み✔️" : "バズる🔥" %>
+  </button>
+  <span class="buzz-count"><%= buzzCount %></span>
+</form>
     </div>
 <%   
 	}
@@ -61,5 +80,7 @@
 
 
 <jsp:include page="footer.jsp" />
+<!-- JavaScriptの読み込み（bodyの一番下が望ましい） -->
+<script src="<%= request.getContextPath() %>/js/buzz.js"></script>
 </body>
 </html>

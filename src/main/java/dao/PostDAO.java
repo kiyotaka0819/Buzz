@@ -228,6 +228,59 @@ public class PostDAO {
 		return postList;
 	}
 	
+	//新着のつぶやきを一部表示
+	public List<PostInfo> postFindNew(){
+		List<PostInfo> postList = new ArrayList<>();
+			//select文の準備
+			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc limit 5";
+			try(PreparedStatement stmt = conn.prepareStatement(sql);){
+			
+			//select文を実行
+			ResultSet rs = stmt.executeQuery();
+				
+			//select文の結果をArrayListに格納
+			while(rs.next()) {
+				int postId = rs.getInt("posts_id");
+				String userId = rs.getString("user_id");
+				String comment = rs.getString("comment");
+				byte[] pic = rs.getBytes("pictures");
+				String shop = rs.getString("shop");
+				Timestamp postTime = rs.getTimestamp("postTime");
+				
+				PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime);
+				postList.add(post);
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return postList;
+	}
 	
+	public List<String> shopRanking() {
+	    List<String> shopList = new ArrayList<>();
+	    
+	    //投稿数の多い店舗名をtop3までを表示
+	    String sql = """
+	        SELECT shop
+	        FROM posts
+	        GROUP BY shop
+	        ORDER BY COUNT(*) DESC
+	        LIMIT 3
+	    """;
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            shopList.add(rs.getString("shop"));
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return shopList;
+	}
 	
 }
