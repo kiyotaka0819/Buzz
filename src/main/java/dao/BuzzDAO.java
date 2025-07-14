@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.BuzzInfo;
+import model.PostInfo;
 import util.DBUtil;
 
 public class BuzzDAO {
@@ -93,6 +94,7 @@ public class BuzzDAO {
 	        return false;
 	    }
 	}
+	//バズした投稿一覧を表示するメソッド
 	public List<BuzzInfo> findBuzzPost(String userId) {
 	    List<BuzzInfo> buzzList = new ArrayList<>();
 
@@ -115,6 +117,43 @@ public class BuzzDAO {
 	    }
 
 	    return buzzList;
+	}
+	
+	public List<PostInfo> rankingComment(String shop) {
+	    List<PostInfo> result = new ArrayList<>();
+
+	    String sql = """
+	        SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, COUNT(b.buzz_id) AS buzz_count
+	        FROM posts p
+	        LEFT JOIN buzzbutton b ON p.posts_id = b.post_id
+	        WHERE p.shop = ?
+	        GROUP BY p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime
+	        ORDER BY buzz_count DESC
+	        LIMIT 3
+	    """;
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, shop);
+
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                PostInfo post = new PostInfo(
+	                    rs.getInt("posts_id"),
+	                    rs.getString("user_id"),
+	                    rs.getString("comment"),
+	                    rs.getBytes("pictures"),
+	                    rs.getString("shop"),
+	                    rs.getTimestamp("postTime")
+	                );
+	                result.add(post);
+	            }
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
 	}
 
 	public void close() {

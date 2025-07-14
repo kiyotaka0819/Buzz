@@ -257,5 +257,30 @@ public class PostDAO {
 		return postList;
 	}
 	
+	public List<String> shopRanking() {
+	    List<String> shopList = new ArrayList<>();
+	    
+	    //投稿数の多い店舗名をtop3までを表示
+	    String sql = """
+	        SELECT shop
+	        FROM posts
+	        GROUP BY shop
+	        ORDER BY COUNT(*) DESC
+	        LIMIT 3
+	    """;
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            shopList.add(rs.getString("shop"));
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return shopList;
+	}
 	
 }
