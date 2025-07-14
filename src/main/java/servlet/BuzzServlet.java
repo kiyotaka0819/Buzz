@@ -31,6 +31,9 @@ public class BuzzServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String userId = (String) session.getAttribute("userId");
         String postIdStr = request.getParameter("postId");
+        //check
+        System.out.println("userId in BuzzServlet = " + userId);
+        System.out.println("postIdStr = " + postIdStr);
 
         if (userId == null || postIdStr == null || postIdStr.isEmpty()) {
             response.sendRedirect("LoginServlet");
