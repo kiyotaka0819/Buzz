@@ -1,0 +1,21 @@
+@charset "UTF-8";
+.buzz-button {
+  background-color: #ddd;
+  border: none;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.buzz-button.buzzed {
+  background-color: #ff9900;
+  color: white;
+}
+
+.buzz-count {
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
