@@ -117,7 +117,13 @@ public class BuzzDAO {
 	    return buzzList;
 	}
 
-	
-		
-	
+	public void close() {
+	    try {
+	        if (conn != null && !conn.isClosed()) {
+	            conn.close();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
