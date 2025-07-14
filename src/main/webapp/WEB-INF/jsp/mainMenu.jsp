@@ -45,7 +45,7 @@
      <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
       
         <a href="PostEditServlet?postId=<%= post.postId() %>">編集</a>
-        <a href="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet"
+        <a href="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet"
          	onclick="return confirm('本当に削除しますか？')">削除</a>
       <% } %>
       <% 

@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
         body: formData
       })
       .then(response => {
-        if (!response.ok) throw new Error('通信失敗');
-        return response.text();
+        if (!response.ok){ throw new Error('通信失敗' + response.status);
+        }
+		return response.text();
       })
       .then(data => {
         const button = form.querySelector('.buzz-button');
