@@ -43,9 +43,8 @@ public class LoginServlet extends HttpServlet {
 			//セッションスコープにユーザーIDを保存
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
-			//フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/mainMenu.jsp");
-			dispatcher.forward(request, response);
+			//リダイレクト
+			response.sendRedirect("MainMenuServlet");
 		}else { //ログイン失敗時
 			// エラーメッセージをリクエストスコープに保存
 			request.setAttribute("errorMsg", "ユーザーIDまたはパスワードが間違っています。");

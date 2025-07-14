@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン -バズミシュラン</title>
+<!-- CSSの読み込みを追加 -->
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 </head>
 <body>
     <%-- ログイン前ヘッダー読み込み用 --%>

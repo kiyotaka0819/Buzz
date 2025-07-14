@@ -19,10 +19,10 @@ public class AccountsDAOTest {
         AccountsDAO dao = new AccountsDAO();
         Account result = dao.findByLogin(login);
         if (result != null &&
-            result.getUserId().equals("1234abcd") &&
-            result.getPass().equals("123-xyz!") &&
-            result.getName().equals("湊　雄輔") && // AccountsDAOの変更に合わせて修正
-            result.getProfile().equals("テスト用文章。この文章が正常に表示されていれば問題ないです。user_id 1234abcd　pass 123-xyz!　name 湊　雄輔") // AccountsDAOの変更に合わせて修正
+            result.userId().equals("1234abcd") &&
+            result.pass().equals("123-xyz!") &&
+            result.name().equals("湊　雄輔") && // AccountsDAOの変更に合わせて修正
+            result.profile().equals("テスト用文章。この文章が正常に表示されていれば問題ないです。user_id 1234abcd　pass 123-xyz!　name 湊　雄輔") // AccountsDAOの変更に合わせて修正
         ) {
             System.out.println("testFindByLoginOK:成功しました");
         } else {
