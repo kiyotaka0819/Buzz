@@ -31,7 +31,8 @@ public class PostDeleteServlet extends HttpServlet {
 		// 投稿IDを受け取る
 		String postIdStr = request.getParameter("postId");
 		if (postIdStr == null || postIdStr.isEmpty()) {
-			response.sendRedirect("MypageServlet"); // 不正アクセス防止
+			//response.sendRedirect("MypageServlet"); // 不正アクセス防止
+			request.getRequestDispatcher("WEB-INF/jsp/mypage.jsp").forward(request, response);
 			return;
 		}
 		

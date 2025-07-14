@@ -12,8 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
         body: formData
       })
       .then(response => {
+<<<<<<< HEAD
         if (!response.ok) throw new Error('通信失敗');
         return response.json();
+=======
+        if (!response.ok){ throw new Error('通信失敗' + response.status);
+        }
+		return response.text();
+>>>>>>> branch 'master' of https://github.com/kiyotaka0819/Buzz.git
       })
       .then(data => {
         const button = form.querySelector('.buzz-button');
