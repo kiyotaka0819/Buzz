@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.PostInfo"%>
+<%@ page import="model.ShopInfo"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,18 +17,17 @@
 	  『<%=request.getAttribute("searchWord")%>』の検索結果
 	</h2>
 
+	<%-- 投稿の検索結果を表示 --%>
+	<h3>投稿</h3>
 	<%
-		// サーブレットから渡されたpostResultsを取得
 		List<PostInfo> postList = (List<PostInfo>) request.getAttribute("postResults");
-		
-		// ログインユーザーIDも取得 編集・削除リンクの表示用
 		String sessionUserId = (String) session.getAttribute("userId");
 		
 		if (postList != null && !postList.isEmpty()) {
 			for (PostInfo post : postList) {
 	%>
 
-	<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+	<div>
 		<p> <strong>投稿ユーザー：</strong>
 		<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>
 		</p>
@@ -35,7 +36,7 @@
 		<a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a>
 		</p>
 		
-		<p> <strong>コメント：</strong><%=post.comment()%></p>
+		<p> <strong>つぶやき：</strong><%=post.comment()%></p>
 		
 		<%
 		if (post.pic() != null && post.pic().length > 0) {
@@ -48,13 +49,12 @@
 		}
 		%>
 
-		<%-- 暫定でBuzzServlet --%>
-		<form action="BuzzServlet" method="post" style="display: inline;">
+		<form action="BuzzServlet" method="post">
 			<input type="hidden" name="postId" value="<%=post.postId()%>">
 			<button type="submit">バズ</button>
 		</form>
+		
 
-		<%-- ログイン中のユーザー本人のみ編集・削除可能 --%>
 		<%
 		if (sessionUserId != null && sessionUserId.equals(post.userId())) {
 		%>
@@ -64,6 +64,8 @@
 		<%
 		}
 		%>
+		
+		<hr>
 	</div>
 	<%
 	}
@@ -73,6 +75,29 @@
 	<%
 	}
 	%>
+	
+	<br>
+		
+	<%-- 店舗の検索結果を表示 --%>
+	<%
+		List<ShopInfo> shopList = (List<ShopInfo>) request.getAttribute("shopResults");
+	%>
+	<h3>店舗</h3>
+	<% if (shopList != null && !shopList.isEmpty()) { %>
+		<% for (ShopInfo shop : shopList) { %>
+		<div>
+			<p>
+				<strong>店舗名：</strong><a href="ShopInfoPageServlet?shopName=<%=shop.shopName()%>"><%=shop.shopName()%></a>
+			</p>
+			<p><strong>住所：</strong><%= (shop.shopAddress() != null) ? shop.shopAddress() : "情報なし" %></p>
+			<p><strong>URL：</strong><%= (shop.shopURL() != null) ? shop.shopURL() : "情報なし" %></p>
+			<p><strong>電話番号：</strong><%= (shop.shopTEL() != null) ? shop.shopTEL() : "情報なし" %></p>
+			<hr>
+		</div>
+		<% } %>
+	<% } else { %>
+		<p>該当する店舗は見つかりませんでした。</p>
+	<% } %>
 	<jsp:include page="footer.jsp" />
 </body>
 </html>
