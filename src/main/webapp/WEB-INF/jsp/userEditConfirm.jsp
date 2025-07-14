@@ -39,6 +39,7 @@ pageEncoding="UTF-8"%>
     <input type="submit" value="修正">
 </form>
 <p><a href="MypageServlet">戻る</a></p>
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 <jsp:include page="footer.jsp" />
 </html>

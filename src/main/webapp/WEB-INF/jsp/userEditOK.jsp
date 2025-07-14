@@ -13,6 +13,7 @@
 <p><a href="MainMenuServlet">メインメニュー</a></p>
 <p><a href="MypageServlet">マイページ</a></p>
 <p><a href="LogoutServlet">ログアウト</a></p>
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 <jsp:include page="footer.jsp" />
 </html>
