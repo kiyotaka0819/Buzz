@@ -256,7 +256,7 @@ public class PostDAO {
 		}
 		return postList;
 	}
-	
+	//投稿数上位3店舗を表示
 	public List<String> shopRanking() {
 	    List<String> shopList = new ArrayList<>();
 	    

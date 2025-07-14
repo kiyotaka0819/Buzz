@@ -29,7 +29,7 @@ public class BuzzDAO {
 	public boolean insert(BuzzInfo buzz) {
 		//sql文の準備
 		String sql = 
-			"INSERT INTO buzzbutton (post_id,user_id) " +
+			"INSERT INTO buzzbutton (posts_id,user_id) " +
 		        "VALUES (?, ?)";
 				
 		try (PreparedStatement stmt = conn.prepareStatement(sql);){
@@ -48,7 +48,7 @@ public class BuzzDAO {
 	}
 	// バズを削除
 	public boolean delete(int postId , String userId)  {
-		String sql = "DELETE FROM buzzbutton WHERE post_id = ? AND user_id = ?";
+		String sql = "DELETE FROM buzzbutton WHERE posts_id = ? AND user_id = ?";
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, postId);
 			stmt.setString(2, userId);
@@ -62,7 +62,7 @@ public class BuzzDAO {
 	}
 	//バズ数を表示する
 	public int countBuzz(int postId) {
-		String sql = "SELECT COUNT(*) FROM buzzbutton WHERE post_id = ?";
+		String sql = "SELECT COUNT(*) FROM buzzbutton WHERE posts_id = ?";
 		int count = 0;
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, postId);
@@ -80,7 +80,7 @@ public class BuzzDAO {
 	
 	//バズボタンを押しているかの確認
 	public boolean exists(int postId, String userId) {
-	    String sql = "SELECT 1 FROM buzzbutton WHERE post_id = ? AND user_id = ?";
+	    String sql = "SELECT 1 FROM buzzbutton WHERE posts_id = ? AND user_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 	        stmt.setInt(1, postId);
@@ -98,7 +98,7 @@ public class BuzzDAO {
 	public List<BuzzInfo> findBuzzPost(String userId) {
 	    List<BuzzInfo> buzzList = new ArrayList<>();
 
-	    String sql = "SELECT buzz_id, post_id, user_id FROM buzzbutton WHERE user_id = ?";
+	    String sql = "SELECT buzz_id, posts_id, user_id FROM buzzbutton WHERE user_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 	        stmt.setString(1, userId);
