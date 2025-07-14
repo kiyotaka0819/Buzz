@@ -40,7 +40,7 @@
     for (PostInfo post : postList) {
 %>
     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-      <p><strong>店舗：</strong><%= post.shopName() %></p>
+      <p> <strong>店舗：</strong><a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a></p>
       <p><strong>コメント：</strong><%= post.comment() %></p>
       <% if (post.pic() != null) { %>
         <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
@@ -82,5 +82,6 @@
 <jsp:include page="footer.jsp" />
 <!-- JavaScriptの読み込み（bodyの一番下が望ましい） -->
 <script src="<%= request.getContextPath() %>/js/buzz.js"></script>
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

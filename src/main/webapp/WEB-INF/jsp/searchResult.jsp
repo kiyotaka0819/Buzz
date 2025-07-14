@@ -101,5 +101,6 @@
 	<% } %>
 	<jsp:include page="footer.jsp" />
 	<script src="<%= request.getContextPath() %>/js/script.js"></script>
+	<script src="<%= request.getContextPath() %>/js/buzz.js"></script>
 </body>
 </html>
