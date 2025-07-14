@@ -24,7 +24,8 @@ public class BuzzServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		//check
+		System.out.println("BuzzServlet に到達");
 		response.setContentType("application/json; charset=UTF-8");
 		
         HttpSession session = request.getSession();
@@ -43,10 +44,14 @@ public class BuzzServlet extends HttpServlet {
             BuzzDAO dao = new BuzzDAO();
 
             if (dao.exists(postId, userId)) {
+            	//check
+        		System.out.println("Buzzdelete");
                 dao.delete(postId, userId);
                 liked = false;
             } else {
                 dao.insert(new BuzzInfo(0, postId, userId));
+              //check
+        		System.out.println("Buzzinsert");
                 liked = true;
             }
 

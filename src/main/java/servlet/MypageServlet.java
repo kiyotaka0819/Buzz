@@ -28,10 +28,10 @@ public class MypageServlet extends HttpServlet {
 		// セッションからログイン中のユーザーIDを取得
 		HttpSession session = request.getSession();
 		String loggedInUserId = (String) session.getAttribute("userId");
-
+		session.setAttribute("userId", loggedInUserId);
 		// もしログインしていなければログイン画面へ強制送還
 		if (loggedInUserId == null || loggedInUserId.isEmpty()) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("LoginServlet");
 			return;
 		}
 

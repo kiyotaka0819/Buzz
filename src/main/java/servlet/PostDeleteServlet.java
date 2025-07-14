@@ -21,10 +21,15 @@ public class PostDeleteServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String loginUserId = (String) session.getAttribute("user_id");
+		String loginUserId = (String) session.getAttribute("userId");
+		// もしログインしていなければログイン画面へ強制送還
+				if (loginUserId == null || loginUserId.isEmpty()) {
+					response.sendRedirect("LoginServlet");
+					return;
+				}
 
 		// 投稿IDを受け取る
-		String postIdStr = request.getParameter("post_id");
+		String postIdStr = request.getParameter("postId");
 		if (postIdStr == null || postIdStr.isEmpty()) {
 			response.sendRedirect("MypageServlet"); // 不正アクセス防止
 			return;
@@ -41,7 +46,7 @@ public class PostDeleteServlet extends HttpServlet {
 		
 		
 		if(!redirect.equals("MypageServlet")) {
-			redirect = "MypageServlet";
+			redirect = "MainMenuServlet";
 		}
 		
 		if(result) {

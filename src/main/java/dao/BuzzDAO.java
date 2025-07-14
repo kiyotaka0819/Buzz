@@ -39,8 +39,13 @@ public class BuzzDAO {
 				    
 		    //sql文の実行と判定
 		    int result =stmt.executeUpdate();
+		    //check
+		    System.out.println("insert結果：" + result);
 		    return result ==1;
 		}catch(SQLException e) {
+			//check
+			System.err.println("SQLエラー：" + e.getMessage());
+
 			e.printStackTrace();
 			return false;
 		}
@@ -106,7 +111,7 @@ public class BuzzDAO {
 	        ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
 	            int buzzId = rs.getInt("buzz_id");
-	            int postId = rs.getInt("post_id");
+	            int postId = rs.getInt("posts_id");
 	            String uId = rs.getString("user_id");
 
 	            BuzzInfo buzz = new BuzzInfo(buzzId, postId, uId);
@@ -125,7 +130,7 @@ public class BuzzDAO {
 	    String sql = """
 	        SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, COUNT(b.buzz_id) AS buzz_count
 	        FROM posts p
-	        LEFT JOIN buzzbutton b ON p.posts_id = b.post_id
+	        LEFT JOIN buzzbutton b ON p.posts_id = b.posts_id
 	        WHERE p.shop = ?
 	        GROUP BY p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime
 	        ORDER BY buzz_count DESC
