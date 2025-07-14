@@ -18,7 +18,7 @@
 	</h2>
 
 	<%-- 投稿の検索結果を表示 --%>
-	<h3>投稿</h3>
+	<h2>ポストの検索結果</h2>
 	<%
 		List<PostInfo> postList = (List<PostInfo>) request.getAttribute("postResults");
 		String sessionUserId = (String) session.getAttribute("userId");
@@ -79,10 +79,11 @@
 	<br>
 		
 	<%-- 店舗の検索結果を表示 --%>
+	<div style="margin: 40px 0; border-top: 2px solid #333;"></div>
 	<%
 		List<ShopInfo> shopList = (List<ShopInfo>) request.getAttribute("shopResults");
 	%>
-	<h3>店舗</h3>
+	<h2>店舗の検索結果</h2>
 	<% if (shopList != null && !shopList.isEmpty()) { %>
 		<% for (ShopInfo shop : shopList) { %>
 		<div>
@@ -99,5 +100,6 @@
 		<p>該当する店舗は見つかりませんでした。</p>
 	<% } %>
 	<jsp:include page="footer.jsp" />
+	<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

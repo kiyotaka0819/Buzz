@@ -20,46 +20,76 @@ import model.PostInfo;
 public class MypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		// パラメータから、選択したユーザーのIDを取得
+		String requestedUserId = request.getParameter("userId");
 		// セッションからログイン中のユーザーIDを取得
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+		HttpSession session = request.getSession();
+		String loggedInUserId = (String) session.getAttribute("userId");
 
-        if (userId == null || userId.isEmpty()) {
-            response.sendRedirect("login.jsp"); // 未ログインならログインページへ
-            return;
-        }
-
-        // DAOでユーザー情報を取得
-        AccountsDAO userDao = new AccountsDAO();
-        Account user = null;
-		try {
-			user = userDao.findByUserId(userId);
-		} catch (Exception e) {
-			e.printStackTrace();
+		// もしログインしていなければログイン画面へ強制送還
+		if (loggedInUserId == null || loggedInUserId.isEmpty()) {
+			response.sendRedirect("login.jsp");
+			return;
 		}
 
-        // DAOでユーザーの投稿一覧を取得
-        PostDAO postDao = new PostDAO();
-        List<PostInfo> postList = postDao.findPostsByUserId(userId);
+		// 選択したユーザーIDがパラメータに指定されてない場合
+		// 自分のマイページに遷移
+		// 選択したIDがnull empty もしくは、ログインIDと等しい場合
+		if (requestedUserId == null || requestedUserId.isEmpty() || requestedUserId.equals(loggedInUserId)) {
+			// DAOで自分のユーザー情報を取得
+			AccountsDAO userDao = new AccountsDAO();
+			Account user = null;
+			try {
+				user = userDao.findByUserId(loggedInUserId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-        // リクエスト属性にセット
-        request.setAttribute("user", user);
-        request.setAttribute("postList", postList);
-        
-        //check
-        System.out.println("userId = " + userId);
-        System.out.println("postList size = " + (postList != null ? postList.size() : "null"));
+			// DAOで自分の投稿一覧を取得
+			PostDAO postDao = new PostDAO();
+			List<PostInfo> postList = postDao.findPostsByUserId(loggedInUserId);
 
-        // JSPへフォワード
-        request.getRequestDispatcher("WEB-INF/jsp/mypage.jsp").forward(request, response);
+			// リクエスト属性にセット
+			request.setAttribute("user", user);
+			request.setAttribute("postList", postList);
+
+			request.getRequestDispatcher("WEB-INF/jsp/mypage.jsp").forward(request, response);
+		} else {
+			// ログインしているけど、他のユーザーのページを見ている場合
+			// userpage.jspへフォワード
+
+			// DAOで他ユーザーの情報を取得
+			AccountsDAO userDao = new AccountsDAO();
+			Account user = null;
+			try {
+				user = userDao.findByUserId(requestedUserId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// DAOで他ユーザーの投稿一覧を取得
+			PostDAO postDao = new PostDAO();
+			List<PostInfo> postList = postDao.findPostsByUserId(requestedUserId);
+
+			// リクエスト属性にセット
+			request.setAttribute("user", user);
+			request.setAttribute("postList", postList);
+			
+			// check
+			System.out.println("userId = " + requestedUserId);
+			System.out.println("postList size = " + (postList != null ? postList.size() : "null"));
+			
+			// ログイン済み、自分以外のユーザーIDなのでuserpageに遷移
+			request.getRequestDispatcher("WEB-INF/jsp/userpage.jsp").forward(request, response);
+		}
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 	}
 
 }

@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.PostInfo" %>
+<%@ page import="model.Account" %>
+<% 
+  String sessionUserId = (String) session.getAttribute("userId");
+%>
 <div class="top-ribbon">
     全国のグルメ情報をみんなと共有　～バズミシュラン～
 </div>
@@ -13,11 +17,13 @@
 			</a>
 		</div>
 		<div class="search-bar">
-			<form action="<%=request.getContextPath()%>/SearchResultServlet" method="get">
+			<form action="<%=request.getContextPath()%>/SearchResultServlet"
+				method="get">
 				<label for="query">検索キーワード:</label> <input type="text" id="query"
 					name="searchWord" placeholder="店舗名、料理名などを入力">
 				<button type="submit">
-					<img src="<%=request.getContextPath()%>/image/searchButton.png" alt="検索">検索
+					<img src="<%=request.getContextPath()%>/image/searchButton.png"
+						alt="検索">検索
 				</button>
 			</form>
 		</div>
@@ -27,6 +33,11 @@
 					class="bar"></span>
 			</div>
 			<ul class="nav-links">
+				<% if (sessionUserId != null) { %>
+				<p>
+					ログイン中のユーザーID<br>
+					<%= sessionUserId %></p>
+				<% } %>
 				<li><a href="#" class="close-icon">×</a></li>
 				<li><a href="PostServlet">つぶやく</a></li>
 				<li><a href="MypageServlet">マイページ</a></li>
