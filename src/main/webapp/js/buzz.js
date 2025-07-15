@@ -1,42 +1,72 @@
+/*
+* fetch：サーバーにリクエストを送信し、応答を受け取るためのAPI
+* then : 通信が成功した後の結果を処理するメソッド
+* catch : サーバーとの通信などが失敗した場合のエラー処理を行う
+* const : 一度値を代入したら、再代入できない変数を宣言するためのキーワード
+* credentials : リクエストに関連するセッションを含めるようにブラウザに指示する
+*/
+
+
 document.addEventListener('DOMContentLoaded', function () {
-  const buzzForms = document.querySelectorAll('.buzz-form');
+   // CSSの『.buzz-form』の<form>要素を取得
+	const buzzForms = document.querySelectorAll('.buzz-form');
 
+	// 取得した<form>要素に対してループ処理を実施
   buzzForms.forEach(function (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // ページ遷移を防ぐ
+    
+	 // <form>の「submit」イベントを監視する
+	 form.addEventListener('submit', function (e) {
+      e.preventDefault(); // HTTPリクエストとページ遷移を中断する
 
-      const formData = new FormData(form);
+	  // フォーム内から「name="postId"」の値を取得する
+      const postId = form.querySelector('input[name="postId"]').value;
+	  // 「key=value&...」形式のURLを扱うためオブジェクトを生成
+	  const params = new URLSearchParams();
+	  // ↑で生成したオブジェクトに、「postId」で、取得した値をセット
+	  params.append('postId', postId);
 
+	  // サーバーへのHTTPリクエストを開始
       fetch('BuzzServlet', {
+		// HTTPメソッドとして「POST」を指定
         method: 'POST',
-        body: formData
-      })
-      .then(response => {
-<<<<<<< HEAD
-        if (!response.ok) throw new Error('通信失敗');
-        return response.json();
-=======
-        if (!response.ok){ throw new Error('通信失敗' + response.status);
+		// URLSearchParamsオブジェクトをセットする
+        body: params,
+		// リクエストに、関連するセッションを含めるようにブラウザに指示する
+		credentials: 'include',
+		// サーバーに、リクエストの形式が「application/x-www-form-urlencoded」であることを伝える
+		headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
-		return response.text();
->>>>>>> branch 'master' of https://github.com/kiyotaka0819/Buzz.git
       })
+	  // リクエストが成功し、サーバー応答が返って実行される
+      .then(response => {
+		// レスポンスのHTTPステータスコードが200-299の範囲外かを確認する
+        if (!response.ok){
+			// 範囲外なら、エラーを投げて次の.catch()ブロックに移動する
+          throw new Error('通信失敗' + response.status);
+        }
+		// レスポンス本文をJSON形式として解析し、次のPromiseに渡す
+		return response.json();
+      })
+	  // 前のPromiseでJSON解析に成功した、オブジェクト（data）を受け取って実行される
       .then(data => {
         const button = form.querySelector('.buzz-button');
         const countSpan = form.querySelector('.buzz-count');
-        //let current = parseInt(countSpan.textContent);
 		
-		//buzzカウントにサーブレットから受け取る値を確認
+		// オブジェクトのbuzzCountプロパティをHTML要素のテキストに変換
 		countSpan.textContent = data.buzzCount;
-		// data.likedがtrueなら、バズ済み状態にする
+		
+		// オブジェクトのlikedプロパティがtrueか確認する
 		if (data.liked) {
-			button.classList.add('buzzed'); // クラスを追加
+			button.classList.add('buzzed');
 			button.textContent = 'バズ済み✔️';
-		} else { // data.likedがfalseなら、まだバズってない状態に戻す
-			button.classList.remove('buzzed'); // クラスを削除
+		} else {
+			button.classList.remove('buzzed');
 			button.textContent = 'バズる🔥';
-			}
-		})
+		}
+	})
+	
+	// Promiseチェーンでエラーが投げられた場合に実行
       .catch(error => {
         console.error('バズエラー:', error);
         alert('バズに失敗しました');
@@ -44,6 +74,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-/**
- * 
- */
