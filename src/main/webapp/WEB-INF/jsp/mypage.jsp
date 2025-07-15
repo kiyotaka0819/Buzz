@@ -17,6 +17,8 @@
 <!-- CSSの読み込み -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
+
+
 </head>
 <body>
 <jsp:include page="header.jsp" />
@@ -40,7 +42,17 @@
     for (PostInfo post : postList) {
 %>
     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-      <p> <strong>店舗：</strong><a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a></p>
+      <p> <strong>店舗：</strong>
+      <% 
+      	String shopName = post.shopName();
+      	if (shopName != null && !shopName.isEmpty()) { 
+      %>
+      <a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a>
+      <% } else { %>
+        未記入
+      <%} %>
+      </p>
+      
       <p><strong>コメント：</strong><%= post.comment() %></p>
       <% if (post.pic() != null) { %>
         <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
@@ -50,8 +62,8 @@
      <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
       
         <a href="PostEditServlet?postId=<%= post.postId() %>">編集</a>
-        <a href="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet"
-         	onclick="return confirm('本当に削除しますか？')">削除</a>
+         <!-- 削除リンク -->
+      <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet">削除</a> |
       <% } %>
       <% 
   		boolean hasBuzzed = false;
@@ -77,10 +89,13 @@
 %>
     <p>まだ投稿がありません。</p>
 <%}%>
+<!-- モーダル読み込み -->
+<jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
 
 
 <jsp:include page="footer.jsp" />
 <!-- JavaScriptの読み込み（bodyの一番下が望ましい） -->
+<script src="<%= request.getContextPath() %>/js/delete.js"></script>
 <script src="<%= request.getContextPath() %>/js/buzz.js"></script>
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>

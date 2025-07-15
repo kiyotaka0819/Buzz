@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, model.PostInfo" %>
+<% 
+Map<String, List<PostInfo>> rankingMap = (Map<String, List<PostInfo>>) request.getAttribute("rankingMap");
+
+String[] ranks = { "第1位", "第2位", "第3位" };
+String[] colors = { "gold", "silver", "bronze" };
+int index = 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +21,30 @@
 <h2>👑バズミシュランのバズ飯ランキング👑</h2>
 <table border="1" style="width:600px"><tr bgcolor="gold">
 
-<th>第1位：一双</th><!--店名の部分をDBからソートして出力-->
-	<td style="background-color: #c0f0e8";>
-		<p>みんなのつぶやき例</p>
-		<p>『こってりとした泡系豚骨が最高！』</p> <!--ユーザーのつぶやきからいいね多いものを出力-->
-		<p>『生にんにくを入れて食べるのが本当においしかった』</p>
-		<p>『飲みの後の最高の一杯』</p>
-	</td>
+<%
+	for(Map.Entry<String, List<PostInfo>> entry : rankingMap.entrySet()){
+		String shopName = entry.getKey();
+		List<PostInfo> comments = entry.getValue();
+	
+%>
+<tr bgcolor="<%= colors[index] %>">
+	<th> <%= ranks[index]%> : 
+		<a href="ShopInfoPageServlet?shopName=<%= shopName%>"><%= shopName %></a>
+		</th><!--店名の部分をDBからソートして出力-->
+		<td style="background-color: #c0f0e8";>
+			<p>みんなのつぶやき例</p>
+			<% for(PostInfo post : comments ){%>
+				<p><%= post.comment() %></p> <!--ユーザーのつぶやきからいいね多いものを出力-->
+			<%} %>
+		</td>
 </tr>
+			<%
+				index++;
+				}
+			%>
 
-<tr bgcolor="silver">
-<th>第2位：一蘭</th>
-	<td style="background-color: #c0f0e8";>
-	<p>みんなのつぶやき例</p>
-	<p>『顔を合わせずにラーメンが食べられる』</p>
-	<p>『癖のない一杯』</p>
-	<p>『好みを語るのが楽しい』</p>
-	</td>
-</tr>
-
-<tr bgcolor="bronze">
-<th>第3位：はかたや</th>
-	<td style="background-color: #c0f0e8";>
-		<p>みんなのつぶやき例</p>
-		<p>『290円は安すぎる！』</p>
-		<p>『なんだかんだでここに来た』</p>
-		<p>『いつ来ても安心する味』</p>
-	</td>
-</tr>
 </table>
 <jsp:include page="footer.jsp" />
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

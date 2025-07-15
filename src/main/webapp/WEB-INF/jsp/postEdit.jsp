@@ -38,7 +38,7 @@ if (selectedShopFromSession != null) {
 <% if (post.shopName() != null && !post.shopName().isEmpty()) { %>
       <p>
         選択店舗: <strong><%= post.shopName() %></strong>
-        <a href="<%= request.getContextPath() %>/PostServlet?clearShop=true">店舗名を変更する</a>
+        <a href="<%= request.getContextPath() %>/ShopSelectServlet?clearShop=true">店舗名を変更する</a>
       </p>
       <input type="hidden" name="shop" value="<%= post.shopName() %>">
     <% } else { %>

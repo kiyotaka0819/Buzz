@@ -1,10 +1,13 @@
 package servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,10 +18,9 @@ import jakarta.servlet.http.Part;
 import dao.PostDAO;
 import model.PostInfo;
 
-/**
- * Servlet implementation class PostEditServlet
- */
+
 @WebServlet("/PostEditServlet")
+@MultipartConfig
 public class PostEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,9 +43,13 @@ public class PostEditServlet extends HttpServlet {
 		// DAOで投稿を取得
 		PostDAO dao = new PostDAO();
 		PostInfo post = dao.findById(postId);
+		if (post == null) {
+		    // 存在しない投稿ID → エラー対応
+		    response.sendRedirect("MypageServlet");
+		    return;
+		}
 
-		//check
-				System.out.println("postsId = " + postIdStr);
+		
 		// 自分の投稿でない場合はリダイレクト
 		if (!loginUserId.equals(post.userId()) &&loginUserId != null ) {
 			response.sendRedirect("MypageServlet");
@@ -62,11 +68,15 @@ public class PostEditServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-	    HttpSession session = request.getSession();
-	   
-
+		HttpSession session = request.getSession();
+		
+		
+	    
 	    // 投稿ID（hiddenから送られてくる）
-	    String postIdStr = request.getParameter("postId");
+		Part postIdPart = request.getPart("postId");
+		String postIdStr = readFormField(postIdPart);
+	    //check
+	    System.out.println("doPostのpostId: " + postIdStr);
 	    if (postIdStr == null || postIdStr.isEmpty()) {
 	        // 適切なエラーハンドリング（リダイレクトやエラーメッセージ表示など）
 	    	request.setAttribute("errorMessage", "つぶやきIDが指定されていません");
@@ -74,15 +84,16 @@ public class PostEditServlet extends HttpServlet {
 		    return;
 	    }
 	    int postId = Integer.parseInt(postIdStr);
-	    //check
-	    System.out.println("doPostのpostId: " + postId);
-
+	   
 	    // コメントと店舗名
-	    String comment = request.getParameter("comment");
-	    String shopName = request.getParameter("selectedShopForPost");
+	    Part commentPart = request.getPart("comment");
+		String comment = readFormField(commentPart);
+		Part shopPart = request.getPart("selectedShopForPost");
+		String shopName = readFormField(shopPart);
 
 	    // 画像削除のチェック
-	    String deletePicture = request.getParameter("deletePicture");
+		Part deletePicPart = request.getPart("deletePicture");
+		String deletePicture = readFormField(deletePicPart);
 	    boolean shouldDeletePic = "true".equals(deletePicture);
 
 	    // 画像ファイルの取得
@@ -109,21 +120,32 @@ public class PostEditServlet extends HttpServlet {
 
 	    // DAOで更新
 	    PostDAO dao = new PostDAO();
-	    boolean result = dao.postEdit(postInfo, postId);
+	    boolean result = dao.postEdit(postInfo, postId,shouldDeletePic);
 	    //check
 	    System.out.println("postInfo:" + postInfo );
 	    if (result) {
 	        // 成功 → マイページにリダイレクト
 	        response.sendRedirect("MypageServlet");
 	    } else {
-	    	//check
-	    	System.out.println("更新失敗: postId = " + postId + ", userId = " + userId);
 	    	// 再度DBから投稿情報を取得（失敗しても少なくともnullでなくなる）
 	        PostInfo originalPost = dao.findById(postId);
-	        // 失敗 → エラーメッセージをセットして再表示
-	    	request.setAttribute("post", originalPost);
-	        request.setAttribute("errorMessage", "投稿の更新に失敗しました");
-	        request.getRequestDispatcher("/WEB-INF/jsp/postEdit.jsp").forward(request, response);
+	        if (originalPost  == null) {
+	            // 存在しない投稿ID → エラー対応
+	            response.sendRedirect("MypageServlet");
+	            return;
+	        }
+	        request.setAttribute("post", originalPost);
+			request.setAttribute("errorMessage", "更新に失敗しました");
+			request.getRequestDispatcher("/WEB-INF/jsp/postEdit.jsp").forward(request, response);
 	    }
+	}
+	// ★ Partから文字列を読み取る共通処理
+	private String readFormField(Part part) throws IOException {
+		if (part == null || part.getSize() == 0) {
+			return null;
+	}
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"))) {
+			return reader.readLine();
+		}
 	}
 }

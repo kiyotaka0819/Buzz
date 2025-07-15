@@ -142,7 +142,7 @@ public class BuzzDAO {
 		    }
 		    return buzzList;
 		}
-	
+	//店舗毎にバズ数が多いコメント上位3位を取得
 	public List<PostInfo> rankingComment(String shop) {
 	    List<PostInfo> result = new ArrayList<>();
 

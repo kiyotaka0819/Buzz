@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,15 +27,25 @@ public class RankingServlet extends HttpServlet {
 			 //店舗名の上位3件を取得
             List<String> top3Shops = postDao.shopRanking();
             
-            //各店舗に対して、バズ数の多い投稿を取得
+            //各店舗に対して、バズ数上位3位の投稿を取得
             Map<String, List<PostInfo>> rankingMap = new LinkedHashMap<>();
             
             for (String shop : top3Shops) {
-                List<PostInfo> posts = postDao.findByShop(shop);
+                List<PostInfo> buzzPosts = buzzDao.rankingComment(shop);
+                rankingMap.put(shop, buzzPosts);
+                
+            }
+            // リクエストスコープにセット
+            request.setAttribute("top3Shops", top3Shops);
+            request.setAttribute("rankingMap", rankingMap);
+            
+            // 表示用JSPへフォワード
+            request.getRequestDispatcher("WEB-INF/jsp/ranking.jsp").forward(request, response);
 		}catch(Exception e) {
+			e.printStackTrace();
+			request.setAttribute("errorMessage", "ランキングの取得に失敗しました");
 			
 		}
-			
            
     }
 

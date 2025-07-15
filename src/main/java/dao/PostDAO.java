@@ -50,33 +50,37 @@ public class PostDAO {
 	}
 	
 	//つぶやきを編集
-	public boolean postEdit(PostInfo postInfo,int postId) {
+	public boolean postEdit(PostInfo postInfo,int postId,boolean deletePicture) {
 		String sql;
-		boolean updatePicture = postInfo.pic() != null;
 		
-		if(updatePicture) {
-			//画像の変更がある場合
-			sql = "UPDATE posts SET  comment = ?, pictures = ?,shop = ?, postTime =NOW() WHERE posts_id = ?";
-		}else {
-			//画像が貼り付けられてないとき
-			sql = "UPDATE posts SET  comment = ?, shop = ?, postTime =NOW() WHERE posts_id = ?";
+		if (deletePicture) {
+		    // 画像を削除（pictures = null）
+		    sql = "UPDATE posts SET comment = ?, pictures = NULL, shop = ?, postTime = NOW() WHERE posts_id = ?";
+		} else if (postInfo.pic() != null) {
+		    // 画像を変更
+		    sql = "UPDATE posts SET comment = ?, pictures = ?, shop = ?, postTime = NOW() WHERE posts_id = ?";
+		} else {
+		    // 画像は変更なし
+		    sql = "UPDATE posts SET comment = ?, shop = ?, postTime = NOW() WHERE posts_id = ?";
 		}
-		
 		
 		try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			
-			if(updatePicture) {
-				stmt.setString(1, postInfo.comment());
-			    stmt.setBytes(2, postInfo.pic());       // 画像（byte[]）
-			    stmt.setString(3, postInfo.shopName());
-			    stmt.setInt(4, postId);  // 編集対象のposts_idを指定
-				 
-			}else {
-				stmt.setString(1, postInfo.comment());
-				stmt.setString(2, postInfo.shopName());
-				stmt.setInt(3, postId);  // 編集対象のposts_idを指定
-			}
+			if (deletePicture) {
+		        stmt.setString(1, postInfo.comment());
+		        stmt.setString(2, postInfo.shopName());
+		        stmt.setInt(3, postId);
+		    } else if (postInfo.pic() != null) {
+		        stmt.setString(1, postInfo.comment());
+		        stmt.setBytes(2, postInfo.pic());
+		        stmt.setString(3, postInfo.shopName());
+		        stmt.setInt(4, postId);
+		    } else {
+		        stmt.setString(1, postInfo.comment());
+		        stmt.setString(2, postInfo.shopName());
+		        stmt.setInt(3, postId);
+		    }
 			int result = stmt.executeUpdate();
 	        return result == 1;  // 成功したら true を返す
 	    } catch (SQLException e) {
@@ -264,6 +268,7 @@ public class PostDAO {
 	    String sql = """
 	        SELECT shop
 	        FROM posts
+	        WHERE shop IS NOT NULL AND TRIM(shop) <> ''
 	        GROUP BY shop
 	        ORDER BY COUNT(*) DESC
 	        LIMIT 3

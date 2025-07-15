@@ -29,6 +29,11 @@ public class MypageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String loggedInUserId = (String) session.getAttribute("userId");
 		session.setAttribute("userId", loggedInUserId);
+		
+		//check
+        System.out.println("loggedInUserId in MypageServlet = " + loggedInUserId);
+        System.out.println("requestedUserId in MypageServlet = " + requestedUserId);
+        
 		// もしログインしていなければログイン画面へ強制送還
 		if (loggedInUserId == null || loggedInUserId.isEmpty()) {
 			response.sendRedirect("LoginServlet");
