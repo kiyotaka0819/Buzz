@@ -59,8 +59,8 @@
 			<td><%= shop.shopAddress() != null ? shop.shopAddress() : "登録なし" %></td>
 			<td><%= shop.shopTEL() != null ? shop.shopTEL() : "登録なし" %></td>
 				<td>
-				<form action="<%=request.getContextPath()%>/PostServlet"
-					method="post">
+				<form action="<%=request.getContextPath()%>
+					/ShopSelectActionServlet" method="post">
 					<input type="hidden" name="shopName"
 						value="<%= shop.shopName() %>">
 					<button type="submit">選択</button>

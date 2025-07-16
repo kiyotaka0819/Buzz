@@ -59,7 +59,13 @@ public class PostEditServlet extends HttpServlet {
 		// 投稿情報をリクエストスコープに保存
 		request.setAttribute("post", post);
 		request.setAttribute("hasPicture", post.pic() != null);
-
+		
+		// 投稿するIDをセッションに保存
+		session.setAttribute("editingPostId", postId);
+		
+		// 編集画面に戻るためのredirectBackTo(目印)をセッションに保存
+		session.setAttribute("redirectBackTo", "PostEditServlet");
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/postEdit.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -88,7 +94,7 @@ public class PostEditServlet extends HttpServlet {
 	    // コメントと店舗名
 	    Part commentPart = request.getPart("comment");
 		String comment = readFormField(commentPart);
-		Part shopPart = request.getPart("selectedShopForPost");
+		Part shopPart = request.getPart("shop");
 		String shopName = readFormField(shopPart);
 
 	    // 画像削除のチェック

@@ -25,8 +25,8 @@ if (selectedShopFromSession != null) {
 	<%
 	if (shopNameValue != null && !shopNameValue.isEmpty()) {
 	%>
-	<p>
-		選択店舗: **<%=shopNameValue%>**  <a
+	<p>選択店舗:<strong>
+		 <%=shopNameValue%></strong><a
 			href="<%=request.getContextPath()%>/PostServlet?clearShop=true">店舗名を変更する</a>
 	</p>
 	<p></p>

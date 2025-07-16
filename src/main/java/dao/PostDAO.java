@@ -165,7 +165,7 @@ public class PostDAO {
 	//ログインユーザーのつぶやきを全件表示
 	public List<PostInfo> findPostsByUserId(String userId) {
 	    List<PostInfo> postList = new ArrayList<>();
-	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE user_id = ? ORDER BY postTime DESC";
+	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE user_id = ? ORDER BY posts_id DESC";
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 	        stmt.setString(1, userId);
 	        try (ResultSet rs = stmt.executeQuery()) {
@@ -236,7 +236,7 @@ public class PostDAO {
 	public List<PostInfo> postFindNew(){
 		List<PostInfo> postList = new ArrayList<>();
 			//select文の準備
-			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc limit 5";
+			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by posts_id desc limit 10";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行
