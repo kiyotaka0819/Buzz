@@ -5,6 +5,7 @@
 String errorMessage = (String) request.getAttribute("errorMessage");
 PostInfo post = (PostInfo) request.getAttribute("post");
 Boolean hasPicture = (Boolean) request.getAttribute("hasPicture");
+String redirect = (String) request.getAttribute("redirect");
 //セッションから新しい店舗名を取得する
 //ShopSelectActionServletがこのセッションに値を設定している
 String selectedShopFromSession = (String) session.getAttribute("selectedShopForPost");
@@ -34,6 +35,8 @@ if (selectedShopFromSession != null) {
 
 	<form action="<%= request.getContextPath() %>/PostEditServlet"
 		method="post" enctype="multipart/form-data">
+		<!-- リダイレクト先 -->
+		<input type="hidden" name="redirect" value="<%= redirect %>">
 
 		<!-- つぶやきID -->
 		<input type="hidden" name="postId" value="<%= post.postId() %>"><br>
@@ -93,7 +96,7 @@ if (selectedShopFromSession != null) {
 
 		<button type="submit">更新</button>
 	</form>
-	<a href="MypageServlet">キャンセル</a>
+	<a href=<%= redirect %>>キャンセル</a>
 	<jsp:include page="footer.jsp" />
 </body>
 </html>
