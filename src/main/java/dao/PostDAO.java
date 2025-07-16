@@ -107,7 +107,9 @@ public class PostDAO {
 	//指定されたIDのつぶやきを1件だけ取得する
 	public PostInfo findById(int postId) {
 	    PostInfo postInfo = null;
-	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE posts_id = ?";
+	    String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName " +
+                "FROM posts p JOIN users u ON p.user_id = u.user_id " +
+                "WHERE p.posts_id = ?";
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -121,8 +123,9 @@ public class PostDAO {
 	                byte[] pic = rs.getBytes("pictures");
 	                String shop = rs.getString("shop");
 	                Timestamp postTime = rs.getTimestamp("postTime");
+	                String userName = rs.getString("userName");
 
-	                postInfo = new PostInfo(id, userId, comment, pic, shop, postTime);
+	                postInfo = new PostInfo(id, userId, comment, pic, shop, postTime, userName);
 	            }
 	        }
 	    } catch (SQLException e) {
@@ -138,7 +141,7 @@ public class PostDAO {
 		
 		
 			//select文の準備
-			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by postTime desc";
+			String sql = "select posts_id, user_id,comment,pictures,shop,postTime, userName from posts order by postTime desc";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行
@@ -152,8 +155,9 @@ public class PostDAO {
 				byte[] pic = rs.getBytes("pictures");
 				String shop = rs.getString("shop");
 				Timestamp postTime = rs.getTimestamp("postTime");
+				String userName = rs.getString("userName");
 				
-				PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime);
+				PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime, userName);
 				postList.add(post);
 			}
 		
@@ -165,19 +169,22 @@ public class PostDAO {
 	//ログインユーザーのつぶやきを全件表示
 	public List<PostInfo> findPostsByUserId(String userId) {
 	    List<PostInfo> postList = new ArrayList<>();
-	    String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE user_id = ? ORDER BY posts_id DESC";
+	    String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName " +
+                "FROM posts p JOIN users u ON p.user_id = u.user_id " +
+                "WHERE p.user_id = ? ORDER BY p.posts_id DESC";
 	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 	        stmt.setString(1, userId);
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
-	                PostInfo post = new PostInfo(
-	                    rs.getInt("posts_id"),
-	                    rs.getString("user_id"),
-	                    rs.getString("comment"),
-	                    rs.getBytes("pictures"),
-	                    rs.getString("shop"),
-	                    rs.getTimestamp("postTime")
-	                );
+	            	PostInfo post = new PostInfo(
+	            			rs.getInt("posts_id"),
+	            			rs.getString("user_id"),
+	            			rs.getString("comment"),
+	            			rs.getBytes("pictures"),
+	            			rs.getString("shop"),
+	            			rs.getTimestamp("postTime"),
+	            			rs.getString("userName")
+	            			);
 	                postList.add(post);
 	            }
 	        }
@@ -207,7 +214,7 @@ public class PostDAO {
 		List<PostInfo> postList = new ArrayList<>();
 		// SQLはコメントと店舗名の両方を部分一致検索する
 		// ORでどちらかの条件に合致すれば検索一致扱い
-		String sql = "SELECT posts_id, user_id, comment, pictures, shop, postTime FROM posts WHERE comment LIKE ? OR shop LIKE ? ORDER BY postTime DESC";
+		String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName FROM posts p JOIN users u ON p.user_id = u.user_id WHERE p.comment LIKE ? OR p.shop LIKE ? ORDER BY p.postTime DESC";
 
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			// 部分一致検索にする
@@ -222,8 +229,13 @@ public class PostDAO {
 					byte[] pic = rs.getBytes("pictures");
 					String shop = rs.getString("shop");
 					Timestamp postTime = rs.getTimestamp("postTime");
-					PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime);
+					
+					String userName = rs.getString("userName");
+					
+					PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime, userName);
+					
 					postList.add(post);
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -236,7 +248,9 @@ public class PostDAO {
 	public List<PostInfo> postFindNew(){
 		List<PostInfo> postList = new ArrayList<>();
 			//select文の準備
-			String sql = "select posts_id, user_id,comment,pictures,shop,postTime from posts order by posts_id desc limit 10";
+			String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName " +
+	                 "FROM posts p JOIN users u ON p.user_id = u.user_id " +
+	                 "ORDER BY p.posts_id DESC LIMIT 10";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行
@@ -250,8 +264,9 @@ public class PostDAO {
 				byte[] pic = rs.getBytes("pictures");
 				String shop = rs.getString("shop");
 				Timestamp postTime = rs.getTimestamp("postTime");
+				String userName = rs.getString("userName");
 				
-				PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime);
+				PostInfo post = new PostInfo(postId, userId, comment, pic, shop, postTime, userName);
 				postList.add(post);
 			}
 		

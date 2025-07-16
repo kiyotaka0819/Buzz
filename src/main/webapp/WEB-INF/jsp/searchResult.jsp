@@ -3,6 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.PostInfo"%>
 <%@ page import="model.ShopInfo"%>
+<%@ page import="dao.BuzzDAO" %>
 
 <!DOCTYPE html>
 <html>
@@ -28,8 +29,8 @@
 	%>
 
 	<div>
-		<p> <strong>投稿ユーザー：</strong>
-		<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>
+		<p> <strong><%=post.userName() %></strong>
+		<a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
 		</p>
 		
 		<p> <strong>店舗：</strong>
@@ -49,11 +50,25 @@
 		}
 		%>
 
-		<form action="BuzzServlet" method="post">
-			<input type="hidden" name="postId" value="<%=post.postId()%>">
-			<button type="submit">バズ</button>
-		</form>
+		<%
+		boolean hasBuzzed = false;
+		try {
+			hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
+		} catch (Exception e) {
+			e.printStackTrace(); // 必要ならログ
+		}
+		int buzzCount = new dao.BuzzDAO().countBuzz(post.postId());
+		%>
 		
+		<form class="buzz-form" method="post" action="BuzzServlet">
+			<input type="hidden" name="postId" value="<%=post.postId()%>">
+			<button type="submit"
+				class="buzz-button <%=hasBuzzed ? "buzzed" : ""%>">
+				<%=hasBuzzed ? "バズ済み✔️" : "バズる🔥"%>
+			</button>
+			<span class="buzz-count"><%=buzzCount%></span>
+		</form>
+
 
 		<%
 		if (sessionUserId != null && sessionUserId.equals(post.userId())) {
@@ -100,6 +115,9 @@
 		<p>該当する店舗は見つかりませんでした。</p>
 	<% } %>
 	<jsp:include page="footer.jsp" />
+	<jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
+	
+	<script src="<%= request.getContextPath() %>/js/delete.js"></script>
 	<script src="<%= request.getContextPath() %>/js/script.js"></script>
 	<script src="<%= request.getContextPath() %>/js/buzz.js"></script>
 </body>

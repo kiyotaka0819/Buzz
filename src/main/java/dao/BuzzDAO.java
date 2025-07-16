@@ -164,12 +164,13 @@ public class BuzzDAO {
 	    		while (rs.next()) {
 	    			PostInfo post = new PostInfo(
 	    					rs.getInt("posts_id"),
-	    					rs.getString("user_id"),
-	    					rs.getString("comment"),
-	    					rs.getBytes("pictures"),
-	    					rs.getString("shop"),
-	    					rs.getTimestamp("postTime")
-	    					);
+	            			rs.getString("user_id"),
+	            			rs.getString("comment"),
+	            			rs.getBytes("pictures"),
+	            			rs.getString("shop"),
+	            			rs.getTimestamp("postTime"),
+	            			rs.getString("user_name")
+	            			);
 	    			result.add(post);
 	    		}
 	    	}

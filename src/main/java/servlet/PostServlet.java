@@ -62,7 +62,7 @@ public class PostServlet extends HttpServlet {
 	        pictureBytes = part.getInputStream().readAllBytes();
 	    }
 
-	    PostInfo post = new PostInfo(0, userId, comment, pictureBytes, shopName, null);
+	    PostInfo post = new PostInfo(0, userId, comment, pictureBytes, shopName, null, null);
 	    PostDAO dao = new PostDAO();
 	    boolean result = dao.postInsert(post);
 
