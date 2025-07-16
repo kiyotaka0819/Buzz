@@ -25,10 +25,11 @@
 
 <h2>ユーザー情報</h2>
 
-<p>ユーザーID：<%= user.userId() %></p>
+<!--  <p>ユーザーID：<%= user.userId() %></p>-->
+<p>ユーザーID：<%= sessionUserId %></p>
 <p>パスワード：*****</p>
 <p>ユーザー名：<%= user.name()%></p>
-<p>プロフィール：<%= user.profile()%></p>
+<p style="white-space: pre-line;">プロフィール：<%= user.profile()%></p>
 <a href="UserEditServlet">プロフィールを編集</a>
 <hr>
 
@@ -53,7 +54,7 @@
       <%} %>
       </p>
       
-      <p><strong>コメント：</strong><%= post.comment() %></p>
+      <p style="white-space: pre-line;"><strong>コメント：</strong><%= post.comment() %></p>
       <% if (post.pic() != null) { %>
         <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
       <% } %>
@@ -61,7 +62,7 @@
       <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
      <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
       
-        <a href="PostEditServlet?postId=<%= post.postId() %>">編集</a>
+        <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MypageServlet">編集</a>
          <!-- 削除リンク -->
       <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet">削除</a> |
       <% } %>

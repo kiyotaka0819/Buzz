@@ -30,6 +30,9 @@ public class PostDeleteServlet extends HttpServlet {
 
 		// 投稿IDを受け取る
 		String postIdStr = request.getParameter("postId");
+		//check
+		System.out.println("postId:"+ postIdStr);
+		
 		if (postIdStr == null || postIdStr.isEmpty()) {
 			//response.sendRedirect("MypageServlet"); // 不正アクセス防止
 			request.getRequestDispatcher("WEB-INF/jsp/mypage.jsp").forward(request, response);
@@ -51,8 +54,12 @@ public class PostDeleteServlet extends HttpServlet {
 		}
 		
 		if(result) {
+			//check
+			System.out.println("削除成功");
 			response.sendRedirect(redirect); // 削除出来たらマイページにもどる。
 		}else {
+			//check
+			System.out.println("削除失敗");
 			request.setAttribute("errorMessage", "削除に失敗しました。もう一度お試しください。");
 		    request.getRequestDispatcher("/WEB-INF/jsp/mypage.jsp").forward(request, response);
 		}

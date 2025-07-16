@@ -33,7 +33,7 @@
 	%>
 	<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
 		<p><strong>店舗：</strong><a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a></p>
-		<p><strong>コメント：</strong><%=post.comment()%></p>
+		<p style="white-space: pre-line;"><strong>コメント：</strong><%=post.comment()%></p>
 		<%
 		if (post.pic() != null) {
 		%>
