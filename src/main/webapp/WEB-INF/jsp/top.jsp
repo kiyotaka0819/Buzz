@@ -22,5 +22,7 @@
         アカウントをお持ちの場合は
         <a href="LoginServlet" class="button-link">ログイン</a>
     </div>
+    <%-- ログイン前ヘッダー読み込み用 --%>
+    <jsp:include page="footerTop.jsp" />
 </body>
 </html>

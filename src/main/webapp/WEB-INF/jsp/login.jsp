@@ -16,9 +16,9 @@
 		<p style="color: red;"><%= request.getAttribute("errorMsg") %></p>
 	<% } %>
 	ユーザーID<br>
-	<input type="text" name="userId"><br>
+	<input type="text" name="userId"><br><br>
 	パスワード<br>
-	<input type="password" name="pass"><br>
+	<input type="password" name="pass"><br><br>
 	<input type="submit" value="ログイン">
 </form>
 </body>
