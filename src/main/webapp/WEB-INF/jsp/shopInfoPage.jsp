@@ -35,7 +35,18 @@
 			 
 			<label>URL：<%
 			if (shopDetail != null) {
-				out.print(shopDetail.shopURL());
+				String url = shopDetail.shopURL();
+				if (url != null && !url.isEmpty()) {
+					// 最初省略してる場合はこちらで付け足しておく
+					if (!url.startsWith("http://") && !url.startsWith("https://")) {
+						url = "http://" + url;
+					}
+					out.print("<a href=\"" + url + "\" target=\"_blank\">");
+					out.print(shopDetail.shopURL());
+					out.print("</a>");
+				} else {
+					out.print("URL情報なし");
+				}
 			} else {
 				out.print("URL情報なし");
 			}
