@@ -122,7 +122,7 @@ public class PostEditServlet extends HttpServlet {
 	    String userId = (String) session.getAttribute("userId");
 
 	    // PostInfo オブジェクトに詰める
-	    PostInfo postInfo = new PostInfo(postId, userId, comment, pictureData, shopName, null); // postTime は不要
+	    PostInfo postInfo = new PostInfo(postId, userId, comment, pictureData, shopName, null, null); // postTime は不要
 
 	    // DAOで更新
 	    PostDAO dao = new PostDAO();
