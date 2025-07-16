@@ -45,9 +45,13 @@
         未記入
       <%} %>
       </p>
-      
-      <p><strong>コメント：</strong><%= post.comment() %></p>
-      <% if (post.pic() != null) { %>
+
+		<p style="white-space: pre-line;">
+			<strong>コメント：</strong><%=post.comment()%>
+		</p>
+		<%
+		if (post.pic() != null) {
+		%>
         <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
       <% } %>
 

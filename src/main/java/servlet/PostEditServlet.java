@@ -149,9 +149,28 @@ public class PostEditServlet extends HttpServlet {
 	private String readFormField(Part part) throws IOException {
 		if (part == null || part.getSize() == 0) {
 			return null;
-	}
+		}
+
+		// BufferedReaderを作る
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"))) {
-			return reader.readLine();
+
+			// StringBuilderの変数を用意
+			StringBuilder content = new StringBuilder();
+			String line;
+
+			// 一行ずつ読み込み、contentに追加していく
+			while ((line = reader.readLine()) != null) {
+				content.append(line);
+				// Builderしたものは改行コードが消えるので代入する
+				content.append("\r\n");
+			}
+
+			// StringBuilderをStringに変換して返す
+			// 最後の改行が不要な場合は、長さを調整
+			if (content.length() > 0) {
+				content.setLength(content.length() - 2); // 最後の改行(\r\n)を削除
+			}
+			return content.toString();
 		}
 	}
 }
