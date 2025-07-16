@@ -28,13 +28,20 @@ public class PostEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String loginUserId = (String) session.getAttribute("userId");
+		
+		//遷移元のページを確認する
+		String redirect = request.getParameter("redirect");
+		
+		if(!"MypageServlet".equals(redirect)) {
+			redirect = "MainMenuServlet";
+		}
 
 		// 投稿IDを受け取る
 		String postIdStr = request.getParameter("postId");
 		//check
 		System.out.println("postsId = " + postIdStr);
 		if (postIdStr == null || postIdStr.isEmpty()) {
-			response.sendRedirect("MypageServlet"); // 不正アクセス防止
+			response.sendRedirect(redirect); // 不正アクセス防止
 			return;
 		}
 
@@ -45,18 +52,19 @@ public class PostEditServlet extends HttpServlet {
 		PostInfo post = dao.findById(postId);
 		if (post == null) {
 		    // 存在しない投稿ID → エラー対応
-		    response.sendRedirect("MypageServlet");
+		    response.sendRedirect(redirect);
 		    return;
 		}
 
 		
 		// 自分の投稿でない場合はリダイレクト
 		if (!loginUserId.equals(post.userId()) &&loginUserId != null ) {
-			response.sendRedirect("MypageServlet");
+			response.sendRedirect(redirect);
 			return;
 		}
 		System.out.println("post内容 " + post);
 		// 投稿情報をリクエストスコープに保存
+		request.setAttribute("redirect", redirect);
 		request.setAttribute("post", post);
 		request.setAttribute("hasPicture", post.pic() != null);
 		
@@ -129,15 +137,21 @@ public class PostEditServlet extends HttpServlet {
 	    boolean result = dao.postEdit(postInfo, postId,shouldDeletePic);
 	    //check
 	    System.out.println("postInfo:" + postInfo );
+	    
+	    String redirect = request.getParameter("redirect");
+		
+		if(!"MypageServlet".equals(redirect)) {
+			redirect = "MainMenuServlet";
+		}
 	    if (result) {
-	        // 成功 → マイページにリダイレクト
-	        response.sendRedirect("MypageServlet");
+	        // 成功 → 遷移元にリダイレクト
+	        response.sendRedirect(redirect);
 	    } else {
 	    	// 再度DBから投稿情報を取得（失敗しても少なくともnullでなくなる）
 	        PostInfo originalPost = dao.findById(postId);
 	        if (originalPost  == null) {
 	            // 存在しない投稿ID → エラー対応
-	            response.sendRedirect("MypageServlet");
+	            response.sendRedirect(redirect);
 	            return;
 	        }
 	        request.setAttribute("post", originalPost);

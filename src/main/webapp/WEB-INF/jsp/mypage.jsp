@@ -43,6 +43,9 @@
     for (PostInfo post : postList) {
 %>
     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+    	<p> <strong>ユーザー：</strong>
+		<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>
+		</p>
       <p> <strong>店舗：</strong>
       <% 
       	String shopName = post.shopName();
