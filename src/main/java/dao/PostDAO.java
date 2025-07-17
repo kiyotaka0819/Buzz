@@ -286,7 +286,7 @@ public class PostDAO {
 	        WHERE shop IS NOT NULL AND TRIM(shop) <> ''
 	        GROUP BY shop
 	        ORDER BY COUNT(*) DESC
-	        LIMIT 3
+	        LIMIT 5
 	    """;
 
 	    try (PreparedStatement stmt = conn.prepareStatement(sql);
