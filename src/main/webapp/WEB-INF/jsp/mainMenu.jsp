@@ -58,9 +58,9 @@
       <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
      <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
       
-        <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MypageServlet">編集</a>
+        <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">編集</a>
         <!-- 削除リンク -->
-      <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet">削除</a> |
+      <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">削除</a> |
       <% } %>
       <% 
   		boolean hasBuzzed = false;
