@@ -35,7 +35,7 @@
 		<a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
 		</p>
 		
-		<p> <strong>店舗名：</strong>
+		<p> 店舗名：
 		<% 
       	String shopName = post.shopName();
       	if (shopName != null && !shopName.isEmpty()) { 
