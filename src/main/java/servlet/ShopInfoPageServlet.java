@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,7 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import dao.PostDAO;
 import dao.ShopDAO;
+import model.PostInfo;
 import model.ShopInfo;
 
 @WebServlet("/ShopInfoPageServlet")
@@ -23,6 +27,7 @@ public class ShopInfoPageServlet extends HttpServlet {
 		// 取得した店舗名を保管しておく変数
 		ShopInfo shopInfo = null;
 		ShopDAO shopDAO = new ShopDAO();
+		PostDAO postDAO = new PostDAO();
 		
 		// 取得した店舗名から情報をDAOより取得する
 		try {
@@ -45,6 +50,32 @@ public class ShopInfoPageServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "指定された店舗は見つかりませんでした。");
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopInfoPage.jsp");
+		
+		//画像をランダム取得
+		try {
+	        if (shopName != null && !shopName.isEmpty()) {
+	            // 店舗情報取得
+	            shopInfo = shopDAO.findByShopName(shopName);
+
+	            // 画像付き投稿取得
+	            List<PostInfo> postList = postDAO.findPostsByShopWithImage(shopName);
+
+	            PostInfo randomPost = null;
+	            if (postList != null && !postList.isEmpty()) {
+	                int randomIndex = new Random().nextInt(postList.size());
+	                randomPost = postList.get(randomIndex);
+	            }
+
+	            request.setAttribute("shopDetail", shopInfo);
+	            request.setAttribute("randomPostWithImage", randomPost);
+	        } else {
+	            request.setAttribute("errorMessage", "指定された店舗は見つかりませんでした。");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        request.setAttribute("errorMessage", "店舗情報の取得中にエラーが発生しました。");
+	    }
+		
 		dispatcher.forward(request, response);
 	}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -307,4 +307,34 @@ public class PostDAO {
 	    return shopList;
 	}
 	
+	//ある店舗についての画像付きつぶやきの取得(ShopInfoServlet用)
+	public List<PostInfo> findPostsByShopWithImage(String shopName) {
+	    List<PostInfo> postList = new ArrayList<>();
+	    String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName " +
+	                 "FROM posts p JOIN users u ON p.user_id = u.user_id " +
+	                 "WHERE p.shop = ? AND p.pictures IS NOT NULL " +
+	                 "ORDER BY p.postTime DESC";
+
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, shopName);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                PostInfo post = new PostInfo(
+	                    rs.getInt("posts_id"),
+	                    rs.getString("user_id"),
+	                    rs.getString("comment"),
+	                    rs.getBytes("pictures"),
+	                    rs.getString("shop"),
+	                    rs.getTimestamp("postTime"),
+	                    rs.getString("userName")
+	                );
+	                postList.add(post);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return postList;
+	}
+	
 }

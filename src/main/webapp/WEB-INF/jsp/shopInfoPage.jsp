@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.ShopInfo"%>
+<%@ page import="model.PostInfo"%>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,19 @@
 	ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 	%>
 	<ul>
+<%
+    model.PostInfo post = (model.PostInfo) request.getAttribute("randomPostWithImage");
+    if (post != null) {
+%>
+    <!-- 投稿画像表示 -->
+    <img src="<%= request.getContextPath() %>/ImageServlet?postId=<%= post.postId() %>" alt="ランダム画像" style="max-width: 300px;" />
+<%
+    } else {
+%>
+    <p>No Image</p>
+<%
+    }
+%>
 		<form action="ShopEditServlet" method="get">
 			<h2>店舗情報</h2>
 			<label>店舗名：<%
@@ -27,11 +41,12 @@
 			%></label><br> 
 			
 			<label>住所：<%
-			if(shopDetail != null) {
+			if (shopDetail != null && shopDetail.shopAddress() != null && !shopDetail.shopAddress().isEmpty()) {
 				out.print(shopDetail.shopAddress());
 			} else {
-			 	out.print("住所情報なし");
-			 }%></label><br> 
+				out.print("住所情報なし");
+			}
+			%></label><br> 
 			 
 			<label>URL：<%
 			if (shopDetail != null) {
@@ -53,11 +68,12 @@
 			%></label><br>
 			
 			<label>電話番号：<%
-			if (shopDetail != null && shopDetail.shopTEL() 
-			!= null && !shopDetail.shopTEL().isEmpty()) {
-			 } else {
-		 	out.print("電話番号情報なし");
-		 }%></label><br>
+			if (shopDetail != null && shopDetail.shopTEL() != null && !shopDetail.shopTEL().isEmpty()) {
+				out.print(shopDetail.shopTEL());
+		    } else {
+				out.print("電話番号情報なし");
+		    }
+		    %></label><br>
 		 
 		 <% if(shopDetail != null) { %>
             <input type="hidden" name="shopNameForEdit" value="<%= shopDetail.shopName() %>">
