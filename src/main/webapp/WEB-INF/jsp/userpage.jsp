@@ -27,45 +27,67 @@
 <hr>
 
 	<h2>投稿一覧</h2>
-	<%
-	if (postList != null && !postList.isEmpty()) {
-		for (PostInfo post : postList) {
-	%>
-	<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-		<p><strong>店舗：</strong><a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a></p>
-		<p style="white-space: pre-line;"><strong>コメント：</strong><%=post.comment()%></p>
-		<%
-		if (post.pic() != null) {
-		%>
-		<p><img src="ImageServlet?postId=<%=post.postId()%>" width="200"></p>
-		<%
-		}
-		%>
-		<%
+<%--投稿削除が失敗した場合のエラーメッセージ --%>
+<% if (errorMessage != null) { %>
+  <p style="color:red;"><%= errorMessage %></p>
+<% } %>
+<%
+  if (postList != null && !postList.isEmpty()) {
+    for (PostInfo post : postList) {
+%>
+    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+  <p> <strong><%=post.userName() %></strong>
+    <a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
+    </p>
+  <p>店舗名：
+  <% 
+  	String shopName = post.shopName();
+  	if (shopName != null && !shopName.isEmpty()) { 
+  %>
+  <a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a>
+  <% } else { %>
+    未記入
+  <%} %>
+  </p>
+
+<p style="white-space: pre-line;">
+	<%=post.comment()%>
+</p>
+<% if (post.pic() != null) { %>
+    <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
+  <% } %>
+
+  <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
+ <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
+  
+    <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">編集</a>
+    <!-- 削除リンク -->
+  <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">削除</a> |
+  <% } %>
+  <% 
 		boolean hasBuzzed = false;
 		try {
-			hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
-		} catch (Exception e) {
-			e.printStackTrace(); // 必要ならログ
-		}
+  		hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
+			} catch (Exception e) {
+  			e.printStackTrace(); // 必要ならログ
+			}
 		int buzzCount = new dao.BuzzDAO().countBuzz(post.postId());
 		%>
 
-		<form class="buzz-form" method="post" action="BuzzServlet">
-			<input type="hidden" name="postId" value="<%=post.postId()%>">
-			<button type="submit"
-				class="buzz-button <%=hasBuzzed ? "buzzed" : ""%>">
-				<%=hasBuzzed ? "バズ済み✔️" : "バズる🔥"%>
-			</button>
-			<span class="buzz-count"><%=buzzCount%></span>
-		</form>
-	</div>
-	<%
+<form class="buzz-form" method="post" action="BuzzServlet">
+  <input type="hidden" name="postId" value="<%= post.postId() %>">
+  <button type="submit" class="buzz-button <%= hasBuzzed ? "buzzed" : "" %>">
+    <%= hasBuzzed ? "バズ済み✔️" : "バズる🔥" %>
+  </button>
+  <span class="buzz-count"><%= buzzCount %></span>
+</form>
+    </div>
+<%   
 	}
-	} else {
-	%>
-	<p>まだ投稿がありません。</p>
-	<%}%>
+  } else {
+%>
+    <p>まだ投稿がありません。</p>
+<%}%>
 
 
 	<jsp:include page="footer.jsp" />
