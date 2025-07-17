@@ -271,7 +271,7 @@ h2 {
     transition: transform 0.2s ease-in-out; /* 変化のアニメーション */
 	background-color: #f0f0f0; /* 各アイテムのベース背景色を少し濃いめのグレーに */
 	background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.1) 1px, transparent 1px); /* 小さなドット */
-	background-size: 20px 20px; /* ドットの間隔と密度 */
+	background-size: 8px 8px; /* ドットの間隔と密度 */
 }
 
 .ranking-item:hover {
