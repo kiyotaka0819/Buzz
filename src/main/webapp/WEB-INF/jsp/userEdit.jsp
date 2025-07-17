@@ -23,13 +23,20 @@ pageEncoding="UTF-8"%>
 <form action="UserEditConfirmServlet" method="post">
     ユーザーID<br>
     <input type="text" name="userId" value="${userId}" readonly><br>
+    
     パスワード（変更する場合のみ入力）<br>
     <input type="password" name="pass"><br>
+    <small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small><br>
+    
     ユーザー名<br>
     <input type="text" name="name" value="${name}"><br>
+    <small style="color: gray;">※40文字以内</small><br>
+    
     プロフィール<br>
     <textarea name="profile" rows="4" cols="40">${profile}</textarea><br>
+    <small style="color: gray;">※200文字以内</small><br>
     <input type="submit" value="確認">
+    
 </form>
 <p><a href="MypageServlet">戻る</a></p>
 <script src="<%= request.getContextPath() %>/js/script.js"></script>

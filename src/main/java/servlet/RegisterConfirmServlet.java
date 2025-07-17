@@ -78,7 +78,10 @@ public class RegisterConfirmServlet extends HttpServlet {
         } else if (name.length() > 40) {
             errorMsgs.add("ユーザー名は40文字以内で入力してください。");
         }
-
+        
+        if (profile != null && profile.length() > 200) {
+            errorMsgs.add("プロフィールは200文字以内で入力してください。");
+        }
         if (!errorMsgs.isEmpty()) {
             request.setAttribute("errorMsgs", errorMsgs);
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/register.jsp");

@@ -57,7 +57,12 @@ public class UserEditConfirmServlet extends HttpServlet {
         } else if (name.length() > 40) {
             errorMsgs.add("ユーザー名は40文字以内で入力してください。");
         }
-
+        
+        // プロフィールのチェック
+        if (profile != null && profile.length() > 200) {
+            errorMsgs.add("プロフィールは200文字以内で入力してください。");
+        }
+        
         // エラーがある場合、入力画面に戻す
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("errorMsgs", errorMsgs);

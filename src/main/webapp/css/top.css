@@ -1,4 +1,4 @@
-/* トップページ共通スタイル */
+/* ==================== 基本設定 ==================== */
 body {
     font-family: "メイリオ", Meiryo, sans-serif;
     background-color: #fff;
@@ -7,29 +7,29 @@ body {
     color: #333;
 }
 
-/* ***************************ヘッダー**************************** */
+/* ==================== ヘッダー ==================== */
 
-/* ヘッダーの一番上のリボン */
+/* ヘッダー上部リボン */
 .top-ribbon {
-	background-color: #ff9900;
-	color: white;
-	text-align: center;
-	padding: 5px 0;
-	font-size: 14px;
-	line-height: 1.5;
-	font-family: "メイリオ", Meiryo, sans-serif;
+    background-color: #ff9900;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: "メイリオ", Meiryo, sans-serif;
 }
 
-/* ヘッダー全体のFlexbox調整と要素間のスペース調整 */
+/* ヘッダー全体のFlexbox調整 */
 .header-content {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 5px 20px;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    flex-wrap: wrap;
 }
 
-/* ロゴ部分 */
+/* ロゴ */
 .logo {
     flex-shrink: 0;
     margin-right: 20px;
@@ -40,12 +40,37 @@ body {
     width: auto;
 }
 
-/* 中央コンテンツ */
-.container {
-    text-align: center;
-    padding: 50px 20px;
+/* ==================== メイン ==================== */
+
+/* メイン全体のレイアウト（スライドショー＋テキスト） */
+.main-content {
+    display: flex;
+    justify-content: center; /* 横方向中央揃え */
+    align-items: flex-start; /* 上揃え */
+    gap: 40px; /* スライドとテキスト間のスペース */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* スライドショー部分 */
+.slideshow {
+    flex: 1 1 50%;
+    max-width: 600px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* メインテキスト部分 */
+.container {
+    flex: 1 1 50%;
+    max-width: 600px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* 見出し・テキスト */
 h1 {
     font-size: 2.5em;
     color: #ff9900;
@@ -63,6 +88,7 @@ p {
     margin-bottom: 30px;
 }
 
+/* ボタンリンク */
 .button-link {
     display: inline-block;
     background-color: #ff9900;
@@ -79,7 +105,28 @@ p {
     background-color: #e68a00;
 }
 
-/* 入力補足ルールのスタイル（フォーム下のグレー文字） */
+/* スライド画像の共通スタイル */
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fff;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 0;
+}
+
+.slide.active {
+    opacity: 1 !important;
+    z-index: 10 !important;
+}
+
+/* ==================== フォーム補助スタイル ==================== */
+
+/* 入力補足ルール（フォーム下の説明など） */
 form small {
     font-size: 0.9em;
     color: #666;
@@ -88,21 +135,19 @@ form small {
     margin-bottom: 10px;
 }
 
-/* ***************************フッター**************************** */
+/* ==================== フッター ==================== */
 
-/* フッター全体 */
-.footer { 
-	background-color: rgb(238, 238, 238); /* 背景色：白に設定 */
-	color: rgb(0, 0, 0); /* 文字色：黒に設定 */
-	padding: 10px 50px; /* 上下左右に余白を設定 */
-	text-align: center; /* テキストを中央に配置 */
-	font-size: 0.9em; /* フォントサイズを相対的に小さく設定 */
-	border-top: 2px solid rgb(128, 128, 128); /* 上側のボーダーラインを設定 */
-	margin-top: 50px; /* 上側の余白を設定 */
+.footer {
+    background-color: rgb(238, 238, 238); /* 薄いグレー */
+    color: rgb(0, 0, 0); /* 黒文字 */
+    padding: 10px 50px;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 2px solid rgb(128, 128, 128);
+    margin-top: 50px;
 }
 
-/* フッターのクレジット表示 */
 .footer-info p {
-	margin: 0; /* 外側の余白をゼロに設定 */
-	color: rgb(128, 128, 128); /* 文字色 */
+    margin: 0;
+    color: rgb(128, 128, 128);
 }
