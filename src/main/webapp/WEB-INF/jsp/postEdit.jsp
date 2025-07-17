@@ -37,7 +37,8 @@ if (selectedShopFromSession != null) {
 		method="post" enctype="multipart/form-data">
 		<!-- リダイレクト先 -->
 		<input type="hidden" name="redirect" value="<%= redirect %>">
-
+		<!-- 検索キーワード -->
+		<input type="hidden" name="searchWord" value="<%= request.getParameter("searchWord") %>">
 		<!-- つぶやきID -->
 		<input type="hidden" name="postId" value="<%= post.postId() %>"><br>
 

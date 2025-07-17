@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -28,14 +29,26 @@ public class PostEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String loginUserId = (String) session.getAttribute("userId");
+		// 検索ワードを変数に代入
+		String searchWord = request.getParameter("searchWord");	
+		// 検索ワードをSearchResultServletに渡すためにリクエストスコープに設定
+		request.setAttribute("searchWord", searchWord);
+		//check
+		System.out.println("postEditServlet doGet:"+ searchWord);
 		
 		//遷移元のページを確認する
 		String redirect = request.getParameter("redirect");
 		
-		if(!"MypageServlet".equals(redirect)) {
-			redirect = "MainMenuServlet";
+		 //遷移元の判定
+	    if(!redirect.equals("MypageServlet")) {
+			if(!redirect.equals("MainMenuServlet")) {
+				redirect = "SearchResultServlet";
+			}else {
+				redirect = "MainMenuServlet";
+			}
+		}else {
+			redirect = "MypageServlet";
 		}
-
 		// 投稿IDを受け取る
 		String postIdStr = request.getParameter("postId");
 		//check
@@ -83,9 +96,13 @@ public class PostEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		// 検索ワードを変数に代入
+		String searchWord = request.getParameter("searchWord");	
+		// 検索ワードをSearchResultServletに渡すためにリクエストスコープに設定
+		request.setAttribute("searchWord", searchWord);
+		//check
+		System.out.println("postEditServlet doPost:"+ searchWord);
 		
-		
-	    
 	    // 投稿ID（hiddenから送られてくる）
 		Part postIdPart = request.getPart("postId");
 		String postIdStr = readFormField(postIdPart);
@@ -140,18 +157,25 @@ public class PostEditServlet extends HttpServlet {
 	    
 	    String redirect = request.getParameter("redirect");
 		
-		if(!"MypageServlet".equals(redirect)) {
-			redirect = "MainMenuServlet";
+	    //遷移元の判定
+	    if(!redirect.equals("MypageServlet")) {
+			if(!redirect.equals("MainMenuServlet")) {
+				redirect = "SearchResultServlet";
+			}else {
+				redirect = "MainMenuServlet";
+			}
+		}else {
+			redirect = "MypageServlet";
 		}
 	    if (result) {
 	        // 成功 → 遷移元にリダイレクト
-	        response.sendRedirect(redirect);
+	        response.sendRedirect(redirect + "?searchWord=" + URLEncoder.encode(searchWord, "UTF-8"));
 	    } else {
 	    	// 再度DBから投稿情報を取得（失敗しても少なくともnullでなくなる）
 	        PostInfo originalPost = dao.findById(postId);
 	        if (originalPost  == null) {
 	            // 存在しない投稿ID → エラー対応
-	            response.sendRedirect(redirect);
+	            response.sendRedirect(redirect + "?searchWord=" + URLEncoder.encode(searchWord, "UTF-8"));
 	            return;
 	        }
 	        request.setAttribute("post", originalPost);
