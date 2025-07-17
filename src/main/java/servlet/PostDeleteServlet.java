@@ -39,6 +39,8 @@ public class PostDeleteServlet extends HttpServlet {
 
 		// 投稿IDを受け取る
 		String postIdStr = request.getParameter("postId");
+		postIdStr.trim();
+		
 		//check
 		System.out.println("postId:"+ postIdStr);
 		

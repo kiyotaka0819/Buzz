@@ -180,4 +180,20 @@ public class BuzzDAO {
 	    }
 	    return result;
 	}
+	
+	//つぶやきを消すときにバズ情報を消す
+	public void deleteByPostId(int postId) throws Exception {
+	    String sql = "DELETE FROM buzzbutton WHERE posts_id = ?";
+	    try (Connection conn = DBUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, postId);
+	        pstmt.executeUpdate();
+	    }
+	}
+	
+	
+	
+	
+	
+	
 }

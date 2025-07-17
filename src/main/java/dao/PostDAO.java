@@ -96,9 +96,13 @@ public class PostDAO {
 		try (PreparedStatement stmt = conn.prepareStatement(sql);) {
 			stmt.setInt(1, postId);
 			
+			//バズ情報の削除
+			BuzzDAO buzzDao = new BuzzDAO();
+			buzzDao.deleteByPostId(postId);
+			
 			int result = stmt.executeUpdate();
 	        return result ==1;  // 成功したら true を返す
-	    } catch (SQLException e) {
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return false; // 失敗したら false を返す
 	    }
