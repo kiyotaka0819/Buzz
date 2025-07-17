@@ -53,8 +53,8 @@
 			%></label><br>
 			
 			<label>電話番号：<%
-			if (shopDetail != null) {
-				out.print(shopDetail.shopTEL());
+			if (shopDetail != null && shopDetail.shopTEL() 
+			!= null && !shopDetail.shopTEL().isEmpty()) {
 			 } else {
 		 	out.print("電話番号情報なし");
 		 }%></label><br>

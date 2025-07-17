@@ -52,6 +52,18 @@ public class ShopEditServlet extends HttpServlet {
 		String newShopURL = request.getParameter("shopURL"); // 編集されたURL
 		String newShopTEL = request.getParameter("shopTEL"); // 編集された電話番号
 
+		
+		// 各入力値が空文字の場合にnullに変換する処理
+		// trim()で前後の空白を除去してからisEmpty()でチェックする
+		if (newShopAddress != null && newShopAddress.trim().isEmpty()) {
+			newShopAddress = null;
+		}
+		if (newShopURL != null && newShopURL.trim().isEmpty()) {
+			newShopURL = null;
+		}
+		if (newShopTEL != null && newShopTEL.trim().isEmpty()) {
+			newShopTEL = null;
+		}
 		// 取得した値をセット
 		ShopInfo shopInfo = new ShopInfo(newShopName, newShopURL, newShopAddress, newShopTEL);
 
