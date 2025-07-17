@@ -29,7 +29,10 @@
 <p>ユーザーID：<%= sessionUserId %></p>
 <p>パスワード：*****</p>
 <p>ユーザー名：<%= user.name()%></p>
-<p style="white-space: pre-line;">プロフィール：<%= user.profile()%></p>
+<div style="display: flex; align-items: start;">
+  <span style="min-width: 90px;">プロフィール：</span>
+  <p style="white-space: pre-line; margin: 0;"><%= user.profile() %></p>
+</div>
 <a href="UserEditServlet">プロフィールを編集</a>
 <hr>
 
@@ -57,7 +60,10 @@
       <%} %>
       </p>
       
-      <p style="white-space: pre-line;"><strong>コメント：</strong><%= post.comment() %></p>
+		<div style="display: flex; align-items: start;">
+  			<span style="min-width: 70px;"><strong>コメント：</strong></span>
+  			<p style="white-space: pre-line; margin: 0;"><%= post.comment() %></p>
+  		</div>
       <% if (post.pic() != null) { %>
         <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
       <% } %>
