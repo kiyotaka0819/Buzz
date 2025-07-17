@@ -147,11 +147,12 @@ public class BuzzDAO {
 	    List<PostInfo> result = new ArrayList<>();
 
 	    String sql = """
-	        SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, COUNT(b.buzz_id) AS buzz_count
+	        SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName, COUNT(b.buzz_id) AS buzz_count
 	        FROM posts p
 	        LEFT JOIN buzzbutton b ON p.posts_id = b.posts_id
+	        LEFT JOIN users u ON p.user_id = u.user_id
 	        WHERE p.shop = ?
-	        GROUP BY p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime
+	        GROUP BY p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName
 	        ORDER BY buzz_count DESC
 	        LIMIT 3
 	    """;
@@ -169,7 +170,7 @@ public class BuzzDAO {
 	            			rs.getBytes("pictures"),
 	            			rs.getString("shop"),
 	            			rs.getTimestamp("postTime"),
-	            			rs.getString("user_name")
+	            			rs.getString("userName")
 	            			);
 	    			result.add(post);
 	    		}

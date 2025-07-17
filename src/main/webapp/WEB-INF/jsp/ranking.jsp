@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, model.PostInfo" %>
+<%@ page import="java.util.*, model.PostInfo, model.ShopInfo" %>
 <% 
 Map<String, List<PostInfo>> rankingMap = (Map<String, List<PostInfo>>) request.getAttribute("rankingMap");
+Map<String, ShopInfo> shopInfoMap = (Map<String, ShopInfo>) request.getAttribute("shopInfoMap");
 
 String[] ranks = { "第1位", "第2位", "第3位" };
 String[] colors = { "gold", "silver", "bronze" };
@@ -19,29 +20,45 @@ int index = 0;
 <body>
 <ul>
 <h2>👑バズミシュランのバズ飯ランキング👑</h2>
-<table border="1" style="width:600px"><tr bgcolor="gold">
+<table border="1" style="width: 600px">
+    <tr bgcolor= gold>
+        <th>順位</th>
+        <th>みんなのつぶやき例</th>
+    </tr>
 
 <%
-	for(Map.Entry<String, List<PostInfo>> entry : rankingMap.entrySet()){
+	for (Map.Entry<String, List<PostInfo>> entry : rankingMap.entrySet()) {
 		String shopName = entry.getKey();
 		List<PostInfo> comments = entry.getValue();
-	
+		String rankDisplay = (index < ranks.length) ? ranks[index] : (index + 1) + "位";
+		String colorClass = (index < colors.length) ? colors[index] : "";
 %>
-<tr bgcolor="<%= colors[index] %>">
-	<th> <%= ranks[index]%> : 
-		<a href="ShopInfoPageServlet?shopName=<%= shopName%>"><%= shopName %></a>
-		</th><!--店名の部分をDBからソートして出力-->
-		<td style="background-color: #c0f0e8";>
-			<p>みんなのつぶやき例</p>
-			<% for(PostInfo post : comments ){%>
-				<p><%= post.comment() %></p> <!--ユーザーのつぶやきからいいね多いものを出力-->
-			<%} %>
-		</td>
-</tr>
+	<tr bgcolor="<%=colorClass%>">
+		<th> 
+            <%= rankDisplay %> : 
+            <a href="ShopInfoPageServlet?shopName=<%=shopName%>"><%=shopName%></a>
 			<%
-				index++;
-				}
+			ShopInfo shopDetails = shopInfoMap != null ? shopInfoMap.get(shopName) : null;
+			if (shopDetails != null) {
 			%>
+			<p><%=(shopDetails.shopAddress() != null) ? shopDetails.shopAddress() : "情報なし"%></p>
+			<p><%=(shopDetails.shopTEL() != null) ? shopDetails.shopTEL() : "情報なし"%></p>
+			<%
+			} else { // shopDetailsがnullの場合
+			%>
+			<p>店舗情報なし</p> 
+			<% } %>
+		</th>
+		<td style="background-color: #c0f0e8;"> 
+			<% for (PostInfo post : comments) { %>
+				<p><%=post.comment()%></p>
+			<% } %>
+		</td>
+	</tr>
+<%
+		index++; // Rankingをすべて取得するためにインクリメント
+	}
+%>
 
 </table>
 <jsp:include page="footer.jsp" />
