@@ -14,5 +14,7 @@
     <jsp:include page="headerTop.jsp" />
     <p>ユーザーID：<c:out value="${sessionScope.userId}" />を登録しました</p>
 <a href="MainMenuServlet">メインメニューへ</a>
+    <%-- ログイン前フッター読み込み用 --%>
+    <jsp:include page="footerTop.jsp" />
 </body>
 </html>

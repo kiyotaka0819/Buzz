@@ -21,6 +21,8 @@
 	<input type="password" name="pass"><br><br>
 	<input type="submit" value="ログイン">
 </form>
+<p><a href="TopServlet">戻る</a></p>
+    <%-- ログイン前フッター読み込み用 --%>
+    <jsp:include page="footerTop.jsp" />
 </body>
-<p><a href="TopServlet">トップページ</a></p>
 </html>

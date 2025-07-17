@@ -13,5 +13,7 @@
     <jsp:include page="headerTop.jsp" />
 <p>ログアウトしました</p>
 <a href="TopServlet">トップページ</a>
+    <%-- ログイン前フッター読み込み用 --%>
+    <jsp:include page="footerTop.jsp" />
 </body>
 </html>

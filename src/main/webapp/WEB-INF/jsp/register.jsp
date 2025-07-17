@@ -41,5 +41,7 @@
 	<input type="submit" value="確認">
 </form>
 <p><a href="TopServlet">戻る</a></p>
+    <%-- ログイン前フッター読み込み用 --%>
+    <jsp:include page="footerTop.jsp" />
 </body>
 </html>
