@@ -31,7 +31,7 @@
 	%>
 
 	<div>
-		<p> <strong><%=post.userName() %></strong>
+		<p> <strong><%=post.userName()%></strong>
 		<a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
 		</p>
 		
@@ -65,8 +65,7 @@
 			&searchWord=<%= URLEncoder.encode(searchWord, "UTF-8") %>">編集
 		</a>
          <!-- 削除リンク -->
-        <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>
-        	&redirect=SearchResultServlet
+        <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%=post.postId()%>&redirect=SearchResultServlet
         	&searchWord=<%= URLEncoder.encode(searchWord, "UTF-8") %>">削除
         </a> |
      	<% } %>
