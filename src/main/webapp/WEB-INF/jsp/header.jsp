@@ -5,7 +5,7 @@
   String sessionUserId = (String) session.getAttribute("userId");
 %>
 <div class="top-ribbon">
-    全国のグルメ情報をみんなと共有　～バズミシュラン～
+    福岡のグルメ情報をみんなと共有　～バズミシュラン～
 </div>
 
 <header>
@@ -16,17 +16,23 @@
 				alt="バズミシュラン ロゴ">
 			</a>
 		</div>
-		<div class="search-bar">
-			<form action="<%=request.getContextPath()%>/SearchResultServlet"
-				method="get">
-				<label for="query">検索キーワード:</label> <input type="text" id="query"
-					name="searchWord" placeholder="店舗名、料理名などを入力">
-				<button type="submit">
-					<img src="<%=request.getContextPath()%>/image/searchButton.png"
-						alt="検索">検索
-				</button>
-			</form>
-		</div>
+		
+<div class="main-header-controls">
+	<div class="explain">
+		福岡のグルメ情報<br>
+		気軽につぶやくグルメ×SNS
+	</div>
+	<div class="search-bar">
+		<form action="<%=request.getContextPath()%>/SearchResultServlet" method="get">
+			<label for="query">検索キーワード:</label> <input type="text" id="query"
+				name="searchWord" placeholder="店舗名、料理名などを入力">
+			<button type="submit">
+				<img src="<%=request.getContextPath()%>/image/searchButton.png" alt="検索">検索
+			</button>
+		</form>
+	</div>
+</div>
+
 		<nav class="hamburger-menu-container">
 			<div class="hamburger-icon">
 				<span class="bar"></span> <span class="bar"></span> <span

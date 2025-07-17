@@ -23,7 +23,7 @@
 /* ロゴの調整  */
 .logo {
 	flex-shrink: 0; /* 画面幅が狭くなっても要素が縮まないように設定 */
-	margin-right: 20px; /* 右側の余白を設定 */
+	margin-right: 0px; /* 右側の余白を設定 */
 }
 
 /* ロゴ画像の調整 */
@@ -31,14 +31,33 @@
 	height: 80px; /* 画像の高さを設定 */
 	width: auto; /* 幅をアスペクト比に合わせて自動調整 */
 }
+/* ロゴの隣のサービス説明の文字 */
+.explain{
+	font-size: 0.9em; /* 文字のサイズ */
+	color: #666; /* 文字の色 */
+	margin-right: 10px; /* ロゴと検索バーの間隔を調整 */
+	white-space: nowrap; /* テキストが折り返さないように */
+	line-height: 2; /* 行の高さを調整 */	
+	margin-bottom: 5px; /* 検索バーとの間に少し余白 */
+	text-align: left; /* テキスト左寄せ */
+	margin-top: 50px;
+}
+
+/* 説明と検索バーをまとめるコンテナ */
+.main-header-controls {
+    display: flex;
+    flex-direction: column; /* explainとsearch-barを縦に並べる */
+    justify-content: center; /* 中央揃えにする */
+    flex-grow: 1; /* 残りのスペースを埋めるように広がる */
+    margin: 0 20px; /* ロゴとハンバーガーメニューとの左右の余白 */
+}
 
 /* 検索バー全体の調整 */
 .search-bar {
 	display: flex; /* Flexboxコンテナに設定 */
 	align-items: center; /* 垂直方向の中央に揃える */
-	flex-grow: 1; /* 親要素の残りのスペースを埋めるように広がる */
 	max-width: 600px; /* 検索バーの最大幅を設定 */
-	margin: 10px 0; /* 上下の余白を設定 */
+	margin: 10px auto;
 }
 
 /* 検索バーの「検索キーワード:」のラベル部分 */
