@@ -46,44 +46,43 @@
     for (PostInfo post : postList) {
 %>
     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-    	<p> <strong>ユーザー：</strong>
-		<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>
-		</p>
-      <p> <strong>店舗：</strong>
-      <% 
-      	String shopName = post.shopName();
-      	if (shopName != null && !shopName.isEmpty()) { 
-      %>
-      <a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a>
-      <% } else { %>
-        未記入
-      <%} %>
-      </p>
-      
-		<div style="display: flex; align-items: start;">
-  			<span style="min-width: 70px;"><strong>コメント：</strong></span>
-  			<p style="white-space: pre-line; margin: 0;"><%= post.comment() %></p>
-  		</div>
-      <% if (post.pic() != null) { %>
-        <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
-      <% } %>
+  <p> <strong><%=post.userName() %></strong>
+    <a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
+    </p>
+  <p>店舗名：
+  <% 
+  	String shopName = post.shopName();
+  	if (shopName != null && !shopName.isEmpty()) { 
+  %>
+  <a href="ShopInfoPageServlet?shopName=<%=post.shopName()%>"><%=post.shopName()%></a>
+  <% } else { %>
+    未記入
+  <%} %>
+  </p>
 
-      <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
-     <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
-      
-        <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MypageServlet">編集</a>
-         <!-- 削除リンク -->
-      <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet">削除</a> |
-      <% } %>
-      <% 
-  		boolean hasBuzzed = false;
-  		try {
-    		hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
-  			} catch (Exception e) {
-    			e.printStackTrace(); // 必要ならログ
-  			}
-  		int buzzCount = new dao.BuzzDAO().countBuzz(post.postId());
-  		%>
+<p style="white-space: pre-line;">
+	<%=post.comment()%>
+</p>
+<% if (post.pic() != null) { %>
+    <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
+  <% } %>
+
+  <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
+ <% if (sessionUserId != null && sessionUserId.equals(post.userId())) {%>
+  
+    <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">編集</a>
+    <!-- 削除リンク -->
+  <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">削除</a> |
+  <% } %>
+  <% 
+		boolean hasBuzzed = false;
+		try {
+  		hasBuzzed = new dao.BuzzDAO().exists(post.postId(), sessionUserId);
+			} catch (Exception e) {
+  			e.printStackTrace(); // 必要ならログ
+			}
+		int buzzCount = new dao.BuzzDAO().countBuzz(post.postId());
+		%>
 
 <form class="buzz-form" method="post" action="BuzzServlet">
   <input type="hidden" name="postId" value="<%= post.postId() %>">

@@ -35,7 +35,10 @@
         for (PostInfo post : postList) {
 %>
     <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-      <p><strong>店舗：</strong>
+      <p> <strong><%=post.userName() %></strong>
+        <a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
+        </p>
+      <p>店舗名：
       <% 
       	String shopName = post.shopName();
       	if (shopName != null && !shopName.isEmpty()) { 
@@ -47,7 +50,7 @@
       </p>
 
 		<p style="white-space: pre-line;">
-			<strong>コメント：</strong><%=post.comment()%>
+			<%=post.comment()%>
 		</p>
 		<%
 		if (post.pic() != null) {
