@@ -25,18 +25,19 @@
 <form action="RegisterConfirmServlet" method="post">
 ユーザーID<br>
 <input type="text" name="userId" value="${requestScope.userId}"><br>
-<small style="color: gray;">※40文字以内、半角英数字と一部記号（例: ! - / : @ など）</small><br><br>
+<small style="color: gray;">※40文字以内、半角英数字と一部記号（例: ! - / : @ など）</small>
 
 パスワード<br>
 <input type="password" name="pass"><br>
-<small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small><br><br>
+<small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small>
 
 ユーザー名<br>
 <input type="text" name="name" value="${requestScope.name}"><br>
-<small style="color: gray;">※40文字以内</small><br><br>
+<small style="color: gray;">※40文字以内</small>
 
 プロフィール<br>
 <textarea name="profile" rows="4" cols="40">${requestScope.profile}</textarea><br>
+<small style="color: gray;">※200文字以内</small>
 	<input type="submit" value="確認">
 </form>
 <p><a href="TopServlet">戻る</a></p>
