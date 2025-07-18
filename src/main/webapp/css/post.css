@@ -107,7 +107,7 @@
 
 /*中央によせるスタイル*/
 .container {
-  max-width: 700px;      /* 幅をある程度制限 */
+  max-width: 800px;      /* 幅をある程度制限 */
   width: 90%;
   margin-top: 50px;
           /* 左右中央寄せ */
@@ -117,13 +117,21 @@
   box-shadow:  0 0 10px rgba(255, 140, 0, 0.2);
   
 }
-/* ページ全体の背景を薄いグレーに */
+/*長い表示をコンテナ内で折り返して表示*/
+.container a {
+  word-wrap: break-word;     /* 長い単語（URLなど）を折り返す */
+  overflow-wrap: break-word; /* モダンブラウザ向けの同じ効果 */
+  display: inline-block;     /* 折り返し有効にするために必要 */
+  max-width: 100%;           /* コンテナからはみ出さない */
+}
+/* ページ全体の背景を */
 body {
-  background-color: #fff8f0;/* ほんのりクリーム色で温かみUP */
+  background-color: #fff8f0;/* ほんのりクリーム色で温かみ */
   margin: 0;
   font-family: sans-serif;
   /*display: flex;
   justify-content: center;
   align-items: flex-start;  /* 上寄せ */
   min-height: 100vh;
+  background: linear-gradient(to right, #fff8f0, #f0e5dc, #fff8f0);
 }

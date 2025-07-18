@@ -15,10 +15,11 @@
 <meta charset="UTF-8">
 <title>ユーザー情報 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
-
+<div class="container">
 <h2>ユーザー情報</h2>
 <%-- ユーザー情報の場合はパスワード表示と、編集機能不要 --%>
 <p>ユーザーID：<%= user.userId() %></p>
@@ -89,6 +90,7 @@
     <p>まだ投稿がありません。</p>
 <%}%>
 
+</div>
 
 	<jsp:include page="footer.jsp" />
 <script src="<%= request.getContextPath() %>/js/script.js"></script>

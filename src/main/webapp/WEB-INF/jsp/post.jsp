@@ -5,11 +5,6 @@ String selectedShopFromSession = (String) session.getAttribute("selectedShopForP
 String shopNameValue = (selectedShopFromSession != null && !selectedShopFromSession.isEmpty()) ? selectedShopFromSession
 		: "";
 
-/*
-if (selectedShopFromSession != null) {
-	session.removeAttribute("selectedShopForPost");
-}
-*/
 %>
 <!DOCTYPE html>
 <html>
@@ -76,6 +71,6 @@ if (selectedShopFromSession != null) {
     }
   });
 </script>
-
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>

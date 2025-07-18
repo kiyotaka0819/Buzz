@@ -13,9 +13,11 @@
 <meta charset="UTF-8">
 <title>検索結果 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
+	<div class="container">
 	<h2>
 	  『<%= searchWord%>』の検索結果
 	</h2>
@@ -142,6 +144,7 @@
 		<p>該当する店舗は見つかりませんでした。</p>
 	<% } %>
 	<jsp:include page="footer.jsp" />
+	</div>
 	<!-- モーダル読み込み -->
 	<jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
 	
