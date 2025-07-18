@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="top-ribbon">
-    全国のグルメ情報をみんなと共有　～バズミシュラン～
+    福岡のグルメ情報をみんなと共有　～バズミシュラン～
 </div>
 
 <header>
@@ -10,6 +10,11 @@
 			<img src="<%=request.getContextPath()%>/image/logo.png"
 				alt="バズミシュラン ロゴ">
 		</div>
-		<nav></nav>
+		<div class="main-header-controls">
+		    <div class="explain">
+		    福岡のグルメ情報<br>
+		    気軽につぶやくグルメ×SNS
+		    </div>
+		</div>
 	</div>
 </header>

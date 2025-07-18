@@ -1,4 +1,6 @@
 /* ==================== 基本設定 ==================== */
+
+/* 全体の基本フォント・背景・文字色など */
 body {
     font-family: "メイリオ", Meiryo, sans-serif;
     background-color: #fff;
@@ -7,9 +9,29 @@ body {
     color: #333;
 }
 
+/* 見出し（大） */
+h1 {
+    font-size: 2.5em;
+    color: #ff9900;
+    margin-bottom: 10px;
+}
+
+/* 見出し（中） */
+h2 {
+    font-size: 1.5em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* 段落テキスト */
+p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
 /* ==================== ヘッダー ==================== */
 
-/* ヘッダー上部リボン */
+/* ヘッダーの一番上のリボン */
 .top-ribbon {
     background-color: #ff9900;
     color: white;
@@ -20,40 +42,64 @@ body {
     font-family: "メイリオ", Meiryo, sans-serif;
 }
 
-/* ヘッダー全体のFlexbox調整 */
+/* ヘッダー全体のFlexbox調整と要素間のスペース調整 */
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
     flex-wrap: wrap;
+	min-height: 100px;
+	align-items: center;
 }
 
-/* ロゴ */
+/* ロゴの調整 */
 .logo {
     flex-shrink: 0;
-    margin-right: 20px;
+    margin-right: 0px;
 }
 
+/* ロゴ画像の調整 */
 .logo img {
     height: 80px;
     width: auto;
 }
 
-/* ==================== メイン ==================== */
+/* ロゴの隣のサービス説明の文字 */
+.explain{
+	font-size: 0.9em;
+	color: #666;
+	margin-right: 10px;
+	white-space: nowrap;
+	line-height: 2;
+	margin-bottom: 5px;
+	text-align: left;
+	margin-top: 0px;
+}
 
-/* メイン全体のレイアウト（スライドショー＋テキスト） */
+/* 説明と検索バーをまとめるコンテナ */
+.main-header-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+/* ==================== トップページ：メインコンテンツ ==================== */
+
+/* メイン領域全体（スライド＋テキスト） */
 .main-content {
     display: flex;
-    justify-content: center; /* 横方向中央揃え */
-    align-items: flex-start; /* 上揃え */
-    gap: 40px; /* スライドとテキスト間のスペース */
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* スライドショー部分 */
+/* スライドショー全体枠 */
 .slideshow {
     flex: 1 1 50%;
     max-width: 600px;
@@ -62,50 +108,7 @@ body {
     overflow: hidden;
 }
 
-/* メインテキスト部分 */
-.container {
-    flex: 1 1 50%;
-    max-width: 600px;
-    text-align: center;
-    padding: 0 20px;
-}
-
-/* 見出し・テキスト */
-h1 {
-    font-size: 2.5em;
-    color: #ff9900;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.5em;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-
-/* ボタンリンク */
-.button-link {
-    display: inline-block;
-    background-color: #ff9900;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-size: 1em;
-    margin: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.button-link:hover {
-    background-color: #e68a00;
-}
-
-/* スライド画像の共通スタイル */
+/* 各スライド画像の共通スタイル */
 .slide {
     position: absolute;
     top: 0;
@@ -119,9 +122,121 @@ p {
     z-index: 0;
 }
 
+/* 表示中スライド */
 .slide.active {
     opacity: 1 !important;
     z-index: 10 !important;
+}
+
+/* メインテキスト部分のコンテナ */
+.main-container {
+    flex: 1 1 50%;
+    max-width: 600px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* ==================== 共通：ボタン・リンクスタイル ==================== */
+
+/* ボタン風リンク（共通） */
+.button-link {
+    display: inline-block;
+    background-color: #ff9900;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1em;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* ボタンリンクのホバー時 */
+.button-link:hover {
+    background-color: #e68a00;
+}
+
+/* ボタンリンク：幅100% */
+.button-link.full-width {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    padding: 10px 0; 
+    font-size: 1em;
+}
+
+/* 戻るリンク */
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #ff9900;
+    font-size: 0.9em;
+}
+
+/* 戻るリンクのホバー時 */
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ==================== ログインページ ==================== */
+
+/* ログインページの中央寄せ用ラッパー */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ログインフォームの全体ボックス */
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 40px auto;
+}
+
+/* ログイン見出し */
+.login-container h1 {
+    color: #ff9900;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+}
+
+/* ラベルのスタイル */
+.login-container label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.95em;
+    color: #333;
+}
+
+/* 入力欄（ユーザーID・パスワード） */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95em;
+    box-sizing: border-box;
+}
+
+/* エラーメッセージ表示 */
+.error-msg {
+    color: red;
+    font-size: 1em;
+    margin-bottom: 15px;
 }
 
 /* ==================== フォーム補助スタイル ==================== */
@@ -137,9 +252,10 @@ form small {
 
 /* ==================== フッター ==================== */
 
+/* フッター全体 */
 .footer {
-    background-color: rgb(238, 238, 238); /* 薄いグレー */
-    color: rgb(0, 0, 0); /* 黒文字 */
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
     padding: 10px 50px;
     text-align: center;
     font-size: 0.9em;
@@ -147,6 +263,7 @@ form small {
     margin-top: 50px;
 }
 
+/* フッターのクレジット表示 */
 .footer-info p {
     margin: 0;
     color: rgb(128, 128, 128);

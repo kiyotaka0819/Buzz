@@ -17,13 +17,13 @@ import model.Account;
 public class UserEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
+    protected void doGet(HttpServletRequest request, HttpServletResponse resonse)
             throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        HttpSession session = request.getSession(false);
         String userId = (session != null) ? (String) session.getAttribute("userId") : null;
 
         if (userId == null) {
-            res.sendRedirect("LoginServlet");
+        	resonse.sendRedirect("LoginServlet");
             return;
         }
 
@@ -33,10 +33,10 @@ public class UserEditServlet extends HttpServlet {
 
             if (editAccount != null) {
                 // セッションから編集情報を取り出して画面にセット
-                req.setAttribute("userId", editAccount.userId());
-                req.setAttribute("name", editAccount.name());
-                req.setAttribute("profile", editAccount.profile());
-                req.setAttribute("pass", editAccount.pass()); // パスワードは空かもしれません
+            	request.setAttribute("userId", editAccount.userId());
+            	request.setAttribute("name", editAccount.name());
+            	request.setAttribute("profile", editAccount.profile());
+            	request.setAttribute("pass", editAccount.pass()); // パスワードは空かもしれません
 
                 // セッションから編集情報は削除（戻る時のみ使いたいので）
                 session.removeAttribute("editAccount");
@@ -46,21 +46,21 @@ public class UserEditServlet extends HttpServlet {
                 Account account = dao.findByUserId(userId);
 
                 if (account == null) {
-                    res.sendRedirect("LoginServlet");
+                	resonse.sendRedirect("LoginServlet");
                     return;
                 }
 
-            req.setAttribute("userId", account.userId());
-            req.setAttribute("pass","");
-            req.setAttribute("name", account.name());
-            req.setAttribute("profile", account.profile());
+                request.setAttribute("userId", account.userId());
+                request.setAttribute("pass","");
+                request.setAttribute("name", account.name());
+                request.setAttribute("profile", account.profile());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            req.setAttribute("errorMsgs", java.util.List.of("プロフィールの取得中にエラーが発生しました。"));
+            request.setAttribute("errorMsgs", java.util.List.of("プロフィールの取得中にエラーが発生しました。"));
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
-        dispatcher.forward(req, res);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
+        dispatcher.forward(request, resonse);
     }
 }

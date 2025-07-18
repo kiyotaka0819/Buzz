@@ -1,20 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>プロフィール編集 - バズミシュラン</title>
+<!-- CSSの読み込みを追加 -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("togglePassword");
+    const pass = document.getElementById("pass");
+    const confirm = document.getElementById("confirmPass");
+
+    toggle.addEventListener("change", function () {
+        const type = this.checked ? "text" : "password";
+        pass.type = type;
+        confirm.type = type;
+    });
+});
+</script>
 </head>
 <jsp:include page="header.jsp" />
 <body>
 <h1>プロフィール編集</h1>
-<c:if test="${not empty errorMsgs}">
+<c:if test="${not empty requestScope.errorMsgs}">
     <div style="color:red;">
         <ul>
-            <c:forEach var="msg" items="${errorMsgs}">
+            <c:forEach var="msg" items="${requestScope.errorMsgs}">
                 <li><c:out value="${msg}" /></li>
             </c:forEach>
         </ul>
@@ -25,7 +39,11 @@ pageEncoding="UTF-8"%>
     <input type="text" name="userId" value="${userId}" readonly><br>
     
     パスワード（変更する場合のみ入力）<br>
-    <input type="password" name="pass"><br>
+    <input type="password" id="pass" name="pass"><br>
+    
+    確認用パスワード<br>
+    <input type="password" id="confirmPass" name="confirmPass"><br>
+    <input type="checkbox" id="togglePassword"> パスワードを表示
     <small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small><br>
     
     ユーザー名<br>

@@ -8,6 +8,19 @@
 <title>ユーザー登録 -バズミシュラン</title>
 <!-- CSSの読み込みを追加 -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("togglePassword");
+    const pass = document.getElementById("pass");
+    const confirm = document.getElementById("confirmPass");
+
+    toggle.addEventListener("change", function () {
+        const type = this.checked ? "text" : "password";
+        pass.type = type;
+        confirm.type = type;
+    });
+});
+</script>
 </head>
 <body>
     <%-- ログイン前ヘッダー読み込み用 --%>
@@ -28,8 +41,12 @@
 <small style="color: gray;">※40文字以内、半角英数字と一部記号（例: ! - / : @ など）</small>
 
 パスワード<br>
-<input type="password" name="pass"><br>
-<small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small>
+<input type="password" id="pass" name="pass"><br><br>
+
+確認用パスワード<br>
+<input type="password" id="confirmPass" name="confirmPass"><br>
+<input type="checkbox" id="togglePassword"> パスワードを表示
+<small style="color: gray;">※8〜40文字、英字・数字をそれぞれ1文字以上含む</small>
 
 ユーザー名<br>
 <input type="text" name="name" value="${requestScope.name}"><br>

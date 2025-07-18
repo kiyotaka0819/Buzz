@@ -26,6 +26,7 @@ public class RegisterConfirmServlet extends HttpServlet {
 
         String userId = request.getParameter("userId");
         String pass = request.getParameter("pass");
+        String confirmPass = request.getParameter("confirmPass");
         String name = request.getParameter("name");
         String profile = request.getParameter("profile");
 
@@ -70,6 +71,9 @@ public class RegisterConfirmServlet extends HttpServlet {
             }
             if (!Pattern.matches(regex, pass)) {
                 errorMsgs.add("パスワードには半角英字および半角数字を最低一つ入力してください。");
+            }
+            if (confirmPass == null || !pass.equals(confirmPass)) {
+                errorMsgs.add("パスワードと確認用パスワードが一致しません。");
             }
         }
 

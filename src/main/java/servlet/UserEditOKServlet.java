@@ -19,17 +19,17 @@ import model.Account;
 public class UserEditOKServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+    protected void doPost(HttpServletRequest request, HttpServletResponse resonse)
             throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = req.getSession(false);
+        HttpSession session = request.getSession(false);
         String userId = (session != null) ? (String) session.getAttribute("userId") : null;
-        String action = req.getParameter("action");
+        String action = request.getParameter("action");
 
         // 無効なアクセスなら編集画面にリダイレクト
         if (session == null || userId == null || !"confirm".equals(action)) {
-            res.sendRedirect("UserEditServlet");
+        	resonse.sendRedirect("UserEditServlet");
             return;
         }
 
@@ -37,7 +37,7 @@ public class UserEditOKServlet extends HttpServlet {
         Account editAccount = (Account) session.getAttribute("editAccount");
 
         if (editAccount == null) {
-            res.sendRedirect("UserEditServlet");
+        	resonse.sendRedirect("UserEditServlet");
             return;
         }
 
@@ -66,19 +66,19 @@ public class UserEditOKServlet extends HttpServlet {
             session.removeAttribute("editAccount");
             session.setAttribute("profile", profile); // 最新プロフィールをセッションに保存
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditOK.jsp");
-            dispatcher.forward(req, res);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEditOK.jsp");
+            dispatcher.forward(request, resonse);
         } else {
             // 更新失敗
             List<String> errorMsgs = new ArrayList<>();
             errorMsgs.add("プロフィールの更新中にエラーが発生しました。");
 
-            req.setAttribute("errorMsgs", errorMsgs);
-            req.setAttribute("name", name);
-            req.setAttribute("profile", profile);
+            request.setAttribute("errorMsgs", errorMsgs);
+            request.setAttribute("name", name);
+            request.setAttribute("profile", profile);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
-            dispatcher.forward(req, res);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
+            dispatcher.forward(request, resonse);
         }
     }
 }

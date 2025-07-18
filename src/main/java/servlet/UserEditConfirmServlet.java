@@ -19,20 +19,21 @@ import model.Account;
 public class UserEditConfirmServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        HttpSession session = req.getSession(false);
+    	request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("userId") == null) {
-            res.sendRedirect("LoginServlet");
+        	response.sendRedirect("LoginServlet");
             return;
         }
 
         String userId = (String) session.getAttribute("userId");
-        String pass = req.getParameter("pass");
-        String name = req.getParameter("name");
-        String profile = req.getParameter("profile");
+        String pass = request.getParameter("pass");
+        String confirmPass = request.getParameter("confirmPass");
+        String name = request.getParameter("name");
+        String profile = request.getParameter("profile");
         String passPattern = "^[A-Za-z0-9!-/:-@\\[-`{-~]+$";
         String regex = "^(?=.*[A-Za-z])(?=.*\\d).*$";
 
@@ -48,6 +49,9 @@ public class UserEditConfirmServlet extends HttpServlet {
             }
             if (!Pattern.matches(regex, pass)) {
                 errorMsgs.add("パスワードには半角英字および半角数字を最低一つ含めてください。");
+            }
+            if (confirmPass == null || !pass.equals(confirmPass)) {
+                errorMsgs.add("パスワードと確認用パスワードが一致しません。");
             }
         }
         
@@ -65,25 +69,25 @@ public class UserEditConfirmServlet extends HttpServlet {
         
         // エラーがある場合、入力画面に戻す
         if (!errorMsgs.isEmpty()) {
-            req.setAttribute("errorMsgs", errorMsgs);
-            req.setAttribute("userId", userId);
-            req.setAttribute("pass", pass);
-            req.setAttribute("name", name);
-            req.setAttribute("profile", profile);
-            RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
-            dispatcher.forward(req, res);
+        	request.setAttribute("errorMsgs", errorMsgs);
+        	request.setAttribute("userId", userId);
+        	request.setAttribute("pass", pass);
+        	request.setAttribute("name", name);
+        	request.setAttribute("profile", profile);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEdit.jsp");
+            dispatcher.forward(request, response);
             return;
         }
 
         // Accountオブジェクトにまとめてセッションへ保存（確認・登録用）
         Account account = new Account(userId, pass, name, profile);
         session.setAttribute("editAccount", account);
-        req.setAttribute("userId", account.userId());
-        req.setAttribute("name", account.name());
-        req.setAttribute("profile", account.profile());
+        request.setAttribute("userId", account.userId());
+        request.setAttribute("name", account.name());
+        request.setAttribute("profile", account.profile());
 
         // 確認画面にフォワード
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/jsp/userEditConfirm.jsp");
-        dispatcher.forward(req, res);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/userEditConfirm.jsp");
+        dispatcher.forward(request, response);
     }
 }

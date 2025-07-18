@@ -20,7 +20,7 @@
       <img src="<%= request.getContextPath() %>/image/slide4.png" class="slide">
       </div>
       <!-- メインコンテンツ -->
-      <div class="container">
+      <div class="main-container">
         <h1>ようこそ バズミシュラン へ！</h1>
         <h2>みんなのおいしいがここに</h2>
         <p>今すぐあなたのおいしいを投稿しましょう。</p>
