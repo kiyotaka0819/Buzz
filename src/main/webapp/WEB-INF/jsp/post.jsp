@@ -17,9 +17,11 @@ if (selectedShopFromSession != null) {
 <meta charset="UTF-8">
 <title>投稿ページ -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
+<div class="container">
 <!-- ユーザーID -->
   ${user_id}<br>
 	<%
@@ -33,10 +35,10 @@ if (selectedShopFromSession != null) {
 	<%
 	} else {
 	%>
-	<form action="<%=request.getContextPath()%>/ShopSelectServlet"
+	<form class="form-group" action="<%=request.getContextPath()%>/ShopSelectServlet"
 		method="get">
 		店名<br> <input type="text" name="searchName" value="">
-		<button type="submit">検索</button>
+		<button type="submit" class="btn-pop">検索</button>
 	</form>
 	<%
 	}
@@ -48,15 +50,32 @@ if (selectedShopFromSession != null) {
 	<option value="yakiniku">焼肉</option>
 </select></p>
 --%>
-<form action="<%=request.getContextPath()%>/PostServlet" method="post" enctype="multipart/form-data">
+<form class="form-group" action="<%=request.getContextPath()%>/PostServlet" method="post" enctype="multipart/form-data">
 <input type="hidden"
 			name="selectedShopForPost" value="<%=shopNameValue%>">
 コメント<br>
 <textarea name="comment" rows="4" cols="40"></textarea><br>
-<label for="pictures">画像を添付する</label>
-<input id="pictures" type="file" name="pictures"><br>
-<button type="submit">つぶやく</button>
+<label for="pictures" class="custom-file-btn" >画像を添付する</label>
+<input id="pictures" type="file" name="pictures" style="display: none;">
+<!-- ファイル名の表示領域を追加 -->
+<span id="file-name" style="margin-left: 10px;"></span><br>
+<button type="submit" class="btn-pop">つぶやく</button>
 </form>
+</div>
 <jsp:include page="footer.jsp" />
+
+<script>
+  const fileInput = document.getElementById('pictures');
+  const fileNameSpan = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      fileNameSpan.textContent = "選択されたファイル: " + fileInput.files[0].name;
+    } else {
+      fileNameSpan.textContent = "";
+    }
+  });
+</script>
+
 </body>
 </html>

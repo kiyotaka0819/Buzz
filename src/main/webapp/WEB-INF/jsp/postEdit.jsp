@@ -21,11 +21,12 @@ if (selectedShopFromSession != null) {
 <head>
 <meta charset="UTF-8">
 <title>つぶやき編集 -バズミシュラン</title>
-<link rel="stylesheet"
-	href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
+	<div class="container">
 	<h2>つぶやき編集</h2>
 
 	<%--投稿編集が失敗した場合のエラーメッセージ --%>
@@ -33,8 +34,8 @@ if (selectedShopFromSession != null) {
 	<p style="color: red;"><%= errorMessage %></p>
 	<% } %>
 
-	<form action="<%= request.getContextPath() %>/PostEditServlet"
-		method="post" enctype="multipart/form-data">
+	<form class="form-group" action="<%= request.getContextPath() %>/PostEditServlet"
+		method="post" enctype="multipart/form-data" >
 		<!-- リダイレクト先 -->
 		<input type="hidden" name="redirect" value="<%= redirect %>">
 		<!-- 検索キーワード -->
@@ -87,17 +88,21 @@ if (selectedShopFromSession != null) {
 --%>
 		コメント<br>
 		<textarea name="comment" rows="4" cols="40"><%= post.comment() %></textarea>
-		<br> <label for="pictures">画像を添付する</label> <input id="pictures"
-			type="file" name="pictures"><br>
+		<br> <label for="pictures" class="custom-file-btn" >画像を添付する</label>
+		<input id="pictures" type="file" name="pictures" style="display: none;">
+		<!-- ファイル名の表示領域を追加 -->
+		<span id="file-name" style="margin-left: 10px;"></span><br>
 
 		<% if (hasPicture != null && hasPicture) { %>
 		<input type="checkbox" name="deletePicture" value="true">
 		画像を削除する<br>
 		<% } %>
-
+		
+		
 		<button type="submit">更新</button>
 	</form>
 	<a href=<%= redirect %>>キャンセル</a>
+	</div>
 	<jsp:include page="footer.jsp" />
 </body>
 </html>

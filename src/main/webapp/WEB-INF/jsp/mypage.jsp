@@ -17,12 +17,13 @@
 <!-- CSSの読み込み -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 
 
 </head>
 <body>
 <jsp:include page="header.jsp" />
-
+<div class="container">
 <h2>ユーザー情報</h2>
 
 <!--  <p>ユーザーID：<%= user.userId() %></p>-->
@@ -98,6 +99,8 @@
 %>
     <p>まだ投稿がありません。</p>
 <%}%>
+
+</div>
 <!-- モーダル読み込み -->
 <jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
 

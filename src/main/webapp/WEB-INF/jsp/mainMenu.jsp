@@ -14,12 +14,16 @@
 <!-- CSSの読み込み -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
+<div class="container">
 
 <h2>
-  ようこそ！<%= user != null ? user.name() : "ゲスト" %>  さん
+  <div class="welcome-message">
+    ようこそ！<%= user != null ? user.name() : "ゲスト" %>  さん ✨
+  </div>
 </h2>
 
 <li><a href="PostServlet">つぶやく</a></li>
@@ -91,6 +95,7 @@
 <%
     } // end if
 %>
+</div>
 <!-- モーダル読み込み -->
 <jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
 
