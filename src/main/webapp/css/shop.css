@@ -458,3 +458,11 @@ input#searchNameInput {
     padding-block: initial !important; /* または 0px !important */
     padding-inline: initial !important; /* または 0px !important */
 }
+
+/* ページ全体の背景を薄いグレーに */
+body {
+  background-color: #fff8f0;/* ほんのりクリーム色で温かみUP */
+  margin: 0;
+  font-family: sans-serif;
+  min-height: 100vh;
+}

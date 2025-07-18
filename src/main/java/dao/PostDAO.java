@@ -145,7 +145,9 @@ public class PostDAO {
 		
 		
 			//select文の準備
-			String sql = "select posts_id, user_id,comment,pictures,shop,postTime, userName from posts order by postTime desc";
+		String sql = "SELECT p.posts_id, p.user_id, p.comment, p.pictures, p.shop, p.postTime, u.userName " +
+				"FROM posts p JOIN users u ON p.user_id = u.user_id " + 
+				"ORDER BY p.postTime DESC";
 			try(PreparedStatement stmt = conn.prepareStatement(sql);){
 			
 			//select文を実行
