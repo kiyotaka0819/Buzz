@@ -179,9 +179,9 @@ p {
     text-decoration: underline;
 }
 
-/* ==================== ログインページ ==================== */
+/* ==================== ログイン・登録ページ ==================== */
 
-/* ログインページの中央寄せ用ラッパー */
+/* ログイン・登録ページの中央寄せ用ラッパー */
 .login-wrapper {
     display: flex;
     justify-content: center;
@@ -191,7 +191,7 @@ p {
     box-sizing: border-box;
 }
 
-/* ログインフォームの全体ボックス */
+/* ログイン・登録フォームの全体ボックス */
 .login-container {
     max-width: 400px;
     width: 100%;
@@ -203,7 +203,7 @@ p {
     margin: 40px auto;
 }
 
-/* ログイン見出し */
+/* ログイン・登録見出し */
 .login-container h1 {
     color: #ff9900;
     margin-bottom: 20px;
@@ -220,16 +220,29 @@ p {
     color: #333;
 }
 
-/* 入力欄（ユーザーID・パスワード） */
-.login-container input[type="text"],
-.login-container input[type="password"] {
+/* テキスト入力欄のスタイル */
+.form-group input[type="text"],
+.form-group input[type="password"] {
+	width: 100%;                /* 幅は最大 */
+	    padding: 10px 8px;          /* 少し広めの内側余白 */
+	    margin-top: 5px;            /* 上の余白はそのまま */
+	    border: 1px solid #ddd;     /* 色は.form-groupと同じ薄グレー */
+	    border-radius: 4px;         /* 少し控えめな丸み */
+	    font-size: 1em;             /* 標準のフォントサイズ */
+	    box-sizing: border-box;     /* 枠・余白を含めた幅指定 */
+	}
+
+/* プロフィール入力欄のスタイル */
+.profile-textarea {
     width: 100%;
     padding: 10px 8px;
     margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.95em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
     box-sizing: border-box;
+    resize: vertical;
+    min-height: 80px;
 }
 
 /* エラーメッセージ表示 */
@@ -237,6 +250,47 @@ p {
     color: red;
     font-size: 1em;
     margin-bottom: 15px;
+}
+
+/* ==================== 確認画面テーブル ==================== */
+.confirm-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+    color: #333;
+}
+
+.confirm-table th,
+.confirm-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    vertical-align: top;
+}
+
+.confirm-table th {
+    width: 30%;
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.confirm-table td.profile-cell {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+.profile-box {
+    display: inline-block;         /* セル全体に高さを引き伸ばさない */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    min-height: 120px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    font-size: 0.95em;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 /* ==================== フォーム補助スタイル ==================== */
