@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,21 +16,29 @@
         <div class="login-container">
             <h1>ログイン</h1>
 
-            <% if(request.getAttribute("errorMsg") != null) { %>
-                <p class="error-msg"><%= request.getAttribute("errorMsg") %></p>
-            <% } %>
+            <c:if test="${not empty errorMsg}">
+              <div class="error-msg" style="text-align: left;">
+                <ul>
+                  <li>${errorMsg}</li>
+                </ul>
+              </div>
+            </c:if>
 
             <form action="LoginServlet" method="post">
-                <label for="userId">ユーザーID</label><br>
-                <input type="text" name="userId" id="userId"><br>
+                <div class="form-group">
+                    <label for="userId">ユーザーID</label>
+                    <input type="text" name="userId" id="userId">
+                </div>
 
-                <label for="pass">パスワード</label><br>
-                <input type="password" name="pass" id="pass"><br>
+                <div class="form-group">
+                    <label for="pass">パスワード</label>
+                    <input type="password" name="pass" id="pass">
+                </div>
 
                 <input type="submit" class="button-link full-width" value="ログイン">
             </form>
 
-            <a href="TopServlet" class="back-link">戻る</a>
+            <a href="TopServlet" class="back-link">トップへ戻る</a>
         </div>
     </div>
 

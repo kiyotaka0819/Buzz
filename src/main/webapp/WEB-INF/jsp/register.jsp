@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ユーザー登録 -バズミシュラン</title>
-<!-- CSSの読み込みを追加 -->
+<title>ユーザー登録 - バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -23,41 +22,61 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 </head>
 <body>
-    <%-- ログイン前ヘッダー読み込み用 --%>
+    <%-- ヘッダー --%>
     <jsp:include page="headerTop.jsp" />
-<h1>ユーザー登録</h1>
-<c:if test="${not empty requestScope.errorMsgs}">
-    <div style="color: red;">
-        <ul>
-            <c:forEach var="errorMsg" items="${requestScope.errorMsgs}">
-                <li><c:out value="${errorMsg}"/></li>
-            </c:forEach>
-        </ul>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <h1>ユーザー登録</h1>
+
+            <c:if test="${not empty requestScope.errorMsgs}">
+              <div class="error-msg" style="text-align: left;">
+                <ul>
+                  <c:forEach var="errorMsg" items="${requestScope.errorMsgs}">
+                    <li><c:out value="${errorMsg}"/></li>
+                  </c:forEach>
+                </ul>
+              </div>
+            </c:if>
+
+            <form action="RegisterConfirmServlet" method="post">
+                <div class="form-group">
+                    <label for="userId">ユーザーID</label>
+                    <input type="text" name="userId" id="userId" value="${requestScope.userId}">
+                    <small>※40文字以内、半角英数字と一部記号（例: ! - / : @ など）</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="pass">パスワード</label>
+                    <input type="password" id="pass" name="pass">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPass">確認用パスワード</label>
+                    <input type="password" id="confirmPass" name="confirmPass">
+                    <label><input type="checkbox" id="togglePassword"> パスワードを表示</label>
+                    <small>※8〜40文字、英字・数字をそれぞれ1文字以上含む</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">ユーザー名</label>
+                    <input type="text" name="name" id="name" value="${requestScope.name}">
+                    <small>※40文字以内</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile">プロフィール</label>
+                    <textarea name="profile" id="profile" class="profile-textarea">${requestScope.profile}</textarea>
+                    <small>※200文字以内</small>
+                </div>
+
+                <input type="submit" class="button-link full-width" value="確認">
+            </form>
+
+            <a href="TopServlet" class="back-link">トップへ戻る</a>
+        </div>
     </div>
-</c:if>
-<form action="RegisterConfirmServlet" method="post">
-ユーザーID<br>
-<input type="text" name="userId" value="${requestScope.userId}"><br>
-<small style="color: gray;">※40文字以内、半角英数字と一部記号（例: ! - / : @ など）</small>
 
-パスワード<br>
-<input type="password" id="pass" name="pass"><br><br>
-
-確認用パスワード<br>
-<input type="password" id="confirmPass" name="confirmPass"><br>
-<input type="checkbox" id="togglePassword"> パスワードを表示
-<small style="color: gray;">※8〜40文字、英字・数字をそれぞれ1文字以上含む</small>
-
-ユーザー名<br>
-<input type="text" name="name" value="${requestScope.name}"><br>
-<small style="color: gray;">※40文字以内</small>
-
-プロフィール<br>
-<textarea name="profile" rows="4" cols="40">${requestScope.profile}</textarea><br>
-<small style="color: gray;">※200文字以内</small>
-	<input type="submit" value="確認">
-</form>
-<p><a href="TopServlet">戻る</a></p>
     <%-- ログイン前フッター読み込み用 --%>
     <jsp:include page="footerTop.jsp" />
 </body>
