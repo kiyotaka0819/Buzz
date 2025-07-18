@@ -15,9 +15,17 @@
 .header-content {
 	display: flex; /* Flexboxコンテナに設定 */
 	justify-content: space-between; /* 子要素を両端に揃えて配置 */
-	align-items: center; /* 子要素を垂直方向の中央に揃える */
+	align-items: center; /* ロゴ、説明+検索バー、ハンバーガーメニューを垂直方向の中央に揃える */
 	padding: 5px 20px; /* 上下左右の余白を設定 */
 	flex-wrap: wrap; /* 画面幅が狭くなった時に子要素が折り返すように設定 */
+}
+
+/* ロゴと説明文をまとめるコンテナ */
+.logo-and-explain {
+    display: flex; /* Flexboxにする */
+    align-items: center; /* 垂直中央揃え */
+    flex-shrink: 0; /* 縮まないようにする */
+    gap: 10px; /* ロゴとexplainの間の隙間 */
 }
 
 /* ロゴの調整  */
@@ -28,28 +36,31 @@
 
 /* ロゴ画像の調整 */
 .logo img {
-	height: 80px; /* 画像の高さを設定 */
+	height: 140px; /* 画像の高さを設定 */
 	width: auto; /* 幅をアスペクト比に合わせて自動調整 */
 }
+
 /* ロゴの隣のサービス説明の文字 */
 .explain{
 	font-size: 0.9em; /* 文字のサイズ */
 	color: #666; /* 文字の色 */
-	margin-right: 10px; /* ロゴと検索バーの間隔を調整 */
+	margin-right: 0px; /* ロゴと検索バーの間隔を調整 */
 	white-space: nowrap; /* テキストが折り返さないように */
 	line-height: 2; /* 行の高さを調整 */	
-	margin-bottom: 5px; /* 検索バーとの間に少し余白 */
-	text-align: left; /* テキスト左寄せ */
-	margin-top: 50px;
+	margin-bottom: 0px; /* 検索バーとの間に少し余白 */
+	text-align: left; /* 中央寄せ */
+	/*margin-top: 55px;*/
+	margin-left: -20px;
 }
 
-/* 説明と検索バーをまとめるコンテナ */
-.main-header-controls {
-    display: flex;
-    flex-direction: column; /* explainとsearch-barを縦に並べる */
-    justify-content: center; /* 中央揃えにする */
-    flex-grow: 1; /* 残りのスペースを埋めるように広がる */
-    margin: 0 20px; /* ロゴとハンバーガーメニューとの左右の余白 */
+/* 検索バーコンテナ */
+.search-bar-container {
+	flex-grow: 1; /* 残りのスペースを全て使う */
+	display: flex; /* Flexboxにする */
+	justify-content: center; /* ★★★ 水平方向の中央に配置するんや！ ★★★ */
+	align-items: center; /* 垂直方向の中央に配置する */
+	height: 140px; /* ロゴと同じ高さにする */
+	min-width: 400px; /* 検索バーが潰れないように最小幅を設定 */
 }
 
 /* 検索バー全体の調整 */
@@ -57,7 +68,9 @@
 	display: flex; /* Flexboxコンテナに設定 */
 	align-items: center; /* 垂直方向の中央に揃える */
 	max-width: 600px; /* 検索バーの最大幅を設定 */
-	margin: 10px auto;
+	/* margin: 10px 330px; */
+	margin: 0;
+	margin-left: -300px;
 }
 
 /* 検索バーの「検索キーワード:」のラベル部分 */
@@ -75,6 +88,8 @@
 	border-radius: 4px; /* 角を丸くする */
 	font-size: 14px; /* フォントサイズを設定 */
 	margin-right: 5px; /* 右側の余白を設定 */
+	height: auto; /* 高さを自動に設定し、paddingで調整できるようにする */
+	box-sizing: border-box; /* paddingとborderをwidth/heightに含める */
 }
 
 /* 検索ボタン全体 */
@@ -173,6 +188,7 @@ footer {
     align-items: center;       /* 中のメニューを垂直方向の真ん中に揃える */
     cursor: pointer;           /* マウスのカーソルを指マーク */
     z-index: 1000;             /* 他の要素より一番手前に表示させる */
+	flex-shrink: 0;			   /* つぶれないようにする */
 }
 
 /* ハンバーガーアイコンの箱 */

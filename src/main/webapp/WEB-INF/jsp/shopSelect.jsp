@@ -8,18 +8,27 @@
 <meta charset="UTF-8">
 <title>店舗検索結果 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/shop.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
+
+<div class="shop-form-section shop-search-form">
 	<ul>
 		<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 			method="get">
-			店名<br>
-			<input type="text" name="searchName"
-				value="<%=request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : ""%>">
+			<div class="shop-form-group">
+			<label for="searchNameInput">店名<br>
+			<input type="text" id="searchNameInput" name="searchName"
+				value="<%=request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : ""%>"
+				placeholder="選択したい店舗名を入力">
+                </div>
 			<button type="submit">検索</button>
 		</form>
 	</ul>
+</div>
+
+<div class="shop-list-table-container">
 	<h2>
 		<%
 		String displayKeyword = (String) request.getAttribute("searchKeyword");
@@ -31,7 +40,8 @@
 		%>
 	</h2>
 
-	<table border="1">
+<table class="shop-list-table">
+	<thead>
 		<tr>
 			<th>店舗名</th>
 			<th>URL</th>
@@ -39,6 +49,8 @@
 			<th>電話番号</th>
 			<th>操作</th>
 		</tr>
+	</thead>
+	<tbody>
 		<%
 		List<ShopInfo> shopList = (List<ShopInfo>) request.getAttribute("shopList");
 				if (shopList != null && !shopList.isEmpty()) {
@@ -83,37 +95,47 @@
 		<%
 		}
 		%>
+		</tbody>
 	</table>
-	<br>
+</div>
 
+<div class="shop-form-section">
 	<h2>新規店舗登録</h2>
 	<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 		method="post">
-		<label for="newShopNameInput">新規店舗名:</label> <input type="text"
-			id="newShopNameInput" name="newShopName" placeholder="新規店舗名入力"
-			required><br>
-			<label for="newShopAddressInput">店舗の住所:</label>
+		<div class="shop-form-group">
+		<label for="newShopNameInput">店舗の名前</label> <input type="text"
+			id="newShopNameInput" name="newShopName" placeholder="店舗の名前を入力"
+			required>
+		</div>
+		<div class="shop-form-group">
+			<label for="newShopAddressInput">店舗の住所</label>
 		<input type="text" id="newShopAddressInput" name="newShopAddress"
-			placeholder="店舗の住所を入力"><br>
-			<label for="newShopURLInput">店舗のURL:</label>
+			placeholder="店舗の住所を入力">
+		</div>
+		<div class="shop-form-group">
+			<label for="newShopURLInput">店舗のURL</label>
 			<input type="text" id="newShopURLInput" 
-			name="newShopURL" placeholder="店舗のURLを入力"><br> 
-			<label for="newShopTelInput">店舗の電話番号:</label>
+			name="newShopURL" placeholder="店舗のURLを入力">
+		</div>
+		<div class="shop-form-group">
+			<label for="newShopTelInput">店舗の電話番号</label>
 		<input type="text" id="newShopTelInput" name="newShopTEL"
-			placeholder="店舗の電話番号を入力"><br>
-
+			placeholder="店舗の電話番号を入力">
+		</div>
 		<button type="submit">登録</button>
 	</form>
-	<br>
+</div>
+<div class="shop-message-container">
 	<% String errorMessage = (String) request.getAttribute("errorMessage"); %>
 	<% if (errorMessage != null && !errorMessage.isEmpty()) { %>
-	<p style="color: red;"><%=errorMessage%></p>
+	<p class="error-message"><%=errorMessage%></p>
 	<% } %>
 	<% String message = (String) request.getAttribute("message"); %>
 	<% if (message != null && !message.isEmpty()) { %>
-	<p style="color: green;"><%=message%></p>
+	<p class="success-message"><%=message%></p>
 	<% } %>
-
+</div>
 	<jsp:include page="footer.jsp" />
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>

@@ -8,12 +8,14 @@
 <meta charset="UTF-8">
 <title>店舗情報編集 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/shop.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
 <%
 ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 %>
+<div class="shop-info-container">
 	<h1>店舗情報編集</h1>
 	<form action="ShopEditServlet" method="post">
 		<div class="form-group">
@@ -49,10 +51,12 @@ ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 		<input type="hidden" name="originalShopName"
 			value="<%=shopDetail.shopName()%>">
 		<% } %>
-
-		<button type="submit">登録</button>
+		<div class="button-group">
+			<button type="submit">登録</button>
+			<a href="MainMenuServlet" class="cancel-button">キャンセル</a>
+		</div>
 	</form>
-	<li><a href="MainMenuServlet">メインメニューに戻る</a></li>
+</div>
 <jsp:include page="footer.jsp" />
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
