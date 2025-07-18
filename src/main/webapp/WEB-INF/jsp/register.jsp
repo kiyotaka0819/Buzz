@@ -7,19 +7,6 @@
 <meta charset="UTF-8">
 <title>ユーザー登録 - バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("togglePassword");
-    const pass = document.getElementById("pass");
-    const confirm = document.getElementById("confirmPass");
-
-    toggle.addEventListener("change", function () {
-        const type = this.checked ? "text" : "password";
-        pass.type = type;
-        confirm.type = type;
-    });
-});
-</script>
 </head>
 <body>
     <%-- ヘッダー --%>
@@ -79,5 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <%-- ログイン前フッター読み込み用 --%>
     <jsp:include page="footerTop.jsp" />
+    <script src="<%= request.getContextPath() %>/js/password.js"></script>
 </body>
 </html>

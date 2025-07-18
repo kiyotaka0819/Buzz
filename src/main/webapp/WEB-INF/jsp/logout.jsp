@@ -4,16 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログアウト -バズミシュラン</title>
-<!-- CSSの読み込みを追加 -->
+<title>ログアウト - バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 </head>
 <body>
-    <%-- ログイン前ヘッダー読み込み用 --%>
+    <%-- ログイン前ヘッダー --%>
     <jsp:include page="headerTop.jsp" />
-<p>ログアウトしました</p>
-<a href="TopServlet">トップページ</a>
-    <%-- ログイン前フッター読み込み用 --%>
+
+    <div class="login-wrapper">
+        <div class="login-container center-text">
+            <h1>ログアウトしました</h1>
+            <p>ご利用ありがとうございました。</p>
+            <a href="TopServlet" class="button-link">トップへ戻る</a>
+        </div>
+    </div>
+
+    <%-- ログイン前フッター --%>
     <jsp:include page="footerTop.jsp" />
 </body>
 </html>

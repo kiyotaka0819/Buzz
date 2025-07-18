@@ -8,19 +8,6 @@
 <title>プロフィール編集 - バズミシュラン</title>
 <!-- CSSの読み込みを追加 -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("togglePassword");
-    const pass = document.getElementById("pass");
-    const confirm = document.getElementById("confirmPass");
-
-    toggle.addEventListener("change", function () {
-        const type = this.checked ? "text" : "password";
-        pass.type = type;
-        confirm.type = type;
-    });
-});
-</script>
 </head>
 <jsp:include page="header.jsp" />
 <body>
@@ -58,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </form>
 <p><a href="MypageServlet">戻る</a></p>
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
+<script src="<%= request.getContextPath() %>/js/password.js"></script>
 </body>
 <jsp:include page="footer.jsp" />
 </html>

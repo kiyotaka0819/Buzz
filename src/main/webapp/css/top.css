@@ -53,6 +53,14 @@ p {
 	align-items: center;
 }
 
+/* ロゴと説明文をまとめるコンテナ */
+.logo-and-explain {
+    display: flex; /* Flexboxにする */
+    align-items: center; /* 垂直中央揃え */
+    flex-shrink: 0; /* 縮まないようにする */
+    gap: 10px; /* ロゴとexplainの間の隙間 */
+}
+
 /* ロゴの調整 */
 .logo {
     flex-shrink: 0;
@@ -61,22 +69,22 @@ p {
 
 /* ロゴ画像の調整 */
 .logo img {
-    height: 80px;
+    height: 140px;
     width: auto;
 }
 
 /* ロゴの隣のサービス説明の文字 */
-.explain{
+.explain {
 	font-size: 0.9em;
 	color: #666;
-	margin-right: 10px;
+	margin-right: 0px;
+	margin-left: -30px;
 	white-space: nowrap;
 	line-height: 2;
-	margin-bottom: 5px;
-	text-align: left;
 	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: left;
 }
-
 /* 説明と検索バーをまとめるコンテナ */
 .main-header-controls {
     display: flex;
@@ -279,18 +287,23 @@ p {
     white-space: pre-wrap;
     line-height: 1.5;
 }
+
 .profile-box {
-    display: inline-block;         /* セル全体に高さを引き伸ばさない */
+    display: block;
+    width: 100%;
+    min-height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;  /* 横スクロール禁止 */
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #f9f9f9;
-    padding: 10px;
-    min-height: 120px;
-    white-space: pre-wrap;
+    white-space: pre-wrap;       /* 改行＆折り返し対応 */
+    word-break: break-word;      /* 長文でも折り返す */
     line-height: 1.5;
     font-size: 0.95em;
     box-sizing: border-box;
-    max-width: 100%;
 }
 
 /* ==================== フォーム補助スタイル ==================== */
