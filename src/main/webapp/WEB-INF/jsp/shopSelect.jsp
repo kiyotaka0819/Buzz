@@ -17,7 +17,7 @@
 	<ul>
 		<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 			method="get">
-			<div class="shop-form-group">
+			<div class="shop-form-group search-form-group">
 			<label for="searchNameInput">店名<br>
 			<input type="text" id="searchNameInput" name="searchName"
 				value="<%=request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : ""%>"
@@ -103,22 +103,22 @@
 	<h2>新規店舗登録</h2>
 	<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 		method="post">
-		<div class="shop-form-group">
+		<div class="shop-form-group new-shop-form-group">
 		<label for="newShopNameInput">店舗の名前</label> <input type="text"
 			id="newShopNameInput" name="newShopName" placeholder="店舗の名前を入力"
 			required>
 		</div>
-		<div class="shop-form-group">
+		<div class="shop-form-group new-shop-form-group">
 			<label for="newShopAddressInput">店舗の住所</label>
 		<input type="text" id="newShopAddressInput" name="newShopAddress"
 			placeholder="店舗の住所を入力">
 		</div>
-		<div class="shop-form-group">
+		<div class="shop-form-group new-shop-form-group">
 			<label for="newShopURLInput">店舗のURL</label>
 			<input type="text" id="newShopURLInput" 
 			name="newShopURL" placeholder="店舗のURLを入力">
 		</div>
-		<div class="shop-form-group">
+		<div class="shop-form-group new-shop-form-group">
 			<label for="newShopTelInput">店舗の電話番号</label>
 		<input type="text" id="newShopTelInput" name="newShopTEL"
 			placeholder="店舗の電話番号を入力">

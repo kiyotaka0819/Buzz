@@ -95,6 +95,8 @@
 }
 
 
+
+
 /* *************************** 店舗情報表示ページ (ShopInfo.jsp) **************************** */
 
 /* 全体的なコンテナ  */
@@ -226,20 +228,7 @@
     flex-direction: column;   /* 縦並びにする */
     align-items: center;      /* 子要素を水平方向の中央に配置 */
 }
-/* ここで検索フォームの入力欄の幅を制御する */
-.shop-search-form .shop-form-group {
-    max-width: 400px; /* 検索フォームの入力欄の最大幅 */
-    width: 100%;      /* 親要素に合わせる */
-    margin-bottom: 15px; /* 各フォーム項目間の下余白 */
-}
 
-/* 新規店舗登録フォームのテキストボックスのラッパー */
-.shop-form-section > form:last-of-type .shop-form-group {
-    max-width: 600px; /* 新規登録フォームの入力欄の最大幅 */
-    width: 100%;      /* 親要素に合わせる */
-    margin-bottom: 15px; /* 各フォーム項目間の下余白 */
-    /* text-align: center; これは不要になる可能性あり */
-}
 /* h2タグ部分 */
 .shop-form-section h2 {
     text-align: center;       /* テキストを中央揃え */
@@ -249,13 +238,6 @@
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* テキストの影 */
 }
 
-/* フォームグループ（ラベルと入力欄のセット） */
-.shop-form-group {
-	max-width: 400px;
-	width: 100%;
-    margin: 0 auto;      /* 各フォーム項目余白 */
-}
-
 /* ラベルのスタイル */
 .shop-form-group label {
     display: block;           /* ブロック要素にして入力欄の上に配置 */
@@ -263,16 +245,6 @@
     font-weight: bold;        /* 文字を太字に */
     color: #555;              /* 文字色 */
     font-size: 1.1em;         /* フォントサイズ */
-}
-
-/* テキスト入力欄のスタイル（一般的なinput[type="text"]） */
-.shop-form-section input[type="text"] {
-    width: 100%;              /* 親要素の幅 */
-    padding: 10px;            /* テキストボックスの幅 */
-    border: 1px solid #ddd;   /* 枠線のスタイルと色 */
-    border-radius: 4px;       /* 角の丸み */
-    font-size: 1em;           /* フォントサイズ */
-    box-sizing: border-box;   /* テキストボックスと枠線をwidthに含める */
 }
 
 /* フォーム内のボタンのスタイル (検索ボタン、登録ボタン) */
@@ -391,7 +363,6 @@
 }
 
 /* 新規店舗登録フォームのボタンを中央配置 */
-/* より確実に適用させるため、JSPの構造から最後のform要素をターゲット */
 .shop-form-section > form:last-of-type {
     display: flex;
     flex-direction: column;
@@ -424,40 +395,53 @@
     border: 1px solid green;
 }
 
-/* 新規店舗登録フォームのテキストボックスのサイズ調整（一番下に記述して優先度を高める） */
-input#newShopNameInput,
-input#newShopAddressInput,
-input#newShopURLInput,
-input#newShopTelInput {
-    width: 100% !important;
-    height: 40px !important;
-    /* padding-top, padding-bottom, padding-left, padding-right を個別に指定 */
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    font-size: 1.1em !important;
-    border: 1px solid #ddd !important;
-    border-radius: 4px !important;
-    box-sizing: border-box !important;
-    /* User Agent Stylesheet で設定される padding-block, padding-inline を無効化 */
-    padding-block: initial !important; /* または 0px !important */
-    padding-inline: initial !important; /* または 0px !important */
+/* 検索フォームの入力欄を囲むdivの幅 */
+.search-form-group {
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
-/* 検索フォームのテキストボックスも同様に調整 */
-input#searchNameInput {
-    width: 100% !important;
-    height: 40px !important;
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
-    font-size: 1.1em !important;
-    box-sizing: border-box !important;
-    padding-block: initial !important; /* または 0px !important */
-    padding-inline: initial !important; /* または 0px !important */
+/* 新規店舗登録フォームの入力欄を囲むdivの幅 */
+.new-shop-form-group {
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 15px;
 }
+
+
+input#newShopAddressInput,
+input#newShopURLInput{
+    width: 800px;
+    height: 40px;
+    padding: 12px;
+	font-size: 1.1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input#newShopNameInput,
+input#newShopTelInput{
+	width: 800px;
+	height: 40px;
+	padding: 12px;
+	font-size: 1.1em;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;	
+	display: block; /* ブロックレベル要素にする */
+	margin: 0 auto; /* 中央揃え */
+}
+
+input#searchNameInput {
+    width: 500px ;
+    height: 40px;
+    padding-top: 12px;
+    font-size: 1.1em;
+    box-sizing: border-box;
+}
+
 
 /* ページ全体の背景を薄いグレーに */
 body {
