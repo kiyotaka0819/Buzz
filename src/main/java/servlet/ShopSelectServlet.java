@@ -22,6 +22,10 @@ public class ShopSelectServlet extends HttpServlet {
 		String searchName = request.getParameter("searchName");
 		List<ShopInfo> shopList = new ArrayList<>(); // 検索結果を入れておく変数
 		ShopDAO shopDAO = new ShopDAO(); // DAOのインスタンス生成
+		//遷移元のページを確認する
+		String redirect = request.getParameter("redirect");
+		//check
+		System.out.println("redirect = " + redirect);
 		
 		try {
 			if (searchName != null && !searchName.trim().isEmpty()) {
@@ -35,6 +39,7 @@ public class ShopSelectServlet extends HttpServlet {
 			}
 			// 検索結果をリクエストスコープに保存する
 			request.setAttribute("shopList", shopList);
+			request.setAttribute("redirect", redirect);
 			// 検索キーワードもJSPで表示するためにリクエストスコープに保存する
 			request.setAttribute("searchKeyword", searchName != null ? searchName : ""); // nullの場合は空文字にする
 
@@ -59,6 +64,10 @@ public class ShopSelectServlet extends HttpServlet {
 		String newShopAddress = request.getParameter("newShopAddress");	
 		String newShopURL = request.getParameter("newShopURL");
 		String newShopTEL = request.getParameter("newShopTEL");
+		//遷移元のページを確認する
+		String redirect = request.getParameter("redirect");
+		//check
+		System.out.println("redirect = " + redirect);
 		boolean hasError = false;
 		String messageToDisplay = "";
 		
@@ -90,7 +99,7 @@ public class ShopSelectServlet extends HttpServlet {
 				hasError = true;
 			}
 		}
-
+		request.setAttribute("redirect", redirect);
 		if (hasError) {
 			// エラーメッセージはセッションスコープに保存
 			request.getSession().setAttribute("errorMessage", messageToDisplay);

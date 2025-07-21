@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,10 @@ public class ShopSelectActionServlet extends HttpServlet {
 
 		String shopName = request.getParameter("shopName");
 		HttpSession session = request.getSession();
-
+		//遷移元のページを確認する
+		String redirect = request.getParameter("redirect");
+		//check
+		System.out.println("redirect = " + redirect);
 		
 		session.setAttribute("selectedShopForPost", shopName);
 
@@ -34,7 +38,8 @@ public class ShopSelectActionServlet extends HttpServlet {
 			// リダイレクトする前にセッションをクリア
 			session.removeAttribute("editingPostId");
 			session.removeAttribute("redirectBackTo");
-			response.sendRedirect(request.getContextPath() + "/PostEditServlet?postId=" + editingPostId);
+			response.sendRedirect(request.getContextPath() + "/PostEditServlet?postId=" + editingPostId + 
+					(redirect != null ? "&redirect=" + URLEncoder.encode(redirect, "UTF-8") : ""));
 		} else {
 			// 通常の投稿画面から来た場合、投稿画面にリダイレクト
 			session.removeAttribute("editingPostId"); // nullが入ってる可能性があるので念のため

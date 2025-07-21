@@ -64,7 +64,7 @@ if (selectedShopFromSession != null) {
 			選択店舗: <strong><%=shopToDisplay%></strong> <a
 				href="<%=request.getContextPath()%>
 				/ShopSelectServlet?clearShop=true&postId=
-				<%=post.postId()%>">店舗名を変更する</a>
+				<%=post.postId()%>&redirect=<%=redirect %>">店舗名を変更する</a>
 		</p>
 		<input type="hidden" name="shop" value="<%=shopToDisplay%>">
 		<%
@@ -75,6 +75,8 @@ if (selectedShopFromSession != null) {
 			<button type="submit"
 				formaction="<%=request.getContextPath()%>/ShopSelectServlet">検索</button>
 			<input type="hidden" name="postId" value="<%=post.postId()%>">
+			<!-- リダイレクト先 -->
+			<input type="hidden" name="redirect" value="<%= redirect %>">
 		</p>
 		<%
 		}

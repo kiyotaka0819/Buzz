@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.ShopInfo"%>
+<%String redirect = (String) request.getAttribute("redirect"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,9 @@
 	<ul>
 		<form action="<%=request.getContextPath()%>/ShopSelectServlet"
 			method="get">
+			<!-- リダイレクト先 -->
+			<input type="hidden" name="redirect" 
+			value="<%= redirect %>">
 			<div class="shop-form-group search-form-group">
 			<label for="searchNameInput">店名<br>
 			<input type="text" id="searchNameInput" name="searchName"
@@ -73,6 +77,9 @@
 				<td>
 				<form action="<%=request.getContextPath()%>
 					/ShopSelectActionServlet" method="post">
+					<!-- リダイレクト先 -->
+					<input type="hidden" name="redirect" 
+					value="<%= redirect %>">
 					<input type="hidden" name="shopName"
 						value="<%= shop.shopName() %>">
 					<button type="submit">選択</button>
