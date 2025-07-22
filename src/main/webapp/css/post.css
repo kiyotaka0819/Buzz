@@ -135,3 +135,72 @@ body {
   min-height: 100vh;
   background: linear-gradient(to right, #fff8f0, #f0e5dc, #fff8f0);
 }
+
+.nav-menu {
+  display: flex;
+  justify-content: center; /* 中央に配置 */
+  gap: 40px; /* 各リンクの間隔 */
+  margin: 20px 0;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #ff7f50;
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-menu a:hover {
+  background-color: #ff9900;
+}
+
+.post-card {
+  position: relative;
+  background-color: #ffffff;
+  border: 2px solid #ddd;
+  border-radius: 40px;
+  padding: 15px 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* 吹き出しのしっぽ（擬似要素） */
+.post-card::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 35px; /* 任意で調整 */
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: #ffffff;
+  /*filter: drop-shadow(0 -1px 1px rgba(0, 0, 0, 0.1)); /* 影 */
+  border-radius: 4px; /* ← 尖りの角を少し丸く */
+  margin-top: -1px;            /* ← 境目のズレを埋める */
+}
+
+/* 吹き出しの影も一緒に出すと自然 */
+.post-card::before {
+  content: "";
+  position: absolute;
+  bottom: -22px;
+  left: 30px;
+  border-width: 11px;
+  border-style: solid;
+  border-color: #ddd transparent transparent transparent;
+}
+
+
+.post-card img {
+  max-width: 40%;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
