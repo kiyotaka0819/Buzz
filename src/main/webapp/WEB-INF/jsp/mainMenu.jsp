@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/slideshow.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/mainSlideshow.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/hero.css">
 </head>
 <body>
