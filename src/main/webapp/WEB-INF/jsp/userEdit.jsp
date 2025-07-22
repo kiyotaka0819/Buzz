@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
@@ -7,45 +7,66 @@
 <meta charset="UTF-8">
 <title>プロフィール編集 - バズミシュラン</title>
 <!-- CSSの読み込みを追加 -->
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/userEdit.css">
 </head>
-<jsp:include page="header.jsp" />
 <body>
-<h1>プロフィール編集</h1>
-<c:if test="${not empty requestScope.errorMsgs}">
-    <div style="color:red;">
-        <ul>
+  <%-- ヘッダー読み込み用 --%>
+  <jsp:include page="header.jsp" />
+
+  <div class="login-wrapper">
+    <div class="login-container">
+      <h1>プロフィール編集</h1>
+
+      <c:if test="${not empty requestScope.errorMsgs}">
+        <div class="error-msg">
+          <ul>
             <c:forEach var="msg" items="${requestScope.errorMsgs}">
-                <li><c:out value="${msg}" /></li>
+              <li><c:out value="${msg}" /></li>
             </c:forEach>
-        </ul>
+          </ul>
+        </div>
+      </c:if>
+
+      <form action="UserEditConfirmServlet" method="post">
+        <div class="form-group">
+          <label for="userId">ユーザーID</label>
+          <input type="text" name="userId" id="userId" value="${userId}" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="pass">パスワード（変更する場合のみ入力）</label>
+          <input type="password" id="pass" name="pass">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPass">確認用パスワード</label>
+          <input type="password" id="confirmPass" name="confirmPass">
+          <label><input type="checkbox" id="togglePassword"> パスワードを表示</label>
+          <small>※8〜40文字、英字・数字をそれぞれ1文字以上含む</small>
+        </div>
+
+        <div class="form-group">
+          <label for="name">ユーザー名</label>
+          <input type="text" name="name" id="name" value="${name}">
+          <small>※40文字以内</small>
+        </div>
+
+        <div class="form-group">
+          <label for="profile">プロフィール</label>
+          <textarea name="profile" id="profile" class="profile-textarea" rows="4" cols="40">${profile}</textarea>
+          <small>※200文字以内</small>
+        </div>
+
+        <input type="submit" class="button-link full-width" value="確認">
+      </form>
+
+      <a href="MypageServlet" class="back-link">戻る</a>
     </div>
-</c:if>
-<form action="UserEditConfirmServlet" method="post">
-    ユーザーID<br>
-    <input type="text" name="userId" value="${userId}" readonly><br>
-    
-    パスワード（変更する場合のみ入力）<br>
-    <input type="password" id="pass" name="pass"><br>
-    
-    確認用パスワード<br>
-    <input type="password" id="confirmPass" name="confirmPass"><br>
-    <input type="checkbox" id="togglePassword"> パスワードを表示
-    <small style="color: gray;">※8〜40文字、半角英数字と一部記号、英字・数字をそれぞれ1文字以上含む</small><br>
-    
-    ユーザー名<br>
-    <input type="text" name="name" value="${name}"><br>
-    <small style="color: gray;">※40文字以内</small><br>
-    
-    プロフィール<br>
-    <textarea name="profile" rows="4" cols="40">${profile}</textarea><br>
-    <small style="color: gray;">※200文字以内</small><br>
-    <input type="submit" value="確認">
-    
-</form>
-<p><a href="MypageServlet">戻る</a></p>
-<script src="<%= request.getContextPath() %>/js/script.js"></script>
-<script src="<%= request.getContextPath() %>/js/password.js"></script>
+  </div>
+
+  <%-- フッター読み込み用 --%>
+  <jsp:include page="footer.jsp" />
+  <script src="<%= request.getContextPath() %>/js/password.js"></script>
+  <script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
-<jsp:include page="footer.jsp" />
 </html>

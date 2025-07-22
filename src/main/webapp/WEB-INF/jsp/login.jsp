@@ -35,7 +35,9 @@
                     <input type="password" name="pass" id="pass">
                 </div>
 
-                <input type="submit" class="button-link full-width" value="ログイン">
+                <div class="form-group">
+                    <input type="submit" class="button-link full-width" value="ログイン">
+                </div>
             </form>
 
             <a href="TopServlet" class="back-link">トップへ戻る</a>

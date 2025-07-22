@@ -6,10 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザー登録 - バズミシュラン</title>
+<!-- CSSの読み込みを追加 -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 </head>
 <body>
-    <%-- ヘッダー --%>
+    <%-- ログイン前ヘッダー読み込み用 --%>
     <jsp:include page="headerTop.jsp" />
 
     <div class="login-wrapper">
@@ -57,7 +58,9 @@
                     <small>※200文字以内</small>
                 </div>
 
-                <input type="submit" class="button-link full-width" value="確認">
+<div class="form-group">
+                    <input type="submit" class="button-link full-width" value="確認">
+                </div>
             </form>
 
             <a href="TopServlet" class="back-link">トップへ戻る</a>
