@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DBUtil {
 						//自宅環境でテストする場合ここを  ↓『localhost』
-	private static final String URL = "jdbc:postgresql://localhost:5432/buzz?characterEncoding=UTF-8";
+	private static final String URL = "jdbc:postgresql://172.31.98.112:5432/buzz?characterEncoding=UTF-8";
     private static final String USER = "postgres";
     private static final String PASS = "root";
 
