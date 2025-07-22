@@ -14,6 +14,7 @@
 <title>検索結果 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
 </head>
 <body>
 	<jsp:include page="header.jsp" />
