@@ -84,10 +84,10 @@
 						value="<%= shop.shopName() %>">
 					<button type="submit">選択</button>
 					</form>
-				<form action= "<%=request.getContextPath() %>/ShopEditServlet"
-					method="get">
+				<form action= "<%=request.getContextPath() %>/ShopEditServlet" method="get">
 					<input type="hidden" name="shopNameForEdit"
-						value="<%= shop.shopName() %>">
+					value="<%= shop.shopName() %>">
+					<input type="hidden" name="redirect" value="shopSelect">
 					<button type="submit">編集</button>
 				</form>
 			</td>

@@ -21,6 +21,8 @@ public class ShopEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String shopName = request.getParameter("shopNameForEdit");
+		String redirect = request.getParameter("redirect");
+		System.out.println("ShopEditServlet#doGet: redirect param = " + redirect);
 		
 		ShopInfo shopInfo = null;
 		if (shopName != null && !shopName.isEmpty()) {
@@ -35,10 +37,10 @@ public class ShopEditServlet extends HttpServlet {
 			request.setAttribute("errorMessage", "編集する店舗名が指定されていません。");
 		}
 		if (shopInfo != null) {
-			// 店舗情報をセットする
 			request.setAttribute("shopDetail", shopInfo);
 		} else {
 		}
+		request.setAttribute("redirect", redirect);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/shopEdit.jsp"); // 編集画面のJSPにフォワード
 		dispatcher.forward(request, response);
 	}
@@ -51,7 +53,8 @@ public class ShopEditServlet extends HttpServlet {
 		String newShopAddress = request.getParameter("shopAddress"); // 編集された住所
 		String newShopURL = request.getParameter("shopURL"); // 編集されたURL
 		String newShopTEL = request.getParameter("shopTEL"); // 編集された電話番号
-
+		String redirect = request.getParameter("redirect"); // どこから来たかを受け取る
+	    System.out.println("ShopEditServlet#doPost: redirect param = " + redirect);
 		
 		// 各入力値が空文字の場合にnullに変換する処理
 		// trim()で前後の空白を除去してからisEmpty()でチェックする
@@ -73,11 +76,11 @@ public class ShopEditServlet extends HttpServlet {
 
 		try { //変更前店舗名(プライマリーキー)が後ろ
 			isSuccess = shopDAO.shopEdit(shopInfo, originalShopName);
-			
+
 			//編集テスト用
 			System.out.println("ShopEditServlet: 編集結果 isSuccess = " + isSuccess);
-            System.out.println("ShopEditServlet: originalShopName = " + originalShopName);
-            System.out.println("ShopEditServlet: newShopName = " + newShopName);
+			System.out.println("ShopEditServlet: originalShopName = " + originalShopName);
+			System.out.println("ShopEditServlet: newShopName = " + newShopName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "店舗情報の更新中にエラーが発生しました。");
@@ -86,15 +89,21 @@ public class ShopEditServlet extends HttpServlet {
 		if (isSuccess) {
 			request.setAttribute("message", "店舗情報が正常に更新されました。");
 			String encodedShopName = URLEncoder.encode(newShopName, StandardCharsets.UTF_8.toString());
-			response.sendRedirect(request.getContextPath() + "/ShopInfoPageServlet?shopName=" + encodedShopName);
+			if ("shopSelect".equals(redirect)) {
+				// ShopSelectServletから来た場合、ShopSelectServletに戻る
+				response.sendRedirect(request.getContextPath() + "/ShopSelectServlet");
+			} else {
+				// それ以外の場合はShopInfoPageServletに戻る
+				response.sendRedirect(request.getContextPath() + "/ShopInfoPageServlet?shopName=" + encodedShopName);
+			}
 			return;
 		} else {
 			request.setAttribute("errorMessage", "店舗情報の更新に失敗しました。");
 			request.setAttribute("shopDetail", shopInfo);
+			request.setAttribute("redirect", redirect); 
 			forwardPath = "WEB-INF/jsp/shopEdit.jsp";
 		}
 
-		// リダイレクトしない場合はforward
 		if(forwardPath != null && !response.isCommitted()){
 			RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
 			dispatcher.forward(request, response);

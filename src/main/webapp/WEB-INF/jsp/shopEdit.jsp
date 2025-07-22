@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.ShopInfo"%>
+<%@ page import="java.net.URLEncoder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,17 @@
 <jsp:include page="header.jsp" />
 <%
 ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
+// Servletから受け取ったredirectパラメータを取得
+String redirect = (String)request.getAttribute("redirect");
+// redirectがnullの場合は空文字列を設定
+if (redirect == null) {
+    redirect = "";
+}
 %>
 <div class="shop-info-container">
 	<h1>店舗情報編集</h1>
 	<form action="ShopEditServlet" method="post">
+	
 		<div class="form-group">
 		<label for="shopName">店舗名</label> <input type="text" id="shopName"
 				name="shopName" placeholder="店舗名入力"
@@ -51,9 +59,24 @@ ShopInfo shopDetail = (ShopInfo)request.getAttribute("shopDetail");
 		<input type="hidden" name="originalShopName"
 			value="<%=shopDetail.shopName()%>">
 		<% } %>
+		<input type="hidden" name="redirect" value="<%= redirect %>">
 		<div class="button-group">
-			<button type="submit">登録</button>
-			<a href="MainMenuServlet" class="cancel-button">キャンセル</a>
+			<button type="submit">変更する</button>
+				<%
+				String cancelUrl;
+					if ("shopSelect".equals(redirect)) {
+						// ShopSelectServletから来たらShopSelectServletに戻る
+						cancelUrl = request.getContextPath() + "/ShopSelectServlet";
+					} else if (shopDetail != null && shopDetail.shopName() != null && !shopDetail.shopName().isEmpty()) {
+						// それ以外で店舗名があれば、ShopInfoPageServletに戻る
+						cancelUrl = request.getContextPath() + "/ShopInfoPageServlet?shopName="
+								+ URLEncoder.encode(shopDetail.shopName(), "UTF-8");
+					} else {
+						// どちらでもない場合MainMenuServletに戻す
+						cancelUrl = request.getContextPath() + "/MainMenuServlet";
+					}
+				%>
+				<a href="<%= cancelUrl %>" class="cancel-button">キャンセル</a>
 		</div>
 	</form>
 </div>
