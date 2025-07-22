@@ -31,26 +31,9 @@
         <a href="RegisterServlet" class="button-link">アカウントを作成</a>
       </div>
     </div>
-    <%-- javascript --%>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-
-    if (totalSlides === 0) {
-        console.warn("No slides found!");
-        return;
-    }
-    function showNextSlide() {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % totalSlides;
-        slides[currentSlide].classList.add('active');
-    }
-    setInterval(showNextSlide, 5000);
-});
-</script>
     <%-- ログイン前フッター読み込み用 --%>
     <jsp:include page="footerTop.jsp" />
+    <%-- スライドショー用 JavaScript --%>
+    <script src="<%= request.getContextPath() %>/js/slideshow.js"></script>
 </body>
 </html>

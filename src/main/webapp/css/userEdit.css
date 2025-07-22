@@ -278,11 +278,11 @@ footer {
 
 /* 全体の基本フォント・背景・文字色など */
 body {
-    font-family: "メイリオ", Meiryo, sans-serif;
-    background-color: #fff8f0;
-    margin: 0;
-    padding: 0;
-    color: #333;
+	background-color: #fff8f0;
+	margin: 0;
+	font-family: sans-serif;
+	min-height: 100vh;
+	color: #333;
 }
 
 /* 見出し（大） */
@@ -327,11 +327,13 @@ p {
 
 /* ボタンリンク：幅100% */
 .button-link.full-width {
+    display: block;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 15px;
-    padding: 10px 0; 
+    padding: 12px 0;
+    margin: 20px 0 10px 0;
     font-size: 1em;
+    text-align: center;
 }
 
 /* 戻るリンク */

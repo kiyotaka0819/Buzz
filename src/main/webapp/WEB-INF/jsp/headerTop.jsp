@@ -6,11 +6,12 @@
 
 <header>
 	<div class="header-content">
+	<div class="logo-and-explain">
 		<div class="logo">
 			<img src="<%=request.getContextPath()%>/image/logo.png"
 				alt="バズミシュラン ロゴ">
 		</div>
-		<div class="main-header-controls">
+		
 		    <div class="explain">
 		    福岡のグルメ情報<br>
 		    気軽につぶやくグルメ×SNS
