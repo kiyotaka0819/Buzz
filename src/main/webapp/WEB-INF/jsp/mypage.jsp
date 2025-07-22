@@ -49,7 +49,7 @@
 %>
     <div class="post-card">
   <p> <strong><%=post.userName() %></strong>
-    <a href="MypageServlet?userId=<%=post.userId()%>">[<%=post.userId()%>]</a>
+    (<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>)
     </p>
   <p>店舗名：
   <% 
