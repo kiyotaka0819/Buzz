@@ -11,15 +11,58 @@
 <head>
 <meta charset="UTF-8">
 <title>メインメニュー -バズミシュラン</title>
+<!-- フォントの読み込み -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
 <!-- CSSの読み込み -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/slideshow.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/hero.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
-<div class="container">
 
+<div class="hero-section">
+    <div class="hero-background-slideshow">
+        <div class="slideshow-container"> 
+            <div class="slides">
+                <img src="<%= request.getContextPath() %>/image/食べ物1.jpg" alt="食べ物1">
+                <img src="<%= request.getContextPath() %>/image/食べ物2.jpg" alt="食べ物2">
+                <img src="<%= request.getContextPath() %>/image/食べ物3.jpg" alt="食べ物3">
+                <img src="<%= request.getContextPath() %>/image/食べ物4.jpg" alt="食べ物4">
+                <img src="<%= request.getContextPath() %>/image/食べ物5.jpg" alt="食べ物5">
+                <img src="<%= request.getContextPath() %>/image/食べ物6.jpg" alt="食べ物6">
+                <img src="<%= request.getContextPath() %>/image/食べ物7.jpg" alt="食べ物7">
+            </div>
+            <div style="text-align:center; position: absolute; bottom: 20px; width: 100%;">
+              <span class="dot" onclick="currentSlide(0)"></span>
+              <span class="dot" onclick="currentSlide(1)"></span>
+              <span class="dot" onclick="currentSlide(2)"></span>
+              <span class="dot" onclick="currentSlide(3)"></span>
+              <span class="dot" onclick="currentSlide(4)"></span>
+              <span class="dot" onclick="currentSlide(5)"></span>
+              <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-overlay">
+        <div class="hero-header-wrapper">
+            </div>
+        <div class="hero-content">
+            <h1 class="site-catchphrase">
+                バズミシュラン
+            </h1>
+            <p class="site-description">
+                福岡のグルメ情報 <br>
+                つぶやきで繋がるSNS
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container">
 <h2>
   <div class="welcome-message">
     ようこそ！<%= user != null ? user.name() : "ゲスト" %>  さん ✨
@@ -105,5 +148,7 @@
 <script src="<%= request.getContextPath() %>/js/delete.js"></script>
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
 <script src="<%= request.getContextPath() %>/js/buzz.js"></script>
+<script src="<%= request.getContextPath() %>/js/slideshow.js"></script>
+
 </body>
 </html>
