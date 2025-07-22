@@ -148,7 +148,7 @@
 <script src="<%= request.getContextPath() %>/js/delete.js"></script>
 <script src="<%= request.getContextPath() %>/js/script.js"></script>
 <script src="<%= request.getContextPath() %>/js/buzz.js"></script>
-<script src="<%= request.getContextPath() %>/js/slideshow.js"></script>
+<script src="<%= request.getContextPath() %>/js/mainSlideshow.js"></script>
 
 </body>
 </html>
