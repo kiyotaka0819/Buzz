@@ -133,7 +133,7 @@ body {
   justify-content: center;
   align-items: flex-start;  /* 上寄せ */
   min-height: 100vh;
-  background: linear-gradient(to right, #fff8f0, #f0e5dc, #fff8f0);
+ /* background: linear-gradient(to right, #fff8f0, #f0e5dc, #fff8f0);*/
 }
 
 .nav-menu {
