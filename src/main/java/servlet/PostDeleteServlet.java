@@ -29,7 +29,7 @@ public class PostDeleteServlet extends HttpServlet {
 		// 検索ワードをJSPに渡すためにリクエストスコープに設定
 		request.setAttribute("searchWord", searchWord);
 		//check
-		System.out.println("postDeleteServlet:"+ searchWord);
+		System.out.println("postDelete searchWord:"+ searchWord);
 		String loginUserId = (String) session.getAttribute("userId");
 		// もしログインしていなければログイン画面へ強制送還
 		if (loginUserId == null || loginUserId.isEmpty()) {

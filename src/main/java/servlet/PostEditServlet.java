@@ -34,10 +34,12 @@ public class PostEditServlet extends HttpServlet {
 		// 検索ワードをSearchResultServletに渡すためにリクエストスコープに設定
 		request.setAttribute("searchWord", searchWord);
 		//check
-		System.out.println("postEditServlet doGet:"+ searchWord);
+		System.out.println("postEditServlet searchWord:"+ searchWord);
 		
 		//遷移元のページを確認する
 		String redirect = request.getParameter("redirect");
+		//check
+		System.out.println("postEditServlet ridirect:"+ redirect);
 		
 		 //遷移元の判定
 	    if(!redirect.equals("MypageServlet")) {

@@ -15,6 +15,7 @@ int index = 0;
 <meta charset="UTF-8">
 <title>バズ飯ランキング -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 </head>
 <body>
 <div class="container"> <%-- 全体を囲むコンテナを追加 --%>
