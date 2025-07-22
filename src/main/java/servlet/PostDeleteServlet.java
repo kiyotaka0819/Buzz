@@ -74,7 +74,8 @@ public class PostDeleteServlet extends HttpServlet {
 			//check
 			System.out.println("削除成功");
 			// 削除出来たら遷移元にもどる。
-			response.sendRedirect(redirect + "?searchWord=" + URLEncoder.encode(searchWord, "UTF-8")); 
+			response.sendRedirect(redirect + "?searchWord=" + 
+			URLEncoder.encode((searchWord != null ? searchWord : ""), "UTF-8")); 
 			
 		}else {
 			//check
