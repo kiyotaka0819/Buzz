@@ -35,7 +35,7 @@
     background: radial-gradient(circle, #66ccff 0%, #0099ff 50%, transparent 80%);
     filter: blur(2px);          /* 炎のぼかし効果 */
     opacity: 0;                 /* 初期状態では炎を見せない（透明） */
-    z-index: -1;                /* ボタンの文字より後ろに炎を表示 */
+    z-index: 2;                /* ボタンの文字より後ろに炎を表示 */
 }
 
 /* 擬似要素1（小さめの炎のサイズと初期位置） */

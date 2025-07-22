@@ -25,6 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	  // ↑で生成したオブジェクトに、「postId」で、取得した値をセット
 	  params.append('postId', postId);
 
+	  const button = form.querySelector('.buzz-button'); // button要素を取得
+	  const countSpan = form.querySelector('.buzz-count'); // countSpan要素を取得
+	  // 現在が「バズる🔥」状態（buzzedクラスがない）である場合のみ処理
+	  if (!button.classList.contains('buzzed')) {
+	  // アニメーションをリセットするため、一時的にbuzzedクラスを削除
+	  // 強制的にリフロー（再描画）させ、再度buzzedクラスを付ける
+	  button.classList.remove('buzzed'); 
+	  void button.offsetWidth; // 強制リフロー (ブラウザに再描画を促す)
+	  }
+	  
 	  // サーバーへのHTTPリクエストを開始
       fetch('BuzzServlet', {
 		// HTTPメソッドとして「POST」を指定
@@ -50,10 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })
 	  // 前のPromiseでJSON解析に成功した、オブジェクト（data）を受け取って実行される
       .then(data => {
-        const button = form.querySelector('.buzz-button');
-        const countSpan = form.querySelector('.buzz-count');
-		
-		// オブジェクトのbuzzCountプロパティをHTML要素のテキストに変換
+	  // オブジェクトのbuzzCountプロパティをHTML要素のテキストに変換
 		countSpan.textContent = data.buzzCount;
 		
 		// オブジェクトのlikedプロパティがtrueか確認する
