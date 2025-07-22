@@ -89,8 +89,8 @@ if (selectedShopFromSession != null) {
 </select></p>
 --%>
 		コメント<br>
-		<textarea name="comment" rows="4" cols="40"><%= post.comment() %></textarea>
-		<br> <label for="pictures" class="custom-file-btn" >画像を添付する</label>
+		<textarea name="comment" rows="4" cols="40"><%= post.comment() %></textarea><br> 
+		<label for="pictures" class="custom-file-btn" >画像を添付する</label>
 		<input id="pictures" type="file" name="pictures" style="display: none;">
 		<!-- ファイル名の表示領域を追加 -->
 		<span id="file-name" style="margin-left: 10px;"></span><br>
@@ -106,5 +106,18 @@ if (selectedShopFromSession != null) {
 	<a href=<%= redirect %>>キャンセル</a>
 	</div>
 	<jsp:include page="footer.jsp" />
+	
+<script>
+  const fileInput = document.getElementById('pictures');
+  const fileNameSpan = document.getElementById('file-name');
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      fileNameSpan.textContent = "選択されたファイル: " + fileInput.files[0].name;
+    } else {
+      fileNameSpan.textContent = "";
+    }
+  });
+</script>
 </body>
 </html>
