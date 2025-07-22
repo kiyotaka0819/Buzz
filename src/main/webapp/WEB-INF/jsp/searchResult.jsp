@@ -23,7 +23,7 @@
 	</h2>
 
 	<%-- 投稿の検索結果を表示 --%>
-	<h2>ポストの検索結果</h2>
+	<h2>つぶやきの検索結果</h2>
 	<%
 		List<PostInfo> postList = (List<PostInfo>) request.getAttribute("postResults");
 		String sessionUserId = (String) session.getAttribute("userId");
@@ -32,7 +32,7 @@
 			for (PostInfo post : postList) {
 	%>
 
-	<div>
+	<div class="post-card">
 		<p> <strong><%=post.userName()%></strong>
 		<a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
 		</p>
@@ -55,8 +55,7 @@
 		if (post.pic() != null && post.pic().length > 0) {
 		%>
 		<p>
-			<img src="ImageServlet?postId=<%=post.postId()%>" width="320"
-				height="240">
+			<img src="ImageServlet?postId=<%=post.postId()%>" >
 		</p>
 		<%}%>
 		<%
@@ -90,7 +89,7 @@
 			</button>
 			<span class="buzz-count"><%=buzzCount%></span>
 		</form>
-		<hr>
+		
 	</div>
 	<%
 	}

@@ -36,7 +36,7 @@
   if (postList != null && !postList.isEmpty()) {
     for (PostInfo post : postList) {
 %>
-    <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+    <div class="post-card">
   <p> <strong><%=post.userName() %></strong>
     <a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
     </p>
@@ -55,7 +55,7 @@
 	<%=post.comment()%>
 </p>
 <% if (post.pic() != null) { %>
-    <p><img src="ImageServlet?postId=<%= post.postId() %>" width="200"></p>
+    <p><img src="ImageServlet?postId=<%= post.postId() %>" ></p>
   <% } %>
 
   <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
