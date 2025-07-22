@@ -16,11 +16,13 @@
 <title>ユーザー情報 -バズミシュラン</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
 </head>
 <body>
 <jsp:include page="header.jsp" />
 <div class="container">
 <h2>ユーザー情報</h2>
+<div style="font-size: 20px">
 <%-- ユーザー情報の場合はパスワード表示と、編集機能不要 --%>
 <p>ユーザーID：<%= user.userId() %></p>
 <p>ユーザー名：<%= user.name()%></p>
@@ -41,7 +43,7 @@
 %>
     <div class="post-card">
   <p> <strong><%=post.userName() %></strong>
-    <a href="MypageServlet?userId=<%=post.userId()%>">[<%=post.userId()%>]</a>
+    (<a href="MypageServlet?userId=<%=post.userId()%>"><%=post.userId()%></a>)
     </p>
   <p>店舗名：
   <% 

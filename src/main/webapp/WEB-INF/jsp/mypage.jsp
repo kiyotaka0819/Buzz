@@ -26,7 +26,7 @@
 <div class="container">
 <h2>ユーザー情報</h2>
 
-<!--  <p>ユーザーID：<%= user.userId() %></p>-->
+<div style="font-size: 20px">
 <p>ユーザーID：<%= sessionUserId %></p>
 <p>パスワード：*****</p>
 <p>ユーザー名：<%= user.name()%></p>
@@ -36,6 +36,7 @@
 </div>
 <a href="UserEditServlet">プロフィールを編集</a>
 <hr>
+
 
 <h2>投稿一覧</h2>
 <%--投稿削除が失敗した場合のエラーメッセージ --%>
@@ -48,7 +49,7 @@
 %>
     <div class="post-card">
   <p> <strong><%=post.userName() %></strong>
-    <a href="MypageServlet?userId=<%=post.userId()%>">(<%=post.userId()%>)</a>
+    <a href="MypageServlet?userId=<%=post.userId()%>">[<%=post.userId()%>]</a>
     </p>
   <p>店舗名：
   <% 
