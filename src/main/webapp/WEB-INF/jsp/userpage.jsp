@@ -21,10 +21,12 @@
 <jsp:include page="header.jsp" />
 <div class="container">
 <h2>ユーザー情報</h2>
+<div style="font-size: 20px">
 <%-- ユーザー情報の場合はパスワード表示と、編集機能不要 --%>
 <p>ユーザーID：<%= user.userId() %></p>
 <p>ユーザー名：<%= user.name()%></p>
 <p>プロフィール：<%= user.profile()%></p>
+</div>
 <hr>
 
 	<h2>投稿一覧</h2>
