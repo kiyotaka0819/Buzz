@@ -8,10 +8,9 @@
 <%-- CSS読み込み用 --%>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/top.css">
 </head>
-<body>
+<body class="top-page">
     <%-- ログイン前ヘッダー読み込み用 --%>
     <jsp:include page="headerTop.jsp" />
-    <%-- javascript --%>
     <div class="main-content">
       <div class="slideshow">
       <img src="<%= request.getContextPath() %>/image/slide1.png" class="slide active">
@@ -21,19 +20,25 @@
       </div>
       <!-- メインコンテンツ -->
       <div class="main-container">
-        <h1>ようこそ バズミシュラン へ！</h1>
+        <h1>
+  <span>ようこそ</span>
+  <span class="buzz-title">バズミシュラン</span>
+  <span>へ！</span>
+</h1>
         <h2>みんなのおいしいがここに</h2>
-        <p>今すぐあなたのおいしいを投稿しましょう。</p>
+        <p>今すぐあなたのおいしいを投稿しましょう</p>
         
         <a href="LoginServlet" class="button-link">ログイン</a>
         <br>
-        新規の方はこちら
-        <a href="RegisterServlet" class="button-link">アカウントを作成</a>
+        <div class="register-inline">
+          <span class="register-label">新規の方はこちら</span>
+          <a href="RegisterServlet" class="button-link">アカウントを作成</a>
+        </div>
       </div>
     </div>
     <%-- ログイン前フッター読み込み用 --%>
     <jsp:include page="footerTop.jsp" />
-    <%-- スライドショー用 JavaScript --%>
+    <%-- スライドショー用 --%>
     <script src="<%= request.getContextPath() %>/js/slideshow.js"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
       <h1>プロフィール編集</h1>
 
       <c:if test="${not empty requestScope.errorMsgs}">
-        <div class="error-msg">
+        <div class="error-msg" style="text-align: left;">
           <ul>
             <c:forEach var="msg" items="${requestScope.errorMsgs}">
               <li><c:out value="${msg}" /></li>
@@ -42,7 +42,8 @@
           <label for="confirmPass">確認用パスワード</label>
           <input type="password" id="confirmPass" name="confirmPass">
           <label><input type="checkbox" id="togglePassword"> パスワードを表示</label>
-          <small>※8〜40文字、英字・数字をそれぞれ1文字以上含む</small>
+          <small>※8〜40文字、半角英数字と一部記号（例: ! - / : @ など）</small>
+          <small>英字・数字をそれぞれ1文字以上含む</small>
         </div>
 
         <div class="form-group">
