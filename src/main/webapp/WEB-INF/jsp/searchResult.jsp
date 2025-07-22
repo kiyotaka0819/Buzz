@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/post.css">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/buzz.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/shop.css">
+
 </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -112,32 +114,25 @@
 	<h2>店舗の検索結果</h2>
 	<% if (shopList != null && !shopList.isEmpty()) { %>
 		<% for (ShopInfo shop : shopList) { %>
-		<div>
-			<p>
-				<strong>店舗名：</strong><a href="ShopInfoPageServlet?shopName=<%=shop.shopName()%>"><%=shop.shopName()%></a>
-			</p>
-			<p><strong>住所：</strong><%= (shop.shopAddress() != null) ? shop.shopAddress() : "情報なし" %></p>
-			<!--  
-			<p><strong>URL：</strong><%= (shop.shopURL() != null) ? shop.shopURL() : "情報なし" %></p>
-			-->
-			<label>URL：<%
-			
-				String url = shop.shopURL();
-				if (url != null && !url.isEmpty()) {
-					// 最初省略してる場合はこちらで付け足しておく
-					if (!url.startsWith("http://") && !url.startsWith("https://")) {
-						url = "http://" + url;
+		<div class="shop-card"> 
+			<p><strong>店舗名：</strong><a href="ShopInfoPageServlet?shopName=<%=shop.shopName()%>"><%=shop.shopName()%></a></p>
+			<p><strong>住所：</strong><span><%= (shop.shopAddress() != null) ? shop.shopAddress() : "情報なし" %></span></p>
+			<p><strong>URL：</strong>
+				<%
+					String url = shop.shopURL();
+					if (url != null && !url.isEmpty()) {
+						if (!url.startsWith("http://") && !url.startsWith("https://")) {
+							url = "http://" + url;
+						}
+						out.print("<a href=\"" + url + "\" target=\"_blank\">");
+						out.print(shop.shopURL()); // ここで表示されるURL
+						out.print("</a>");
+					} else {
+						out.print("情報なし");
 					}
-					out.print("<a href=\"" + url + "\" target=\"_blank\">");
-					out.print(shop.shopURL());
-					out.print("</a>");
-				} else {
-					out.print("情報なし");
-				}
-
-			%></label>
-			<p><strong>電話番号：</strong><%= (shop.shopTEL() != null) ? shop.shopTEL() : "情報なし" %></p>
-			<hr>
+				%>
+			</p>
+			<p><strong>電話番号：</strong><span><%= (shop.shopTEL() != null) ? shop.shopTEL() : "情報なし" %></span></p>
 		</div>
 		<% } %>
 	<% } else { %>

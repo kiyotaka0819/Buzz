@@ -213,7 +213,7 @@
     background-color: #e68a00; /* ホバー時の色を少し濃くする */
 }
 
-/* *************************** 店舗検索結果ページ (shopList.jsp) **************************** */
+/* *************************** 店舗検索結果ページ (searchSelect.jsp) **************************** */
 
 /* 検索フォームと新規店舗登録フォームの共通スタイル */
 .shop-form-section {
@@ -449,4 +449,64 @@ body {
   margin: 0;
   font-family: sans-serif;
   min-height: 100vh;
+}
+
+/* *************************** 店舗情報カード (searchResult.jsp) **************************** */
+
+.shop-card {
+  background-color: #ffffff; /* 白い背景 */
+  border: 1px solid #eee;   /* 薄いボーダー */
+  border-radius: 12px;       /* 角を丸く */
+  padding: 15px 20px;        /* 内側の余白 */
+  margin: 20px auto;         /* 上下20px、左右autoで中央配置 */
+  max-width: 600px;          /* 最大幅を制限 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 影 */
+  line-height: 1.6;          /* 行の高さ調整 */
+  position: relative;        /*  */
+  transition: transform 0.2s ease-in-out; /* ホバーで柔らかく */
+}
+
+.shop-card:hover {
+  transform: translateY(-5px); /* ホバーで少し持ち上がる */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* 影ちょっと濃く */
+}
+
+.shop-card p {
+  margin-bottom: 8px; /* 各情報行の下余白 */
+  display: flex; /* 開始を揃える */
+}
+
+.shop-card strong {
+  color: rgb(0, 0, 0); /* ラベルの色 */
+  min-width: 80px; /* ラベルの幅を少し広げて揃える */
+  flex-shrink: 0; /* ラベルが縮まないようにする */
+  text-align: left; /* ラベル内のテキストを左揃えにする */
+}
+
+.shop-card span,
+.shop-card a {
+	flex-grow: 1; /* 残りのスペースを埋めて、長い値も折り返す */
+	word-break: break-all; /* 長い単語やURLを強制的に折り返す */
+	overflow-wrap: break-word; /* モダンブラウザ向けの同じ効果 */
+}
+
+.shop-card a:hover {
+    color: #e68a00; /* ホバー時は濃いオレンジに */
+}
+
+/* URLラベルとaタグの調整 */
+.shop-card label {
+    display: flex; /* ラベル全体もFlexboxにする */
+    align-items: baseline;
+    margin-bottom: 8px; /* 他のpタグと合わせる */
+}
+
+.shop-card label strong {
+	min-width: 80px;
+    flex-shrink: 0; /* 縮まない */
+}
+.shop-card label a {
+    flex-grow: 1; /* 残りのスペースを埋める */
+	word-break: break-all;
+	overflow-wrap: break-word;
 }
