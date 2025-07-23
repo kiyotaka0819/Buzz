@@ -32,7 +32,14 @@
 .logo {
 	flex-shrink: 0; /* 画面幅が狭くなっても要素が縮まないように設定 */
 	margin-right: 0px; /* 右側の余白を設定 */
+	transition: .3s; /* 大きくなる変更時間 */
 }
+
+/* ロゴのホバー */
+.logo:hover {
+  transform: scale(1.1); /* 大きくなるサイズ */
+}
+
 
 /* ロゴ画像の調整 */
 .logo img {
@@ -103,6 +110,11 @@
 	white-space: nowrap; /* テキストが折り返さないように設定 */
 	margin-left: -5px; /* 左側の余白をマイナスにして、隣の要素に近づける */
 	text-align: center; /* テキストを中央に配置 */
+	transition: .3s; /* 乗せた時の変更時間 */
+}
+/* 検索ボタン乗せた時 */
+.search-bar button:hover {
+  transform: scale(1.1);
 }
 
 /* 検索ボタンの中にある画像 */
