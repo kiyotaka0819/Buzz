@@ -46,6 +46,7 @@
 					<%= sessionUserId %></p>
 				<% } %>
 				<li><a href="#" class="close-icon">×</a></li>
+				<li><a href="MainMenuServlet">メインメニュー</a></li>
 				<li><a href="PostServlet">つぶやく</a></li>
 				<li><a href="MypageServlet">マイページ</a></li>
 				<li><a href="RankingServlet">ランキング</a></li>
