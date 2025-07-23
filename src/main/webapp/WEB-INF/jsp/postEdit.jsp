@@ -119,5 +119,6 @@ if (selectedShopFromSession != null) {
     }
   });
 </script>
+<script src="<%= request.getContextPath() %>/js/script.js"></script>
 </body>
 </html>
