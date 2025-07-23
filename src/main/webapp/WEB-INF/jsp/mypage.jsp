@@ -26,18 +26,29 @@
 <div class="container">
 <h2>ユーザー情報</h2>
 
-<div style="font-size: 20px">
-<p>ユーザーID：<%= sessionUserId %></p>
-<p>パスワード：*****</p>
-<p>ユーザー名：<%= user.name()%></p>
-<div style="display: flex; align-items: start;">
-  <span style="min-width: 90px;">プロフィール：</span>
-  <p style="white-space: pre-line; margin: 0;"><%= user.profile() %></p>
+<div class="profile-card">
+  <table class="profile-table">
+    <tr>
+      <th>ユーザーID：</th>
+      <td><%= sessionUserId %></td>
+    </tr>
+    <tr>
+      <th>パスワード：</th>
+      <td>*********</td>
+    </tr>
+    <tr>
+      <th>ユーザー名：</th>
+      <td><%= user.name() %></td>
+    </tr>
+    <tr>
+      <th>プロフィール：</th>
+      <td><div class="profile-multiline"><%= user.profile() %></div></td>
+    </tr>
+  </table>
 </div>
-<a href="UserEditServlet">プロフィールを編集</a>
-</div>
-<hr>
-
+<div class="edit-profile-btn-container">
+    <a href="UserEditServlet" class="edit-profile-btn">プロフィールを編集</a>
+  </div>
 
 <h2>投稿一覧</h2>
 <%--投稿削除が失敗した場合のエラーメッセージ --%>
@@ -75,7 +86,7 @@
   
     <a href="PostEditServlet?postId=<%= post.postId() %>&redirect=MypageServlet">編集</a>
     <!-- 削除リンク -->
-  <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MainMenuServlet">削除</a> |
+  <a href="#" class="delete-link" data-url="PostDeleteServlet?postId=<%= post.postId() %>&redirect=MypageServlet">削除</a> |
   <% } %>
   <% 
 		boolean hasBuzzed = false;

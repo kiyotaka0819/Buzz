@@ -22,15 +22,23 @@
 <jsp:include page="header.jsp" />
 <div class="container">
 <h2>ユーザー情報</h2>
-<div style="font-size: 20px">
-<%-- ユーザー情報の場合はパスワード表示と、編集機能不要 --%>
-<p>ユーザーID：<%= user.userId() %></p>
-<p>ユーザー名：<%= user.name()%></p>
-<div style="display: flex; align-items: start;">
-  <span style="min-width: 90px;">プロフィール：</span>
-  <p style="white-space: pre-line; margin: 0;"><%= user.profile() %></p>
-</div>
-<hr>
+<div class="profile-card">
+  <table class="profile-table">
+    <tr>
+      <th>ユーザーID：</th>
+      <td><%= user.userId() %></td>
+    </tr>
+    <tr>
+      <th>ユーザー名：</th>
+      <td><%= user.name() %></td>
+    </tr>
+    <tr>
+      <th>プロフィール：</th>
+      <td><div class="profile-multiline"><%= user.profile() %></div></td>
+    </tr>
+  </table>
+  </div>
+
 
 	<h2>投稿一覧</h2>
 <%--投稿削除が失敗した場合のエラーメッセージ --%>

@@ -204,3 +204,72 @@ body {
   margin-top: 10px;
 }
 
+/* ==================== プロフィール表示 ==================== */
+.profile-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ffcc99;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.profile-table th,
+.profile-table td {
+  padding: 12px 16px;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-table th {
+  background-color: #ff9900;
+  color: white;
+  text-align: left;
+  width: 140px;
+  padding: 12px 16px;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+.profile-table td {
+  background-color: #fff8f0;
+  color: #333;
+  padding: 12px 16px;
+  vertical-align: top;
+}
+.profile-multiline {
+  white-space: pre-line;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 0px;
+  font-size: 1em;
+}
+
+.edit-profile-btn-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.edit-profile-btn {
+  background-color: #ff9900;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.edit-profile-btn:hover {
+  background-color: #ff9900;
+}
