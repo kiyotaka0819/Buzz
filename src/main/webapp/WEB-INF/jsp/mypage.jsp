@@ -35,6 +35,7 @@
   <p style="white-space: pre-line; margin: 0;"><%= user.profile() %></p>
 </div>
 <a href="UserEditServlet">プロフィールを編集</a>
+</div>
 <hr>
 
 
