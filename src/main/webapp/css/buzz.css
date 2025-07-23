@@ -56,6 +56,10 @@
     transform: translate(-50%, 60%) scale(0.3); /* 初期位置：下から小さく開始（少し低め） */
 }
 
+.buzz-button:hover {
+  opacity: 0.6;
+}
+
 /* バズ済み（.buzzed）クラスが付いた時に炎アニメーションを実行 */
 .buzz-button.buzzed::before {
     animation: fire-flame-small 0.8s ease-out forwards; /* アニメーション実行と終了状態保持 */
