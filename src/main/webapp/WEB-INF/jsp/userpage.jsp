@@ -68,9 +68,7 @@
 	<%=post.comment()%>
 </p>
 <% if (post.pic() != null) { %>
-    <a href="ImageServlet?postId=<%= post.postId() %>">
-            <img src="ImageServlet?postId=<%= post.postId() %>">
-        </a>
+    <p><img src="ImageServlet?postId=<%= post.postId() %>" ></p>
   <% } %>
 
   <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
