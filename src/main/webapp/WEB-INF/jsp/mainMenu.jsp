@@ -104,7 +104,9 @@
 		<%
 		if (post.pic() != null) {
 		%>
-        <p><img src="ImageServlet?postId=<%= post.postId() %>"></p>
+        <a href="ImageServlet?postId=<%= post.postId() %>">
+            <img src="ImageServlet?postId=<%= post.postId() %>">
+        </a>
       <% } %>
 
       <%-- ログイン中のユーザー本人の投稿のみ編集・削除可能（表示される） --%>
