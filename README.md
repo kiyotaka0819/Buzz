@@ -40,23 +40,23 @@
 ---
 
 ## 🖼️ 画面紹介
->[トップ画面](screenshots/toppage.png)'
+>[トップ画面](src/main/webapp/screenshots/toppage.png)'
 
->[ログイン画面](screenshots/login.png)'
+>[ログイン画面](src/main/webapp/screenshots/login.png)'
 
->[ユーザー登録画面](screenshots/register.png)`
+>[ユーザー登録画面](src/main/webapp/screenshots/register.png)`
 
->[メインメニュー](screenshots/mainmenu.png)`
+>[メインメニュー](src/main/webapp/screenshots/mainmenu.png)`
 
->[投稿画面](screenshots/post.png)`
+>[投稿画面](src/main/webapp/screenshots/post.png)`
 
->[店舗選択画面](screenshots/selectShop.png)'
+>[店舗選択画面](src/main/webapp/screenshots/selectShop.png)'
 
->[ハンバーガーメニュー](screenshots/open.png)'
+>[ハンバーガーメニュー](src/main/webapp/screenshots/open.png)'
 
->[ランキング画面](screenshots/ranking.png)`
+>[ランキング画面](src/main/webapp/screenshots/png)`
 
->[店舗情報画面](screenshots/shopinfo.png)'
+>[店舗情報画面](src/main/webapp/screenshots/png)'
 ---
 
 ## 🔧 工夫・こだわりポイント
