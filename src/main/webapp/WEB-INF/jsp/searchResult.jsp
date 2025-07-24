@@ -138,8 +138,8 @@
 	<% } else { %>
 		<p>該当する店舗は見つかりませんでした。</p>
 	<% } %>
-	<jsp:include page="footer.jsp" />
 	</div>
+	<jsp:include page="footer.jsp" />
 	<!-- モーダル読み込み -->
 	<jsp:include page="/WEB-INF/jsp/deleteModal.jsp" />
 	

@@ -27,7 +27,7 @@ public class MainMenuServlet extends HttpServlet {
         String userId = (String) session.getAttribute("userId");
 
         if (userId == null || userId.isEmpty()) {
-            response.sendRedirect("login.jsp"); // 未ログインならログインページへ
+            response.sendRedirect("LoginServlet"); // 未ログインならログインページへ
             return;
         }
 
