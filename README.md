@@ -62,6 +62,17 @@
 |----------------------|----------------|----------------|
 | ![メニュー](src/main/webapp/screenshots/open.png) | ![ランキング](src/main/webapp/screenshots/ranking.png) | ![店舗情報](src/main/webapp/screenshots/shopinfo.png) |
 
+### 🔘つぶやき・バズボタン
+| つぶやき内容 | バズボタン（押す前） | バズボタン（押した後） |
+|----------------------|----------------|----------------|
+| ![つぶやき](src/main/webapp/screenshots/postComment.png) | ![バズボタン前](src/main/webapp/screenshots/buzzBefore.png) | ![バズボタン後](src/main/webapp/screenshots/buzzAfter.png) |
+
+### 📝マイページ・ユーザーページ
+| マイページ | ユーザーページ |
+|----------------------|----------------|
+| ![マイページ](src/main/webapp/screenshots/.png) | ![ユーザーページ](src/main/webapp/screenshots/.png) | 
+
+
 ---
 
 ## 🔧 工夫・こだわりポイント
