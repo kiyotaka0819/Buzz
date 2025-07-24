@@ -25,7 +25,7 @@
 | フロントエンド | JSP, HTML, CSS, JavaScript         |
 | バックエンド   | Java (Servlet), JSP                |
 | データベース   | PostgreSQL                         |
-| データ連携     | Ajax, GSON                         |
+| データ連携     | Ajax(JSONに変換)                         |
 | 開発環境       | Eclipse, Tomcat10 (Java21), GitHub |
 
 ---
