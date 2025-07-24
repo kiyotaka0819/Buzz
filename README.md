@@ -70,7 +70,7 @@
 ### 📝マイページ・ユーザーページ
 | マイページ | ユーザーページ |
 |----------------------|----------------|
-| ![マイページ](src/main/webapp/screenshots/.png) | ![ユーザーページ](src/main/webapp/screenshots/.png) | 
+| ![マイページ](src/main/webapp/screenshots/mypage.png) | ![ユーザーページ](src/main/webapp/screenshots/userpage.png) | 
 
 
 ---
